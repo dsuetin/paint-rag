@@ -19,7 +19,7 @@ def test_pa334_mixing():
     assert product is not None
     assert product.mixing is not None
 
-    assert product.mixing.hardener == "HD816"
+    assert product.mixing.hardener.name == "HD816"
 
     assert (
         product.mixing.hardener_ratio.min

@@ -5,6 +5,7 @@ from paint_rag.knowledge.product_store import (
 )
 from paint_rag.rag.documents import (
     product_to_documents,
+    document_to_chunks
 )
 
 

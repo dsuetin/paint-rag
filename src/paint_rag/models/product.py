@@ -1,7 +1,7 @@
 from typing import Optional
 
 from pydantic import BaseModel, Field
-
+import re
 
 class Ratio(BaseModel):
     min: float
@@ -23,6 +23,81 @@ class MixingRule(BaseModel):
 
     total_ratio: Optional[float] = None
     raw: Optional[str] = None
+
+    @property
+    def hardener_name(self) -> Optional[str]:
+        if self.hardener is None:
+            return None
+
+        return self.hardener.name
+
+    @property
+    def thinner_name(self) -> Optional[str]:
+        if self.thinner is None:
+            return None
+
+        return self.thinner.name
+
+
+    @property
+    def hardener_ratio(self) -> Optional[Ratio]:
+        if self.hardener is None:
+            return None
+
+        minimum = (
+            self.hardener.percent_min
+            if self.hardener.percent_min is not None
+            else self.hardener.percent
+        )
+
+        maximum = (
+            self.hardener.percent_max
+            if self.hardener.percent_max is not None
+            else self.hardener.percent
+        )
+
+        return Ratio(
+            min=minimum,
+            max=maximum,
+        )
+
+    @property
+    def thinner_ratio(self) -> Ratio | None:
+        if self.thinner is None:
+            return None
+
+        if (
+            self.thinner.percent_min is not None
+            and self.thinner.percent_max is not None
+        ):
+            return Ratio(
+                min=self.thinner.percent_min,
+                max=self.thinner.percent_max,
+            )
+
+        # Fallback для старого JSON / старого parser-а.
+        if self.raw:
+            match = re.search(
+                r"Разбав(?:итель|ителя|ителем)?\s*"
+                r"(\d+(?:[.,]\d+)?)\s*[-–—]\s*"
+                r"(\d+(?:[.,]\d+)?)\s*%",
+                self.raw,
+                re.IGNORECASE,
+            )
+
+            if match:
+                return Ratio(
+                    min=float(match.group(1).replace(",", ".")),
+                    max=float(match.group(2).replace(",", ".")),
+                )
+
+        if self.thinner.percent is not None:
+            return Ratio(
+                min=self.thinner.percent,
+                max=self.thinner.percent,
+            )
+
+        return None
 
 
 class Coverage(BaseModel):

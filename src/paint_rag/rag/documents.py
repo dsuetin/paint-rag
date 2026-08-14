@@ -2,6 +2,24 @@ from paint_rag.models.document import Document, Chunk
 from paint_rag.models.product import Product
 
 
+def documents_to_chunks(
+    documents: list[Document],
+    chunk_size: int = 500,
+    overlap: int = 50,
+) -> list[Chunk]:
+
+    chunks: list[Chunk] = []
+
+    for document in documents:
+        chunks.extend(
+            document_to_chunks(
+                document=document,
+                chunk_size=chunk_size,
+                overlap=overlap,
+            )
+        )
+
+    return chunks
 
 def product_to_documents(
     product: Product,
@@ -192,7 +210,9 @@ def document_to_chunks(
         if chunk_text:
             chunks.append(
                 Chunk(
+                    id=f"{document.article}:{document.variant_id}:0",
                     text=chunk_text,
+                    article=document.article,
                     product=document.product,
                     variant_id=document.variant_id,
                     chunk_id=chunk_id,

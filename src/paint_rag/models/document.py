@@ -14,9 +14,9 @@ class Document(BaseModel):
     )
     
 class Chunk(BaseModel):
+    id: str
     text: str
-
     product: str
     variant_id: int
-
+    article: str | None = None
     chunk_id: int

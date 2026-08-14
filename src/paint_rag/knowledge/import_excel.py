@@ -72,8 +72,8 @@ MIXING_RE = re.compile(
     \s*
     \((?P<hardener_name>[^)]+)\)
     \s*\+\s*
-    (?P<thinner>\d+(?:[.,]\d+)?)\s*%
-    (?:\s*=\s*(?P<total>\d+(?:[.,]\d+)?))?
+    (?P<thinner_min>\d+(?:[.,]\d+)?)
+    \s*(?:[-–—]\s*(?P<thinner_max>\d+(?:[.,]\d+)?))?\s*%
     """,
     re.VERBOSE | re.IGNORECASE,
 )
@@ -83,47 +83,99 @@ def parse_mixing(text: str | None) -> dict[str, Any] | None:
     if not text:
         return None
 
-    match = MIXING_RE.search(text)
+    # Нормализуем тире
+    normalized = (
+        text
+        .replace("—", "-")
+        .replace("–", "-")
+        .replace("−", "-")
+    )
 
-    if not match:
+    # Например:
+    # PA334-9016 100%; HD816 33%; Разбавитель 15-30%
+
+    parts = [
+        part.strip()
+        for part in normalized.split(";")
+        if part.strip()
+    ]
+
+    if len(parts) < 2:
         return None
 
-    hardener_percent = float(
-        match.group("hardener").replace(",", ".")
-    )
+    base_percent = 100.0
+    hardener = None
+    thinner = None
 
-    thinner_percent = float(
-        match.group("thinner").replace(",", ".")
-    )
+    for part in parts:
 
-    total = match.group("total")
+        # 100%
+        base_match = re.search(
+            r"(\d+(?:[.,]\d+)?)\s*%",
+            part,
+        )
+
+        if not base_match:
+            continue
+
+        percent = float(
+            base_match.group(1).replace(",", ".")
+        )
+
+        lower = part.lower()
+
+        # Отвердитель
+        if (
+            "отверд" in lower
+            or "hardener" in lower
+            or "hd" in lower
+        ):
+            name = part[:base_match.start()].strip()
+
+            hardener = {
+                "name": name,
+                "percent": percent,
+            }
+
+        # Разбавитель
+        elif (
+            "разбав" in lower
+            or "разбов" in lower
+            or "thinner" in lower
+        ):
+            range_match = re.search(
+                r"(\d+(?:[.,]\d+)?)\s*-\s*(\d+(?:[.,]\d+)?)\s*%",
+                part,
+            )
+
+            if range_match:
+                thinner_min = float(
+                    range_match.group(1).replace(",", ".")
+                )
+                thinner_max = float(
+                    range_match.group(2).replace(",", ".")
+                )
+            else:
+                thinner_min = percent
+                thinner_max = percent
+
+            thinner = {
+                "name": "Разбавитель",
+                "percent": thinner_min,
+                "percent_min": thinner_min,
+                "percent_max": thinner_max,
+            }
+
+    if hardener is None and thinner is None:
+        return None
 
     return {
-        "base_percent": 100.0,
-
-        "hardener": {
-            "name": match.group("hardener_name").strip(),
-            "percent": hardener_percent,
-        },
-
-        "thinner": {
-            "percent": thinner_percent,
-        },
-
-        "total_ratio": (
-            float(total.replace(",", "."))
-            if total
-            else (
-                1.0
-                + hardener_percent / 100.0
-                + thinner_percent / 100.0
-            )
-        ),
-
+        "base_percent": base_percent,
+        "hardener": hardener,
+        "thinner": thinner,
+        "total_ratio": None,
         "raw": text,
     }
-
-
 # ---------------------------------------------------------
 # Product block detection
 # ---------------------------------------------------------
