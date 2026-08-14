@@ -1,0 +1,9 @@
+.venv
+*.egg-info
+# *.cpython-311.pyc
+*.cpython-*
+.pytest_cache
+__pycache__
+*.tar.gz
+pdf_attachments
+.DS_Store

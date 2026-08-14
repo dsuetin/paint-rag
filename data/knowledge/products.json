@@ -1,0 +1,1118 @@
+[
+  {
+    "name": "Грунт PD",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 155.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 46.11111111111111
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 92.06481481481481
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 125.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 64.25925925925925
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 110.21296296296296
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11
+        }
+      },
+      {
+        "variant_id": 3,
+        "price": 118.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 63.425925925925924
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 109.37962962962962
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 6,
+          "calculation_column": 6,
+          "cost_column": 7,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1
+    }
+  },
+  {
+    "name": "Лак PV",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 220.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "825",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (825) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 39.90740740740741
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 131.37037037037038
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 290.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "860",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (860) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 41.342592592592595
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 132.80555555555557
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      },
+      {
+        "variant_id": 3,
+        "price": 210.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "870",
+            "percent": 100.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 2.3,
+          "raw": "Смесь = 100%+100% (870) +30% = 2.3"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.07246376811594203,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.07246376811594203,
+            "cost": 62.46376811594203
+          },
+          "thinner": {
+            "kg": 0.021739130434782608,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 153.926731078905
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 6,
+          "calculation_column": 6,
+          "cost_column": 7,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 13
+    }
+  },
+  {
+    "name": "Лак AV",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 740.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "890",
+            "percent": 10.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.4,
+          "raw": "Смесь = 100%+10% (890) +30% = 1.4"
+        },
+        "components": {
+          "base": {
+            "article": "1046",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "1143",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.11904761904761905,
+            "cost": 124.52380952380953
+          },
+          "hardener": {
+            "kg": 0.011904761904761904,
+            "cost": 13.607142857142856
+          },
+          "thinner": {
+            "kg": 0.03571428571428572,
+            "cost": 9.500000000000002
+          },
+          "total": {
+            "cost": 147.63095238095238
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 25,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 32,
+          "hardener_row": 33,
+          "thinner_row": 34,
+          "total_row": 35
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 795.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "890",
+            "percent": 10.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.4,
+          "raw": "Смесь = 100%+10% (890) +30% = 1.4"
+        },
+        "components": {
+          "base": {
+            "article": "1046",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "1143",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.11904761904761905,
+            "cost": 127.50000000000001
+          },
+          "hardener": {
+            "kg": 0.011904761904761904,
+            "cost": 13.607142857142856
+          },
+          "thinner": {
+            "kg": 0.03571428571428572,
+            "cost": 9.500000000000002
+          },
+          "total": {
+            "cost": 150.60714285714286
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 25,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 32,
+          "hardener_row": 33,
+          "thinner_row": 34,
+          "total_row": 35
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 25
+    }
+  },
+  {
+    "name": "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ",
+    "article": "PA334-9016",
+    "technology": "Rupa",
+
+    "aliases": [
+      "PA334",
+      "PA334-9016",
+      "Белый полиуретановый грунт"
+    ],
+
+    "consumption_min": 120,
+    "consumption_max": 140,
+    "consumption_unit": "g_per_m2",
+
+    "max_layers": 2,
+
+    "mixing": {
+      "base_percent": 100,
+
+      "hardener": {
+        "name": "HD816",
+        "percent": 33
+      },
+
+      "thinner": {
+        "name": "Разбавитель",
+        "percent": 15
+      },
+
+      "raw": "PA334-9016 100%; HD816 33%; Разбавитель 15–30%"
+    },
+
+    "variants": [],
+
+    "source": {
+      "sheet": "technical_data",
+      "row": 0
+    }
+  },
+  {
+    "name": "Грунт PA",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 777.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 33.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.66,
+          "raw": "Смесь = 100%+33% (865) +30% = 1.66"
+        },
+        "components": {
+          "base": {
+            "article": "523",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.10040160642570281,
+            "cost": 52.51004016064257
+          },
+          "hardener": {
+            "kg": 0.03313253012048192,
+            "cost": 28.725903614457827
+          },
+          "thinner": {
+            "kg": 0.030120481927710843,
+            "cost": 8.012048192771084
+          },
+          "total": {
+            "cost": 89.24799196787149
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 37,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 44,
+          "hardener_row": 45,
+          "thinner_row": 46,
+          "total_row": 47
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 334.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "816",
+            "percent": 33.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.66,
+          "raw": "Смесь = 100%+33% (816) +30% = 1.66"
+        },
+        "components": {
+          "base": {
+            "article": "523",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.10040160642570281,
+            "cost": 44.87951807228916
+          },
+          "hardener": {
+            "kg": 0.03313253012048192,
+            "cost": 22.993975903614455
+          },
+          "thinner": {
+            "kg": 0.030120481927710843,
+            "cost": 8.012048192771084
+          },
+          "total": {
+            "cost": 75.8855421686747
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 37,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 44,
+          "hardener_row": 45,
+          "thinner_row": 46,
+          "total_row": 47
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 37
+    }
+  },
+  {
+    "name": "Эмаль PB",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 440.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (865) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 40.13888888888889
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 139.75
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 49,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": null,
+          "hardener_row": 57,
+          "thinner_row": 58,
+          "total_row": 59
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 420.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (865) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 40.13888888888889
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 130.67592592592592
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 49,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": null,
+          "hardener_row": 57,
+          "thinner_row": 58,
+          "total_row": 59
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 49
+    }
+  },
+  {
+    "name": "Лак-Акриловый HELIODUR ANR",
+    "technology": "HELIODUR",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "HELIODUR",
+      "row": 1
+    }
+  },
+  {
+    "name": "Эмаль SC-T470",
+    "technology": "AkzoNobel SolidoColor",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel SolidoColor",
+      "row": 1
+    }
+  },
+  {
+    "name": "Грунт белый SCP320HZ5F",
+    "technology": "AkzoNobel",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 111.58,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "310.84",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (310.84) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "1544",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 71.4814814814815
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 267.57407407407413
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "AkzoNobel",
+          "product_row": 1,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": null,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11
+        }
+      }
+    ],
+    "source": {
+      "sheet": "AkzoNobel",
+      "row": 1
+    }
+  },
+  {
+    "name": "Лак ПУ Паркетный",
+    "technology": "AkzoNobel",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel",
+      "row": 12
+    }
+  },
+  {
+    "name": "Грунт Д-ДУР Плюс Белый",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 1
+    }
+  },
+  {
+    "name": "Лак Д-ДУР",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 13
+    }
+  },
+  {
+    "name": "Эмаль Д-ДУР-01",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 25
+    }
+  },
+  {
+    "name": "Эмаль Д-ДУР-00",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 37
+    }
+  },
+  {
+    "name": "Антисептик Cetol 567 BDP",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 1
+    }
+  },
+  {
+    "name": "Антисептик Axil 2000 (Концентрат)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 12
+    }
+  },
+  {
+    "name": "Гибрид AQUA Combi WA D20",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 24
+    }
+  },
+  {
+    "name": "Краска RUBBOL WF\n3310\n(WF361)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 34
+    }
+  },
+  {
+    "name": "Краска CETOL® WF\n9810-46-25\n(WF761)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 44
+    }
+  },
+  {
+    "name": "Краска CETOL® WF\n771",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 55
+    }
+  },
+  {
+    "name": "Финишное покрытие CETOL® WF 9830-9810(для распыления)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 66
+    }
+  },
+  {
+    "name": "Антисептик WT420",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 1
+    }
+  },
+  {
+    "name": "Масло WT090",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 12
+    }
+  },
+  {
+    "name": "Лазурь «3 в 1» FULLPROTECT WT 892 (под кисть) полуматовая (761)",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 23
+    }
+  },
+  {
+    "name": "Краска WT894 (771)",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 34
+    }
+  },
+  {
+    "name": "Краска интерьерная DECOPLUS WM 610",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 45
+    }
+  },
+  {
+    "name": "Краска для наружных работ WINTEX WMA 695 (3310)",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 56
+    }
+  }
+]

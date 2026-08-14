@@ -1,0 +1,155 @@
+[
+  {
+    "base": "NC",
+    "top": "AC",
+    "allowed": true,
+    "reason": "Первый AC слой должен быть полностью высушен."
+  },
+  {
+    "base": "NC",
+    "top": "PU",
+    "allowed": true
+  },
+  {
+    "base": "NC",
+    "top": "PE",
+    "allowed": true
+  },
+  {
+    "base": "NC",
+    "top": "UV",
+    "allowed": true
+  },
+  {
+    "base": "NC",
+    "top": "WB",
+    "allowed": false,
+    "reason": "Активный растворитель NC слоя может вызвать вспучивание WB покрытия."
+  },
+
+  {
+    "base": "AC",
+    "top": "NC",
+    "allowed": false,
+    "reason": "Нанесение твердого AC покрытия на более мягкую основу NC может вызвать растрескивание."
+  },
+  {
+    "base": "AC",
+    "top": "PU",
+    "allowed": true
+  },
+  {
+    "base": "AC",
+    "top": "PE",
+    "allowed": true
+  },
+  {
+    "base": "AC",
+    "top": "UV",
+    "allowed": true
+  },
+  {
+    "base": "AC",
+    "top": "WB",
+    "allowed": false,
+    "reason": "Растворитель AC слоя может вызвать вспучивание WB покрытия."
+  },
+
+  {
+    "base": "PU",
+    "top": "NC",
+    "allowed": false,
+    "reason": "Более активный разбавитель PU покрытия может вызвать вспучивание базового NC слоя."
+  },
+  {
+    "base": "PU",
+    "top": "AC",
+    "allowed": false,
+    "reason": "Избыточное количество кислотосодержащего отвердителя AC может вызвать пожелтение и трещины в PU поверхностном слое."
+  },
+  {
+    "base": "PU",
+    "top": "PE",
+    "allowed": true
+  },
+  {
+    "base": "PU",
+    "top": "UV",
+    "allowed": true
+  },
+  {
+    "base": "PU",
+    "top": "WB",
+    "allowed": false,
+    "reason": "Более активный разбавитель PU покрытия может вызвать вспучивание базового WB слоя."
+  },
+
+  {
+    "base": "WB",
+    "top": "NC",
+    "allowed": true,
+    "conditions": [
+      "Нижний слой требует хорошего шлифования."
+    ]
+  },
+  {
+    "base": "WB",
+    "top": "AC",
+    "allowed": true,
+    "conditions": [
+      "Нижний слой требует хорошего шлифования."
+    ]
+  },
+  {
+    "base": "WB",
+    "top": "PU",
+    "allowed": true,
+    "conditions": [
+      "Нижний слой требует хорошего шлифования.",
+      "Проверять адгезию силера, содержащего стеарат цинка."
+    ]
+  },
+  {
+    "base": "WB",
+    "top": "PE",
+    "allowed": true,
+    "conditions": [
+      "Нижний слой требует хорошего шлифования."
+    ]
+  },
+  {
+    "base": "WB",
+    "top": "UV",
+    "allowed": true,
+    "conditions": [
+      "Нижний слой требует хорошего шлифования."
+    ]
+  },
+
+  {
+    "base": "UV",
+    "top": "NC",
+    "allowed": false,
+    "reason": "Нанесение твердого покрытия на более мягкую основу способствует растрескиванию лакокрасочной пленки."
+  },
+  {
+    "base": "UV",
+    "top": "AC",
+    "allowed": true
+  },
+  {
+    "base": "UV",
+    "top": "PU",
+    "allowed": true
+  },
+  {
+    "base": "UV",
+    "top": "PE",
+    "allowed": true
+  },
+  {
+    "base": "UV",
+    "top": "WB",
+    "allowed": false
+  }
+]
