@@ -12,6 +12,10 @@ class Document(BaseModel):
     metadata: dict[str, Any] = Field(
         default_factory=dict
     )
+
+    chunks: list["Chunk"] = Field(
+        default_factory=list
+    )
     
 class Chunk(BaseModel):
     id: str

@@ -161,6 +161,11 @@ def product_to_documents(
                 },
             )
         )
+        documents[-1].chunks = document_to_chunks(
+            documents[-1],
+            chunk_size=500,
+            overlap=50,
+        )
 
     return documents
 
