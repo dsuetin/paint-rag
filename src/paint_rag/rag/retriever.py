@@ -1,83 +1,46 @@
-from __future__ import annotations
+from pydantic import BaseModel
 
-import re
+from paint_rag.rag.documents import Chunk
+from paint_rag.rag.embeddings import EmbeddingModel
+from paint_rag.rag.vector_store import VectorStore
 
-from paint_rag.rag.documents import Document, Chunk
 
-
-def tokenize(text: str) -> set[str]:
-    return set(
-        re.findall(
-            r"[a-zа-яё0-9-]+",
-            text.lower(),
-        )
-    )
+class RetrievedChunk(BaseModel):
+    chunk: Chunk
+    score: float
 
 
 class Retriever:
 
     def __init__(
         self,
-        documents: list[Document],
+        vector_store: VectorStore,
+        embedding_model: EmbeddingModel,
     ):
-        self.documents = documents
-
-        self.chunks: list[Chunk] = []
-
-        for document in documents:
-            self.chunks.extend(
-                document.chunks
-            )
-
-    @classmethod
-    def from_documents(
-        cls,
-        documents: list[Document],
-    ) -> "Retriever":
-        return cls(documents)
+        self.vector_store = vector_store
+        self.embedding_model = embedding_model
 
     def search(
         self,
         query: str,
         top_k: int = 5,
-    ) -> list[Chunk]:
+    ) -> list[RetrievedChunk]:
 
-        query_tokens = tokenize(query)
-
-        scored: list[tuple[float, Chunk]] = []
-
-        for chunk in self.chunks:
-
-            chunk_tokens = tokenize(
-                chunk.text
+        query_vector = (
+            self.embedding_model.embed_query(
+                query
             )
+        )
 
-            if not chunk_tokens:
-                continue
-
-            matched = (
-                query_tokens
-                & chunk_tokens
-            )
-
-            if not matched:
-                continue
-
-            score = (
-                len(matched)
-                / len(query_tokens)
-            )
-
-            scored.append(
-                (score, chunk)
-            )
-
-        scored.sort(
-            key=lambda item: item[0],
-            reverse=True,
+        results = self.vector_store.search(
+            query_vector,
+            top_k=top_k,
         )
 
         return [
-            chunk
-            for _, chunk in scored[:top_k]
+            RetrievedChunk(
+                chunk=chunk,
+                score=score,
+            )
+            for chunk, score in results
         ]

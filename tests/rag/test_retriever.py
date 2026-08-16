@@ -1,82 +1,100 @@
-from pathlib import Path
-
-from paint_rag.knowledge.product_store import ProductStore
-from paint_rag.rag.documents import product_to_documents
+from paint_rag.rag.documents import Chunk
 from paint_rag.rag.retriever import Retriever
+from paint_rag.rag.vector_store import VectorStore
 
 
-DATA = Path(
-    "data/knowledge/products.json"
-)
+class FakeEmbeddingModel:
+
+    def __init__(self):
+        self.vectors = {
+            "отвердитель": [1.0, 0.0, 0.0],
+            "разбавитель": [0.0, 1.0, 0.0],
+            "расход": [0.0, 0.0, 1.0],
+        }
+
+    def embed_query(
+        self,
+        text: str,
+    ) -> list[float]:
+
+        text = text.lower()
+
+        for key, vector in self.vectors.items():
+            if key in text:
+                return vector
+
+        return [0.0, 0.0, 0.0]
+
+    def embed(
+        self,
+        texts: list[str],
+    ) -> list[list[float]]:
+
+        return [
+            self.embed_query(text)
+            for text in texts
+        ]
 
 
-def build_retriever() -> Retriever:
-    store = ProductStore.from_json(DATA)
+def make_chunk(
+    chunk_id: int,
+    text: str,
+) -> Chunk:
 
-    product = store.get_by_article(
-        "PA334-9016"
+    return Chunk(
+        id=f"chunk-{chunk_id}",
+        text=text,
+        product="Грунт PA334",
+        variant_id=1,
+        article="PA334-9016",
+        chunk_id=chunk_id,
     )
 
-    assert product is not None
 
-    documents = product_to_documents(
-        product
+def test_retriever():
+
+    store = VectorStore()
+
+    chunks = [
+        make_chunk(
+            0,
+            "Отвердитель HD816 33%",
+        ),
+        make_chunk(
+            1,
+            "Разбавитель 15-30%",
+        ),
+        make_chunk(
+            2,
+            "Расход 120-140 г/м2",
+        ),
+    ]
+
+    vectors = [
+        [1.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0],
+        [0.0, 0.0, 1.0],
+    ]
+
+    store.add(
+        chunks,
+        vectors,
     )
 
-    return Retriever.from_documents(
-        documents
+    retriever = Retriever(
+        vector_store=store,
+        embedding_model=FakeEmbeddingModel(),
     )
-
-
-def test_find_hardener():
-    retriever = build_retriever()
 
     results = retriever.search(
-        "какой отвердитель у PA334-9016?"
+        "какой отвердитель?",
+        top_k=1,
     )
 
-    assert len(results) > 0
+    assert len(results) == 1
 
-    text = "\n".join(
-        result.text
-        for result in results
-    )
+    result = results[0]
 
-    assert "HD816" in text
-    assert "33%" in text
-
-
-def test_find_thinner():
-    retriever = build_retriever()
-
-    results = retriever.search(
-        "сколько разбавителя добавлять в PA334-9016?"
-    )
-
-    assert len(results) > 0
-
-    text = "\n".join(
-        result.text
-        for result in results
-    )
-
-    assert "15%" in text
-    assert "30%" in text
-
-
-def test_find_consumption():
-    retriever = build_retriever()
-
-    results = retriever.search(
-        "какой расход грунта PA334-9016?"
-    )
-
-    assert len(results) > 0
-
-    text = "\n".join(
-        result.text
-        for result in results
-    )
-
-    assert "120" in text
-    assert "140" in text
+    assert result.chunk.article == "PA334-9016"
+    assert "HD816" in result.chunk.text
+    assert result.score == 1.0

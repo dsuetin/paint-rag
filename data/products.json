@@ -1,0 +1,47 @@
+[
+  {
+    "name": "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ",
+    "article": "PA334-9016",
+    "technology": "Rupa",
+    "aliases": [
+      "PA334",
+      "PA334-9016",
+      "Белый полиуретановый грунт"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 140,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD816",
+        "percent": 33,
+        "percent_min": 33,
+        "percent_max": 33
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent": 15,
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PA334-9016 100%; HD816 33%; Разбавитель 15–30%"
+    },
+    "variants": [],
+    "application": "Пневматический краскопульт, Airmix.",
+    "description": "Универсальный белый полиуретановый грунт с высоким сухим остатком. Хорошо растекается и отлично заполняет неровности. Подходит для механизированной шлифовки. Для отделки мебельных и столярных изделий.",
+    "technical_characteristics": {
+      "dry_residue_percent": "80±2%",
+      "density": "1,65±0,05 г/см³",
+      "pot_life": "3 часа",
+      "drying_time_at_23C": "2–4 часа",
+      "shelf_life": "от 12 месяцев"
+    },
+    "source": {
+      "file": "Rupa PA334-9016 Белый ПУ грунт.pdf",
+      "type": "technical_data_pdf",
+      "page": 1
+    }
+  }
+]
