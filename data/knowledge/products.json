@@ -1,8 +1,12 @@
 [
   {
     "name": "Грунт PD",
+    "article": "PD125",
     "technology": "Rupa",
-    "aliases": [],
+    "aliases": [
+      "PD125",
+      "Прозрачный полиуретановый 2K грунт"
+    ],
     "variants": [
       {
         "variant_id": 1,
@@ -127,7 +131,9 @@
           "base_row": 8,
           "hardener_row": 9,
           "thinner_row": 10,
-          "total_row": 11
+          "total_row": 11,
+          "file": "Rupa PD125 Прозрачный ПУ грунт.pdf",
+          "page": 1
         }
       },
       {
@@ -957,8 +963,25 @@
   },
   {
     "name": "Лак Д-ДУР",
+    "article": "2575-001251",
     "technology": "AkzoNobel Д-Дур",
-    "aliases": [],
+    "aliases": [
+      "2575-001251",
+      "Лак Д-Дур"
+    ],
+    "max_layers": 3,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "1.871.1085 (Д-Дур)",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "800-00218 или DSI",
+        "percent": 30
+      },
+      "raw": "На 100 объемных частей лака Д-ДУР - 30 объемных частей отвердителя 1.871.1085 (Д-Дур); Разбавитель 800-00218 или DSI 30%"
+    },
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Д-Дур",
