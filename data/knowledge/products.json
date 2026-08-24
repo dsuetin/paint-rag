@@ -1,143 +1,16 @@
 [
   {
     "name": "Грунт PD",
-    "article": "PD125",
     "technology": "Rupa",
     "aliases": [
-      "PD125",
-      "Прозрачный полиуретановый 2K грунт"
+      "PD118",
+      "Прозрачный полиуретановый 2K грунт Super",
+      "2K грунт сери Super"
     ],
     "variants": [
       {
-        "variant_id": 1,
-        "price": 155.0,
-        "coverage": {
-          "value": 6.6,
-          "unit": "m2_per_kg"
-        },
-        "mixing": {
-          "base_percent": 100.0,
-          "hardener": {
-            "name": "810",
-            "percent": 50.0
-          },
-          "thinner": {
-            "percent": 30.0
-          },
-          "total_ratio": 1.8,
-          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
-        },
-        "components": {
-          "base": {
-            "article": "498",
-            "name": "Расход грунта, кг"
-          },
-          "hardener": {
-            "article": "833",
-            "name": "Расход отвердителя, кг"
-          },
-          "thinner": {
-            "article": "266",
-            "name": "Расход разбовителя, кг"
-          }
-        },
-        "calculation_reference": {
-          "base": {
-            "kg": 0.09259259259259259,
-            "cost": 46.11111111111111
-          },
-          "hardener": {
-            "kg": 0.0462962962962963,
-            "cost": 38.56481481481482
-          },
-          "thinner": {
-            "kg": 0.027777777777777776,
-            "cost": 7.388888888888888
-          },
-          "total": {
-            "cost": 92.06481481481481
-          },
-          "total_cost": null
-        },
-        "source": {
-          "sheet": "Rupa",
-          "product_row": 1,
-          "price_column": 2,
-          "calculation_column": 2,
-          "cost_column": 3,
-          "base_row": 8,
-          "hardener_row": 9,
-          "thinner_row": 10,
-          "total_row": 11
-        }
-      },
-      {
-        "variant_id": 2,
-        "price": 125.0,
-        "coverage": {
-          "value": 6.6,
-          "unit": "m2_per_kg"
-        },
-        "mixing": {
-          "base_percent": 100.0,
-          "hardener": {
-            "name": "810",
-            "percent": 50.0
-          },
-          "thinner": {
-            "percent": 30.0
-          },
-          "total_ratio": 1.8,
-          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
-        },
-        "components": {
-          "base": {
-            "article": "498",
-            "name": "Расход грунта, кг"
-          },
-          "hardener": {
-            "article": "833",
-            "name": "Расход отвердителя, кг"
-          },
-          "thinner": {
-            "article": "266",
-            "name": "Расход разбовителя, кг"
-          }
-        },
-        "calculation_reference": {
-          "base": {
-            "kg": 0.09259259259259259,
-            "cost": 64.25925925925925
-          },
-          "hardener": {
-            "kg": 0.0462962962962963,
-            "cost": 38.56481481481482
-          },
-          "thinner": {
-            "kg": 0.027777777777777776,
-            "cost": 7.388888888888888
-          },
-          "total": {
-            "cost": 110.21296296296296
-          },
-          "total_cost": null
-        },
-        "source": {
-          "sheet": "Rupa",
-          "product_row": 1,
-          "price_column": 4,
-          "calculation_column": 4,
-          "cost_column": 5,
-          "base_row": 8,
-          "hardener_row": 9,
-          "thinner_row": 10,
-          "total_row": 11,
-          "file": "Rupa PD125 Прозрачный ПУ грунт.pdf",
-          "page": 1
-        }
-      },
-      {
         "variant_id": 3,
+        "article": "PD118",
         "price": 118.0,
         "coverage": {
           "value": 6.6,
@@ -196,7 +69,201 @@
           "base_row": 8,
           "hardener_row": 9,
           "thinner_row": 10,
-          "total_row": 11
+          "total_row": 11,
+          "file": "Rupa_PD118_Прозрачный_ПУ_грунт_серии_Super.pdf",
+          "page": 1
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1
+    }
+  },
+  {
+    "name": "Грунт PD155 изолятор для МДФ",
+    "article": "PD155",
+    "technology": "Rupa",
+    "aliases": [
+      "PD155",
+      "Прозрачный полиуретановый 2K грунт-изолятор для МДФ",
+      "PU грунт-изолятор для МДФ"
+    ],
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD820",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PD155 100%; HD820 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD810."
+    },
+    "variants": [
+      {
+        "variant_id": 1,
+        "article": "PD155",
+        "price": 155.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "HD820",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent_min": 15.0,
+            "percent_max": 30.0
+          },
+          "raw": "PD155 100%; HD820 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD810."
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 46.11111111111111
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 92.06481481481481
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11,
+          "file": "Rupa_PD155_Прозрачный_ПУ_грунт_изолятор_для_МДФ.pdf",
+          "page": 1
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1
+    }
+  },
+  {
+    "name": "Грунт PD125",
+    "article": "PD125",
+    "technology": "Rupa",
+    "aliases": [
+      "PD125",
+      "Универсальный прозрачный полиуретановый 2K грунт",
+      "Прозрачный полиуретановый 2K грунт"
+    ],
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD810",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PD125 100%; HD810 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD820 - 33%."
+    },
+    "variants": [
+      {
+        "variant_id": 1,
+        "article": "PD125",
+        "price": 125.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "HD810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent_min": 15.0,
+            "percent_max": 30.0
+          },
+          "raw": "PD125 100%; HD810 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD820 - 33%."
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 64.25925925925925
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 110.21296296296296
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11,
+          "file": "Rupa PD125 Прозрачный ПУ грунт.pdf",
+          "page": 1
         }
       }
     ],
@@ -540,6 +607,73 @@
     "source": {
       "sheet": "Rupa",
       "row": 25
+    }
+  },
+  {
+    "name": "Лак PV210",
+    "article": "PV210-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PV210",
+      "Высокопрочный прозрачный полиуретановый 2K лак",
+      "Прозрачный ПУ лак для столешниц и покрытий"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 160,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD870",
+        "percent": 100
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PV210-XX 100%; HD870 100%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV210_XX_Прозрачный_ПУ_лак_высокопрочный_1.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Лак PV220",
+    "article": "PV220-20",
+    "technology": "Rupa",
+    "aliases": [
+      "PV220",
+      "Универсальный прозрачный полиуретановый 2K лак",
+      "Прозрачный ПУ лак, самогрунт"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 140,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD820",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PV220-20 100%; HD820 50%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV220_20_Прозрачный_ПУ_лак_универсальный.pdf",
+      "page": 1
     }
   },
   {

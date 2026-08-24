@@ -23,35 +23,40 @@ def test_grunt_pd_found():
     assert product is not None
 
 
-def test_grunt_pd_has_pd125_variant():
+def test_grunt_pd125_product_exists():
 
     store = ProductStore.from_json(
         PRODUCTS
     )
 
-    product = store.get(
-        "Грунт PD"
+    product = store.get_by_article(
+        "PD125"
     )
 
     assert product is not None
 
-    pd125 = [
+    assert (
+        product.name
+        == "Грунт PD125"
+    )
+
+    (variant,) = [
         variant
         for variant in product.variants
         if variant.unit_price == 125.0
     ]
 
-    assert len(pd125) == 1
+    assert variant.article == "PD125"
 
 
-def test_grunt_pd_alias_pd125():
+def test_grunt_pd125_alias_pd125():
 
     store = ProductStore.from_json(
         PRODUCTS
     )
 
-    product = store.get(
-        "Грунт PD"
+    product = store.get_by_article(
+        "PD125"
     )
 
     assert product is not None
@@ -64,14 +69,14 @@ def test_grunt_pd_alias_pd125():
     )
 
 
-def test_grunt_pd_pd125_mixing_unchanged():
+def test_grunt_pd125_mixing():
 
     store = ProductStore.from_json(
         PRODUCTS
     )
 
-    product = store.get(
-        "Грунт PD"
+    product = store.get_by_article(
+        "PD125"
     )
 
     assert product is not None
@@ -90,7 +95,7 @@ def test_grunt_pd_pd125_mixing_unchanged():
 
     assert (
         mixing.hardener.name
-        == "810"
+        == "HD810"
     )
 
     assert (
@@ -99,6 +104,11 @@ def test_grunt_pd_pd125_mixing_unchanged():
     )
 
     assert (
-        mixing.thinner.percent
+        mixing.thinner_ratio.min
+        == 15.0
+    )
+
+    assert (
+        mixing.thinner_ratio.max
         == 30.0
     )

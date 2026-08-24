@@ -35,7 +35,7 @@ def test_find_ground_pd():
 
     assert product.name == "Грунт PD"
 
-    assert len(product.variants) == 3
+    assert len(product.variants) == 1
 
 
 def test_ground_pd_variants():
@@ -50,7 +50,7 @@ def test_ground_pd_variants():
 
     assert product is not None
 
-    assert len(product.variants) == 3
+    assert len(product.variants) == 1
 
     prices = [
         variant.unit_price
@@ -58,7 +58,5 @@ def test_ground_pd_variants():
     ]
 
     assert prices == [
-        155.0,
-        125.0,
         118.0,
     ]

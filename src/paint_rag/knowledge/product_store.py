@@ -111,6 +111,36 @@ class ProductStore:
 
         return None
     
+    def get_variant_by_article(
+        self,
+        article: str,
+    ) -> tuple[Product, ProductVariant] | None:
+
+        article = article.lower().strip()
+
+        if not article:
+            return None
+
+        for product in self.products:
+
+            for variant in product.variants:
+
+                if (
+                    variant.article
+                    and variant.article.lower() == article
+                ):
+                    return (product, variant)
+
+        for product in self.products:
+
+            if (
+                product.article
+                and product.article.lower() == article
+            ) and product.variants:
+                return (product, product.variants[0])
+
+        return None
+
     def find_variant(
         self,
         query: str,
