@@ -173,6 +173,22 @@ class ProductVariant(BaseModel):
         return self.price
 
 
+class TechnicalData(BaseModel):
+    # Значения сохраняются строками, чтобы без потерь
+    # держать диапазоны ("15–30%"), допуски ("54±2%")
+    # и текстовые значения ("до 12 часов").
+    gloss: Optional[str] = None
+    dry_residue: Optional[str] = None
+    density: Optional[str] = None
+    viscosity: Optional[str] = None
+    pot_life: Optional[str] = None
+    drying: Optional[str] = None
+    shelf_life: Optional[str] = None
+    application: Optional[str] = None
+    description: Optional[str] = None
+    usage: Optional[str] = None
+
+
 class Product(BaseModel):
     name: str
 
@@ -195,5 +211,7 @@ class Product(BaseModel):
     )
 
     mixing: Optional[MixingRule] = None
+
+    technical_data: Optional[TechnicalData] = None
 
     source: Optional[ProductSource] = None

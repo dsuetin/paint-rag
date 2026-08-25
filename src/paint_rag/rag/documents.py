@@ -221,6 +221,7 @@ def document_to_chunks(
                     product=document.product,
                     variant_id=document.variant_id,
                     chunk_id=chunk_id,
+                    technology=document.metadata.get("technology"),
                 )
             )
 

@@ -677,40 +677,196 @@
     }
   },
   {
+    "name": "Грунт PA777-9016 эластичный",
+    "article": "PA777-9016",
+    "technology": "Rupa",
+    "aliases": [
+      "PA777",
+      "Белый эластичный полиуретановый 2K грунт",
+      "Rupa PA777"
+    ],
+    "consumption_max": 240.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD816",
+        "percent": 33
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PA777-9016 100%; HD816 33%; Разбавитель 15–30% (по весу). Альтернативный отвердитель: HD865 — усиливает эластичность, увеличивает время сушки."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PA777_9016_Белый_ПУ_грунт_эластичный.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Лак AV740",
+    "article": "AV740-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "AV740",
+      "Самогрунтующийся прозрачный акриловый 2K лак",
+      "Прозрачный акриловый 2K лак Rupa"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HA890",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "AV740-XX 100%; HA890 10%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_AV740_XX_Прозрачный_акриловый_лак_самогрунтующийся_2.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Эмаль PB420",
+    "article": "PB420-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PB420",
+      "Белая полиуретановая 2K эмаль с высоким укрывом"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD844",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 20,
+        "percent_max": 30
+      },
+      "raw": "PB420-XX 100%; HD844 50%; Разбавитель 20–30% (по весу). Альтернативный отвердитель: HD865 — эластичность, увеличение времени сушки."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PB420_XX_Белая_ПУ_эмаль_с_высоким_укрывом.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Эмаль PB440",
+    "article": "PB440-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PB440",
+      "Универсальная белая полиуретановая 2K эмаль"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD844",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PB440-XX 100%; HD844 50%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PB440_XX_Белая_ПУ_эмаль_универсальная_1.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Лак PV290",
+    "article": "PV290-99",
+    "technology": "Rupa",
+    "aliases": [
+      "PV290",
+      "Высокоглянцевый прозрачный полиуретановый 2K лак"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 160.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD860",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 20,
+        "percent_max": 40
+      },
+      "raw": "PV290-99 100%; HD860 30%; Разбавитель 20–40% (по весу). Альтернативный отвердитель: HD830 — 100%."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV290_99_Высокоглянцевый_прозрачный_ПУ_лак.pdf",
+      "page": 1
+    }
+  },
+  {
     "name": "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ",
     "article": "PA334-9016",
     "technology": "Rupa",
-
     "aliases": [
       "PA334",
       "PA334-9016",
       "Белый полиуретановый грунт"
     ],
-
     "consumption_min": 120,
     "consumption_max": 140,
     "consumption_unit": "g_per_m2",
-
     "max_layers": 2,
-
     "mixing": {
       "base_percent": 100,
-
       "hardener": {
         "name": "HD816",
         "percent": 33
       },
-
       "thinner": {
         "name": "Разбавитель",
         "percent": 15
       },
-
       "raw": "PA334-9016 100%; HD816 33%; Разбавитель 15–30%"
     },
-
     "variants": [],
-
     "source": {
       "sheet": "technical_data",
       "row": 0
@@ -987,21 +1143,64 @@
   {
     "name": "Лак-Акриловый HELIODUR ANR",
     "technology": "HELIODUR",
-    "aliases": [],
+    "aliases": [
+      "HELIODUR ANR",
+      "Лак HELIODUR ANR"
+    ],
     "variants": [],
     "source": {
       "sheet": "HELIODUR",
       "row": 1
+    },
+    "article": "480986-480996 (серия)",
+    "consumption_min": 100.0,
+    "consumption_max": 120.0,
+    "consumption_unit": "microns_per_layer",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HELIODUR отвердитель A (403880)",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Разбавитель 17 (407647) / HELIODUR разбавитель (403851)",
+        "percent_min": 20,
+        "percent_max": 30
+      },
+      "raw": "A : Б по весу 10 : 1 (100 : 10); Разбавитель 407647 (Разбавитель 17) или 403851 (HELIODUR) 20–30%"
     }
   },
   {
     "name": "Эмаль SC-T470",
     "technology": "AkzoNobel SolidoColor",
-    "aliases": [],
+    "aliases": [
+      "SC-T470-30-BW01",
+      "SC-T470-30-BN00",
+      "SC-T470-10-BW01",
+      "SC-T470-10-BN00",
+      "SolidoColor SC-T470"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel SolidoColor",
       "row": 1
+    },
+    "article": "SC-T470",
+    "consumption_min": 100.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HPU 6205 (310.70)",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "TPU 9302-M (910.17) обычное высыхание или TPU 9304-S (910.73) медленное",
+        "percent_min": 10,
+        "percent_max": 30
+      },
+      "raw": "SolidoColor SC-T470-xx 100%; Отвердитель HPU 6205 (310.70) 50%; Разбавитель TPU 9302-M (910.17) / TPU 9304-S (910.73) 10–30%"
     }
   },
   {
@@ -1078,21 +1277,60 @@
   {
     "name": "Лак ПУ Паркетный",
     "technology": "AkzoNobel",
-    "aliases": [],
+    "aliases": [
+      "A-PT240-05",
+      "Aqualit (ICLA 203.02.05)",
+      "ПУ Паркетный лак Aqualit"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel",
       "row": 12
+    },
+    "article": "A-PT240-05",
+    "consumption_min": 90.0,
+    "consumption_max": 120.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HWA 6001 (303.01)",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Водопроводная вода",
+        "percent_min": 5,
+        "percent_max": 10
+      },
+      "raw": "Акрилатно-полиуретановый 2K лак Aqualit A-PT240-05 100%; Отвердитель HWA 6001 (303.01) 10%; Разбавитель — вода 5–10%"
     }
   },
   {
     "name": "Грунт Д-ДУР Плюс Белый",
     "technology": "AkzoNobel Д-Дур",
-    "aliases": [],
+    "aliases": [
+      "1149",
+      "D-DUR PRIMER 1149 (Д-Дур 1149)",
+      "Д-Дур грунт 1149"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Д-Дур",
       "row": 1
+    },
+    "article": "D-DUR 1149 (265-750001)",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "Д-Дур отвердитель 7000-012009",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель 6500-044001",
+        "percent_min": 20,
+        "percent_max": 50
+      },
+      "raw": "Основа 100% : Отвердитель 7000-012009 30% : Разбавитель 6500-044001 20–50% (по объёму, соотношение 10 : 3 : 2–5)"
     }
   },
   {
@@ -1101,7 +1339,9 @@
     "technology": "AkzoNobel Д-Дур",
     "aliases": [
       "2575-001251",
-      "Лак Д-Дур"
+      "Лак Д-Дур",
+      "2575-001251-180",
+      "2575-001251-200"
     ],
     "max_layers": 3,
     "mixing": {
@@ -1125,11 +1365,29 @@
   {
     "name": "Эмаль Д-ДУР-01",
     "technology": "AkzoNobel Д-Дур",
-    "aliases": [],
+    "aliases": [
+      "2675-755251",
+      "Краска Д-дур база 01 белая",
+      "D-DUR WHITE 01"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Д-Дур",
       "row": 25
+    },
+    "article": "2675-755251",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "Д-Дур отвердитель 7000-012009 (Д-Дур)",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель 6500-020001 (218) или DSI",
+        "percent_min": 20,
+        "percent_max": 50
+      },
+      "raw": "Покрытие 100% : Отвердитель 7000-012009 (Д-Дур) 30% : Разбавитель 6500-020001 (218) или DSI 20–50% (по объёму, соотношение 10 : 3 : 2–5)"
     }
   },
   {
@@ -1145,11 +1403,23 @@
   {
     "name": "Антисептик Cetol 567 BDP",
     "technology": "AkzoNobel Sikkens",
-    "aliases": [],
+    "aliases": [
+      "Cetol WP 567 BPD",
+      "567 BPD",
+      "CETOL 567"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Sikkens",
       "row": 1
+    },
+    "article": "5048-004001",
+    "consumption_min": 50.0,
+    "consumption_max": 160.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Готово к применению; Не разбавлять"
     }
   },
   {
@@ -1175,61 +1445,130 @@
   {
     "name": "Краска RUBBOL WF\n3310\n(WF361)",
     "technology": "AkzoNobel Sikkens",
-    "aliases": [],
+    "aliases": [
+      "Rubbol WF 3310-03-xx",
+      "WF 3310"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Sikkens",
       "row": 34
+    },
+    "article": "WF 3310-03-xx",
+    "consumption_min": 150.0,
+    "consumption_max": 250.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимое, покрывающее; Готово к применению"
     }
   },
   {
     "name": "Краска CETOL® WF\n9810-46-25\n(WF761)",
     "technology": "AkzoNobel Sikkens",
-    "aliases": [],
+    "aliases": [
+      "Cetol WF 761",
+      "WF761"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Sikkens",
       "row": 44
+    },
+    "article": "WF 761",
+    "consumption_min": 60.0,
+    "consumption_max": 80.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимый; Готово к применению; при необходимости не более 5 % воды"
     }
   },
   {
     "name": "Краска CETOL® WF\n771",
     "technology": "AkzoNobel Sikkens",
-    "aliases": [],
+    "aliases": [
+      "Cetol WF 771",
+      "WF771"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Sikkens",
       "row": 55
+    },
+    "article": "WF 771",
+    "consumption_min": 100.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимый; Готов к употреблению; Не разбавлять"
     }
   },
   {
     "name": "Финишное покрытие CETOL® WF 9830-9810(для распыления)",
     "technology": "AkzoNobel Sikkens",
-    "aliases": [],
+    "aliases": [
+      "Cetol WF 9830-03-05",
+      "Cetol WF 9810-03-xx",
+      "Лак 5 глянец",
+      "Лак 15-25 глянец",
+      "Финиш глянец 25-35"
+    ],
     "variants": [],
     "source": {
       "sheet": "AkzoNobel Sikkens",
       "row": 66
+    },
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимое прозрачное промежуточное и финишное покрытие, готово к применению; при необходимости не более 5% воды"
     }
   },
   {
     "name": "Антисептик WT420",
     "technology": "OSWALD",
-    "aliases": [],
+    "aliases": [
+      "BIO SEALER WT 420",
+      "ГРУНТ-АНТИСЕПТИК ДЛЯ ДЕРЕВА BIO SEALER WT 420"
+    ],
     "variants": [],
     "source": {
       "sheet": "OSWALD",
       "row": 1
+    },
+    "article": "WT 420",
+    "consumption_min": 60.0,
+    "consumption_max": 80.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Грунт-антисептик, готов к применению"
     }
   },
   {
     "name": "Масло WT090",
     "technology": "OSWALD",
-    "aliases": [],
+    "aliases": [
+      "HYDRAOIL WT 090",
+      "МАСЛО ДЛЯ ДЕРЕВА HYDRAOIL WT 090",
+      "WT 090"
+    ],
     "variants": [],
     "source": {
       "sheet": "OSWALD",
       "row": 12
+    },
+    "article": "WT 090",
+    "consumption_min": 50.0,
+    "consumption_max": 90.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентное защитное масло; допускается добавление воды до 5 %"
     }
   },
   {
@@ -1240,16 +1579,35 @@
     "source": {
       "sheet": "OSWALD",
       "row": 23
+    },
+    "article": "WT 892",
+    "consumption_min": 80.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Лазурь 3 в 1 с антисептиком, полуматовая"
     }
   },
   {
     "name": "Краска WT894 (771)",
     "technology": "OSWALD",
-    "aliases": [],
+    "aliases": [
+      "NATURA WOOD WT 894",
+      "ПОКРЫТИЕ С НАТУРАЛЬНЫМ ЭФФЕКТОМ NATURA WOOD WT 894"
+    ],
     "variants": [],
     "source": {
       "sheet": "OSWALD",
       "row": 34
+    },
+    "article": "WT 894",
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Натуральный эффект, матовое, 3 в 1"
     }
   },
   {
@@ -1265,11 +1623,123 @@
   {
     "name": "Краска для наружных работ WINTEX WMA 695 (3310)",
     "technology": "OSWALD",
-    "aliases": [],
+    "aliases": [
+      "WINFLEX 695",
+      "ЭМАЛЬ ДЛЯ НАРУЖНЫХ РАБОТ WINFLEX 695"
+    ],
     "variants": [],
     "source": {
       "sheet": "OSWALD",
       "row": 56
+    },
+    "article": "WINFLEX 695 / WMA 695",
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Эмаль на водной основе для наружных работ, полуматовая"
+    }
+  },
+  {
+    "name": "Лак интерьерный DÉCO INTERIO WT 810",
+    "article": "WT 810",
+    "technology": "OSWALD",
+    "aliases": [
+      "WT 810",
+      "ДÉCO INTERIO WT 810",
+      "ЛАК ИНТЕРЬЕРНЫЙ DECO INTERIO WT 810"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 125.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентный декоративно-защитный лак на акриловой основе для внутренних работ"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЛАК ИНТЕРЬЕРНЫЙ DECO INTERIO WT 810.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Масло-воск для террас WAX 092",
+    "article": "WAX 092",
+    "technology": "OSWALD",
+    "aliases": [
+      "WAX 092",
+      "092",
+      "Защитное масло-воск для садовой мебели и террас WAX 092"
+    ],
+    "consumption_min": 50.0,
+    "consumption_max": 90.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентная система из натуральных масел и восков, модифицированных алкидными смолами"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЗАЩИТНОЕ МАСЛО ДЛЯ ТЕРРАС 092.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Изолятор Cetol WM 6900-02",
+    "article": "WM 6900-02",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "WM 6900-02",
+      "Cetol WM 6900-02",
+      "Изолирующее промежуточное покрытие Cetol WM 6900-02"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "thinner": {
+        "name": "Вода",
+        "percent_min": 15,
+        "percent_max": 20
+      },
+      "raw": "Водоразбавляемое, изолирующее, высокопрозрачное промежуточное покрытие; рабочая вязкость регулируется добавлением примерно 15–20% воды"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 0,
+      "file": "Изолятор WM_6900-02.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Эмаль SMARTCOAT WM 690",
+    "article": "WM 690",
+    "technology": "OSWALD",
+    "aliases": [
+      "WM 690",
+      "SMARTCOAT WM 690/695",
+      "Эмаль для наружных и внутренних работ SMARTCOAT WM 690"
+    ],
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Эмаль на водной основе для наружных и внутренних работ"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЭМАЛЬ ДЛЯ НАРУЖНЫХ РАБОТ SMARTCOAT WM 690.pdf",
+      "page": 1
     }
   }
 ]

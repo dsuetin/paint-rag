@@ -24,3 +24,4 @@ class Chunk(BaseModel):
     variant_id: int
     article: str | None = None
     chunk_id: int
+    technology: str | None = None
