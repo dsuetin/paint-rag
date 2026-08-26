@@ -1,3 +1,5 @@
+from typing import Optional
+
 from paint_rag.models.document import Document, Chunk
 from paint_rag.models.product import Product
 
@@ -107,31 +109,51 @@ def product_to_documents(
                 f"{mixing.base_percent:g}%"
             ]
 
-            if mixing.hardener:
-                hardener = mixing.hardener
-
-                if hardener.name:
-                    mixing_parts.append(
-                        f"{hardener.name} "
-                        f"{hardener.percent:g}%"
-                    )
+            def _component(
+                name: "Optional[str]",
+                percent: "Optional[float]",
+                percent_min: "Optional[float]",
+                percent_max: "Optional[float]",
+            ) -> "Optional[str]":
+                if percent is not None:
+                    value = f"{percent:g}%"
+                elif (
+                    percent_min is not None
+                    and percent_max is not None
+                ):
+                    if percent_min == percent_max:
+                        value = f"{percent_min:g}%"
+                    else:
+                        value = (
+                            f"{percent_min:g}"
+                            f"-"
+                            f"{percent_max:g}%"
+                        )
                 else:
-                    mixing_parts.append(
-                        f"{hardener.percent:g}%"
-                    )
+                    return None
+                return (
+                    f"{name} {value}" if name else value
+                )
 
-            if mixing.thinner:
-                thinner = mixing.thinner
+            if mixing.hardener is not None:
+                part = _component(
+                    mixing.hardener.name,
+                    mixing.hardener.percent,
+                    mixing.hardener.percent_min,
+                    mixing.hardener.percent_max,
+                )
+                if part:
+                    mixing_parts.append(part)
 
-                if thinner.name:
-                    mixing_parts.append(
-                        f"{thinner.name} "
-                        f"{thinner.percent:g}%"
-                    )
-                else:
-                    mixing_parts.append(
-                        f"{thinner.percent:g}%"
-                    )
+            if mixing.thinner is not None:
+                part = _component(
+                    mixing.thinner.name,
+                    mixing.thinner.percent,
+                    mixing.thinner.percent_min,
+                    mixing.thinner.percent_max,
+                )
+                if part:
+                    mixing_parts.append(part)
 
             parts.append(
                 "Пропорции смешивания: "
@@ -141,6 +163,30 @@ def product_to_documents(
             if mixing.raw:
                 parts.append(
                     f"Исходная запись: {mixing.raw}"
+                )
+
+        if product.technical_data is not None:
+            td = product.technical_data
+            td_parts: list[str] = []
+            _TD_LABELS = [
+                ("gloss", "Степень блеска"),
+                ("dry_residue", "Сухой остаток"),
+                ("density", "Плотность"),
+                ("viscosity", "Вязкость"),
+                ("pot_life", "Время жизни смеси"),
+                ("drying", "Время сушки"),
+                ("shelf_life", "Срок годности"),
+                ("application", "Нанесение"),
+                ("usage", "Назначение"),
+                ("description", "Описание"),
+            ]
+            for key, label in _TD_LABELS:
+                val = getattr(td, key, None)
+                if val:
+                    td_parts.append(f"{label}: {val}")
+            if td_parts:
+                parts.append(
+                    "Технические характеристики:\n" + "\n".join(td_parts)
                 )
 
         text = "\n".join(parts)
@@ -156,6 +202,13 @@ def product_to_documents(
                     "source": (
                         product.source.model_dump()
                         if product.source
+                        else None
+                    ),
+                    "technical_data": (
+                        product.technical_data.model_dump(
+                            exclude_none=True
+                        )
+                        if product.technical_data
                         else None
                     ),
                 },
@@ -215,13 +268,15 @@ def document_to_chunks(
         if chunk_text:
             chunks.append(
                 Chunk(
-                    id=f"{document.article}:{document.variant_id}:0",
+                    id=f"{document.article}:{document.variant_id}:{chunk_id}",
                     text=chunk_text,
                     article=document.article,
                     product=document.product,
                     variant_id=document.variant_id,
                     chunk_id=chunk_id,
                     technology=document.metadata.get("technology"),
+                    technical_data=document.metadata.get("technical_data"),
+                    source=document.metadata.get("source"),
                 )
             )
 

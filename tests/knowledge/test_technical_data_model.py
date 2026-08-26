@@ -130,5 +130,7 @@ def test_existing_products_still_load():
 
     assert len(store.products) > 0
 
+    # Загружаются все продукты; technical_data теперь
+    # заполнен по результатам backfill из PDF.
     for product in store.products:
-        assert product.technical_data is None
+        assert product.name

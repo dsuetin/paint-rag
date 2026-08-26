@@ -6,12 +6,12 @@ from typing import Optional
 from paint_rag.models.product import TechnicalData
 
 
-# Field -> synonymous RU/EN label terms (most specific first).
+# Field -> synonymous RU/EN label terms.
 # Terminology dictionary — not bound to filename/product name.
 _FIELD_LABELS: list[tuple[str, tuple[str, ...]]] = [
     (
         "gloss",
-        ("степень блеска", "степеньглянца", "блеск", "gloss"),
+        ("степень блеска", "степеньглянца", "степень глянца", "блеск", "gloss"),
     ),
     (
         "dry_residue",
@@ -85,20 +85,14 @@ _LONG_TEXT_FIELDS = frozenset({"application", "usage", "description"})
 _MAX_WORDS_BEFORE_LABEL = 2
 
 # Разделители между меткой и значением в одной строке.
-_SEPARATOR_RE = re.compile(r"[\s\-–—:,]+")
+_SEPARATORS = " \t-–—:,"
 
-# Строки, начинающие новую характеристику (метка + разделитель).
-_VALUE_ROW_RE = re.compile(
-    r"(степень блеска|степеньглянца|сухой остаток|массовая доля"
-    r"|плотность|вязкость|время жизни|время сушки|время высыхания"
-    r"|срок годности|срок хранения|способ нанесения|нанесение"
-    r"|область применения|назначение|описание)"
-    r"[\s\-–—:,]"
-)
-
-# Строки, «закрывающие» текущее поле.
-_STOP_STRICT = (
-    "примечания",
+# Фразы, «закрывающие» текущее поле (пункты предостережения,
+# примечания, новые разделы).
+_STOP_PHRASES = (
+    "примечание",
+    "применение, эксплуатация",
+    "применение эксплуатация",
     "техника безопасности",
     "пропорции смешивания",
     "отвердитель",
@@ -106,6 +100,8 @@ _STOP_STRICT = (
     "дополнительная информация",
     "рекомендованный расход",
     "рекомендованное количество",
+    "рекомендуемый расход",
+    "рекомендуемое количество",
     "паспорт",
     "безопасность",
     "тщательно перемешать",
@@ -119,7 +115,13 @@ _STOP_STRICT = (
     "альтернативный отвердитель",
     "источник",
     "производитель",
+    "ооо",
 )
+
+# Значение может содержать слова (например «до 12 часов»),
+# но НЕ может содержать цифру после двоеточия, когда метка
+# разбита на строки.
+_LEADING_NUM_RE = re.compile(r"^\s*-?(\s*|\d)")
 
 
 # ------------------------------------------------------------------
@@ -151,39 +153,84 @@ def _is_heading(line: str) -> bool:
     return all(c.isupper() for c in letters)
 
 
-def _is_stop_line(line: str) -> bool:
-    low = line.lower().strip()
-
-    if not low:
-        return True
-
-    if _is_bullet(line):
-        return True
-
-    # Заголовок определяется по регистру, поэтому проверяем исходную строку.
-    if _is_heading(line.strip()):
-        return True
-
-    if any(low.startswith(stop) for stop in _STOP_STRICT):
-        return True
-
-    if _VALUE_ROW_RE.search(low):
-        return True
-
+def _contains_label(line: str) -> bool:
+    low = line.lower()
+    for _field, labels in _FIELD_LABELS:
+        for label in labels:
+            if label in low:
+                return True
     return False
 
 
+def _is_stop_line(line: str) -> bool:
+    low = line.lower().strip(" \t")
+    if not low:
+        return True
+    if _is_bullet(line):
+        return True
+    # Заголовок определяется по регистру, поэтому проверяем исходную строку.
+    if _is_heading(line.strip()):
+        return True
+    if any(low.startswith(stop) for stop in _STOP_PHRASES):
+        return True
+    if _contains_label(line):
+        return True
+    return False
+
+
+_LABEL_SEPARATORS = " \t-–—:,"
+
+
+def _label_starts_line(line: str, label: str) -> bool:
+    low = line.lower()
+    idx = low.find(label.lower())
+    if idx == -1:
+        return False
+    if idx == 0:
+        return True
+    return low[idx - 1] in _LABEL_SEPARATORS
+
+
+def _next_label_boundary(line: str, start: int) -> int:
+    """Позиция следующей метки характеристики внутри строки
+    (после start), или -1.  Используется, чтобы не забирать
+    соседние поля в одно значение («...48±2%. Плотность - 1,10...»)."""
+    low = line.lower()
+    boundary = -1
+    for _field, labels in _FIELD_LABELS:
+        for label in labels:
+            for search in (low[start:], low):
+                offset = start if search is low[start:] else 0
+                rest = search.find(label.lower())
+                if rest == -1:
+                    continue
+                pos = offset + rest
+                if pos < start:
+                    continue
+                # Метка начинается новое слово: перед ней пробел,
+                # пунктуация или тире («...±2%. Плотность - ...»).
+                if pos > 0 and low[pos - 1] not in " \t.,:;–—-":
+                    continue
+                if boundary == -1 or pos < boundary:
+                    boundary = pos
+                break
+    return boundary
+
+
 def _match_label(line: str) -> Optional[tuple[str, str]]:
+    """Метку считаем подходящей только если она начинается строку
+    (или идёт после разделителя).  Это отличает строку-характеристику
+    от термина внутри прозы — например, «время высыхания» внутри
+    фразы «Время высыхания или полировки ...»."""
     low = line.lower()
     best: Optional[tuple[str, str]] = None
     best_len = -1
 
     for field, labels in _FIELD_LABELS:
         for label in labels:
-            idx = low.find(label.lower())
-            if idx == -1:
+            if not _label_starts_line(line, label):
                 continue
-            if _word_count_before(line, idx) > _MAX_WORDS_BEFORE_LABEL:
+            if _word_count_before(line, low.find(label.lower())) > _MAX_WORDS_BEFORE_LABEL:
                 continue
             if len(label) > best_len:
                 best_len = len(label)
@@ -202,14 +249,20 @@ def _inline_value(line: str, label: str) -> Optional[str]:
     if idx == -1:
         return None
 
-    after = line[idx + len(label):]
-    stripped = _SEPARATOR_RE.sub("", after, count=1)
+    value_start = idx + len(label)
+
+    # Значение обрывается на следующей метке характеристики
+    # («Сухой остаток - 48±2%. Плотность - 1,10...»).
+    boundary = _next_label_boundary(line, value_start)
+    if boundary != -1:
+        after = line[value_start:boundary]
+    else:
+        after = line[value_start:]
+
+    # «Вязкость смеси Din 4:» -> значения нет.
+    stripped = after.lstrip(_SEPARATORS)
 
     if not stripped:
-        return None
-
-    # «Вязкость смеси Din 4:» / «Нанесение:» -> значения в этой строке нет.
-    if stripped.endswith(":"):
         return None
 
     # «Время сушки при 23оС: до 12 часов» -> «до 12 часов».
@@ -219,72 +272,78 @@ def _inline_value(line: str, label: str) -> Optional[str]:
     if not stripped:
         return None
 
-    if stripped.endswith((".", ",")):
+    stripped = stripped.strip()
+
+    if stripped and stripped[-1] in (".", ","):
         stripped = stripped[:-1].strip()
 
     return stripped or None
 
 
-def _label_continues(lines: list[str], index: int, label: str | None = None) -> bool:
-    """Метка разбита на несколько строк.
-
-    Признак: значения в строке метки нет, а следующая строка
-    заканчивается двоеточием и сама не является строкой-характеристикой.
-    """
-    if label is not None and _inline_value(lines[index], label) is not None:
-        return False
-
-    nxt = index + 1
-    if nxt >= len(lines):
-        return False
-
-    if not lines[nxt].rstrip().endswith(":"):
-        return False
-
-    return _match_label(lines[nxt]) is None
+def _has_digit(value: str) -> bool:
+    return any(c.isdigit() for c in value)
 
 
-def _next_value_index(lines: list[str], index: int) -> Optional[int]:
-    """Индекс первой строки со значением, пропуская продолжение метки."""
-    j = index + 1
-    while j < len(lines) and lines[j].rstrip().endswith(":"):
-        j += 1
-
-    if j >= len(lines):
-        return None
-
-    if _is_stop_line(lines[j]):
-        return None
-
-    return j
-
-
-def _capture_short(lines: list[str], index: int, label: str) -> Optional[str]:
-    # 1) Значение в той же строке.
+def _capture_short(lines: list[str], index: int, field: str, label: str) -> Optional[str]:
     inline = _inline_value(lines[index], label)
 
-    # 2) Метка разбита на несколько строк: берём значение после последней
-    #    строки с двоеточием.
-    if _label_continues(lines, index, label):
-        value_idx = _next_value_index(lines, index)
-        if value_idx is not None:
-            return _norm(lines[value_idx])
-        if inline is not None:
-            return _norm(inline)
-        return None
-
-    # 3) Иначе — значение либо в строке метки, либо на следующей строке.
-    if inline is not None:
+    # Хэштег (короткое) значение всегда содержит число/единицу
+    # («54±2%», «3 часа», «от 12 месяцев»).  Если после метки стоит
+    # только фрагмент прозы («или полировки»), это продолжение
+    # самой метки, а не значение.
+    if inline is not None and _has_digit(inline):
         return _norm(inline)
 
-    value_idx = _next_value_index(lines, index)
-    if value_idx is not None:
-        return _norm(lines[value_idx])
+    # Метка без значения в строке. Варианты:
+    #   «Вязкость смеси Din 4:»
+    #   «70±10»
+    #   «Время высыхания или полировки
+    #    после нанесения второго слоя:
+    #    24 часа»
+    # Блок значения — подряд стоящие строки без цифр и без
+    # стоп-признаков, оканчивающиеся строкой с цифрой.
+    j = index + 1
+    block: list[str] = []
+    value: Optional[str] = None
 
-    return None
+    while j < len(lines):
+        line = lines[j]
+
+        # Строка, оканчивающаяся двоеточием — продолжение метки,
+        # а не значение.  Значения стоят на следующей строке.
+        if line.rstrip().endswith(":"):
+            block.append(line)
+            j += 1
+            continue
+
+        if _is_stop_line(line):
+            break
+
+        if _LEADING_NUM_RE.match(line):
+            candidate = _norm(line)
+            if candidate.endswith((".", ",")):
+                candidate = candidate.rstrip(".,").strip()
+            if candidate:
+                value = candidate
+            break
+
+        block.append(line)
+        j += 1
+
+        if len(block) > 6:
+            break
+
+    if value is None:
+        # Значение могло быть на строке сразу после блока метки
+        # без двоеточия-разделителя.
+        j2 = index + 1 + len(block)
+        if j2 < len(lines) and _LEADING_NUM_RE.match(lines[j2]):
+            value = _norm(lines[j2])
+
+    return value
 
 
-def _capture_long(lines: list[str], index: int, label: str) -> Optional[str]:
+def _capture_long(lines: list[str], index: int, field: str, label: str) -> Optional[str]:
     """Текстовое поле: метка + (необязательно) значение в строке +
     дописывание соседних строк до первого стоп-условия (заголовок,
     новая характеристика, пункт предостережения)."""
@@ -297,19 +356,16 @@ def _capture_long(lines: list[str], index: int, label: str) -> Optional[str]:
 
     j = index + 1
 
-    cap = 3
+    while j < len(lines):
+        line = lines[j]
 
-    while j < len(lines) and len(parts) < (3 if inline is None else cap + 1):
-        if _is_stop_line(lines[j]):
+        if _is_stop_line(line):
             break
-        if _label_continues(lines, j):
-            break
-        parts.append(lines[j])
+
+        parts.append(line)
         j += 1
-        if len(parts) >= 3:
-            break
 
-    value = " ".join(parts)
+    value = " ".join(p for p in parts if p)
     return _norm(value) or None
 
 
@@ -334,9 +390,9 @@ def extract_technical_data(text: str) -> TechnicalData:
             continue
 
         if field in _LONG_TEXT_FIELDS:
-            value = _capture_long(lines, index, label)
+            value = _capture_long(lines, index, field, label)
         else:
-            value = _capture_short(lines, index, label)
+            value = _capture_short(lines, index, field, label)
 
         if value:
             setattr(data, field, value)

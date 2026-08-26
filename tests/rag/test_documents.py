@@ -57,10 +57,60 @@ def test_document_to_chunks():
 
     chunks = document_to_chunks(documents[0])
 
-    assert len(chunks) == 1
+    assert len(chunks) >= 1
 
-    chunk = chunks[0]
+    first = chunks[0]
 
-    assert chunk.text == documents[0].text
-    assert chunk.product == "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ"
-    assert chunk.article == "PA334-9016"
+    assert first.product == "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ"
+    assert first.article == "PA334-9016"
+    assert first.chunk_id == 0
+
+    # Все чанки несут article и product (не теряется при chunking).
+    for ch in chunks:
+        assert ch.product == "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ"
+        assert ch.article == "PA334-9016"
+
+    # Технический данных попадает в текст документа.
+    td = product.technical_data
+    if td is not None:
+        assert (
+            "Технические характеристики" in documents[0].text
+        )
+
+
+def test_document_carries_technical_data():
+    store = ProductStore.from_json(DATA)
+
+    product = store.get_by_article("PA334-9016")
+    assert product is not None
+    assert product.technical_data is not None
+
+    docs = product_to_documents(product)
+    doc = docs[0]
+    assert doc.metadata.get("technical_data") is not None
+    assert "Сухой остаток" in doc.text
+
+    chunks = doc.chunks
+    assert chunks
+    for ch in chunks:
+        assert ch.technical_data is not None
+        assert ch.technical_data == doc.metadata["technical_data"]
+
+
+def test_document_carries_source_metadata():
+    store = ProductStore.from_json(DATA)
+
+    product = store.get_by_article("PA334-9016")
+    assert product is not None
+
+    docs = product_to_documents(product)
+    doc = docs[0]
+
+    # metadata.source не теряется при конвертации Product -> Document.
+    source = doc.metadata.get("source")
+    assert source is not None
+    assert "row" in source
+
+    for ch in doc.chunks:
+        assert ch.source is not None
+        assert "row" in ch.source

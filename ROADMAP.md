@@ -19,30 +19,31 @@
 - [ ] consumption extraction
 - [ ] layers extraction
 - [ ] drying extraction
-- [ ] technical data extraction
-- [ ] source/page tracking
+- [x] technical data extraction
+- [x] source/page tracking
 
 ## Phase 3 — Documents
 
 - [x] Product → Document
 - [x] Document → Chunk
-- [ ] улучшить metadata
-- [ ] source tracking
+- [x] улучшить metadata (technical_data + source в Document/Chunk)
+- [x] source tracking (ProductSource.file/page, сохранение через Chunk)
 
 ## Phase 4 — Retrieval
 
-- [ ] embedding interface
-- [ ] embedding implementation
-- [ ] local vector store
-- [ ] indexing
-- [ ] semantic search
-- [ ] metadata filtering
+- [x] embedding interface
+- [x] embedding implementation (FakeEmbeddingProvider)
+- [x] local vector store (+ save/load JSON)
+- [x] indexing
+- [x] semantic search
+- [x] metadata filtering (article/product/technology, AND)
+- [x] адаптер между EmbeddingModel и EmbeddingProvider
 - [ ] hybrid retrieval
 
 ## Phase 5 — RAG
 
-- [ ] context builder
-- [ ] prompt
+- [x] context builder
+- [x] prompt
 - [ ] LLM interface
 - [ ] answer generation
 - [ ] source citations

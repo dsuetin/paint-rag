@@ -16,7 +16,8 @@ class Document(BaseModel):
     chunks: list["Chunk"] = Field(
         default_factory=list
     )
-    
+
+
 class Chunk(BaseModel):
     id: str
     text: str
@@ -25,3 +26,5 @@ class Chunk(BaseModel):
     article: str | None = None
     chunk_id: int
     technology: str | None = None
+    technical_data: dict[str, Any] | None = None
+    source: dict[str, Any] | None = None

@@ -147,6 +147,9 @@ class ProductSource(BaseModel):
     sheet: str
     row: int
 
+    file: Optional[str] = None
+    page: Optional[int] = None
+
 class ProductVariant(BaseModel):
     variant_id: int
 
