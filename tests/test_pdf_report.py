@@ -344,3 +344,164 @@ def test_format_answer_text_escapes_html():
     out = format_answer_text("a < b & c > d")
     assert "&lt;" in out and "&amp;" in out
     assert "< b" not in out
+
+
+# ----------------------------------------------------------------------
+# Источники: metadata → кликабельные PDF-ссылки (новые)
+# ----------------------------------------------------------------------
+
+
+def _mk_tmp_sources(tmp_path: Path, names) -> tuple[Path, list[dict]]:
+    """Создать в ``tmp_path`` файлы-источники и вернуть ``(dir, sources)``."""
+    d = tmp_path / "knowledge"
+    d.mkdir(parents=True, exist_ok=True)
+    sources = []
+    for name, page in names:
+        (d / name).write_bytes(b"%PDF-1.4 fake")
+        sources.append({"file": name, "page": page})
+    return d, sources
+
+
+def _link_uris(pdf_path: Path) -> list[str]:
+    import pypdf
+
+    uris = []
+    for pg in pypdf.PdfReader(str(pdf_path)).pages:
+        for a in (pg.get("/Annots") or []):
+            obj = a.get_object()
+            if obj.get("/Subtype") != "/Link":
+                continue
+            act = obj.get("/A")
+            if act is None:
+                continue
+            uri = act.get("/URI")
+            if uri is not None:
+                uris.append(str(uri))
+    return uris
+
+
+def test_source_metadata_rendered(tmp_path: Path):
+    """Test 1: source.pdf / «стр. 1» из metadata попадают в PDF."""
+    d, sources = _mk_tmp_sources(tmp_path, [("source.pdf", 1)])
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = sources
+    out = tmp_path / "t1.pdf"
+    generate_pdf_report(payload, out, source_dirs=(d,))
+    text = _extract_text(out)
+    assert "source.pdf" in text
+    assert "стр. 1" in text
+    assert "Источники" in text
+
+
+def test_source_clickable_link_annotation(tmp_path: Path):
+    """Test 2: PDF содержит настоящую hyperlink annotation (/URI)."""
+    d, sources = _mk_tmp_sources(tmp_path, [("source.pdf", 1)])
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = sources
+    out = tmp_path / "t2.pdf"
+    generate_pdf_report(payload, out, source_dirs=(d,))
+    uris = _link_uris(out)
+    assert len(uris) == 1
+    assert uris[0].startswith("file://")
+    assert "source.pdf" in uris[0]
+
+
+def test_source_uri_points_to_real_file(tmp_path: Path):
+    """Test 3: hyperlink указывает именно на созданный tmp/source.pdf."""
+    d, sources = _mk_tmp_sources(tmp_path, [("source.pdf", 1)])
+    real_file = d / "source.pdf"
+    assert real_file.is_file()
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = sources
+    out = tmp_path / "t3.pdf"
+    generate_pdf_report(payload, out, source_dirs=(d,))
+    uris = _link_uris(out)
+    assert uris, "нет ни одной hyperlinks-ссылки"
+    from urllib.parse import urlparse
+
+    parsed = urlparse(uris[0])
+    assert parsed.scheme == "file"
+    target = Path(parsed.path)
+    assert target.resolve() == real_file.resolve()
+
+
+def test_multiple_sources_all_present(tmp_path: Path):
+    """Test 4: обе ссылки source1.pdf и source2.pdf существуют."""
+    d, sources = _mk_tmp_sources(
+        tmp_path, [("source1.pdf", 1), ("source2.pdf", 2)]
+    )
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = sources
+    out = tmp_path / "t4.pdf"
+    generate_pdf_report(payload, out, source_dirs=(d,))
+    text = _extract_text(out)
+    uris = _link_uris(out)
+    assert "source1.pdf" in text
+    assert "source2.pdf" in text
+    assert len(uris) == 2
+
+
+def test_duplicate_sources_shown_once(tmp_path: Path):
+    """Test 5: source.pdf page 1 трижды → одна ссылка."""
+    d, _ = _mk_tmp_sources(tmp_path, [("source.pdf", 1)])
+    sources = [{"file": "source.pdf", "page": 1}] * 3
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = sources
+    out = tmp_path / "t5.pdf"
+    generate_pdf_report(payload, out, source_dirs=(d,))
+    text = _extract_text(out)
+    assert text.count("source.pdf") == 1
+    assert len(_link_uris(out)) == 1
+
+
+def test_no_sources_still_generates(tmp_path: Path):
+    """Test 6: sources=[] → PDF без ссылок и без SOURCE-якорей."""
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = []
+    out = tmp_path / "t6.pdf"
+    generate_pdf_report(payload, out)
+    assert out.stat().st_size > 0
+    text = _extract_text(out)
+    assert "SOURCE" not in text
+    assert "#source" not in text
+    assert _link_uris(out) == []
+
+
+def test_llm_fake_source_not_linked(tmp_path: Path):
+    """Test 7: «Источник: fake-file.pdf» без metadata НЕ становится ссылкой."""
+    payload = _fake_runs_payload(1)
+    rec = payload["questions"][0]
+    rec["sources"] = []
+    rec["answer"] = "Ответ. Источник: fake-file.pdf"
+    out = tmp_path / "t7.pdf"
+    generate_pdf_report(payload, out)
+    assert _link_uris(out) == []
+    text = _extract_text(out)
+    assert "SOURCE" not in text
+    # название не превратилось в активную ссылку
+    for u in _link_uris(out):
+        assert "fake-file.pdf" not in u
+
+
+def test_source_not_on_disk_not_linked(tmp_path: Path):
+    """Файл из metadata отсутствует на диске → только текст, без ссылки."""
+    payload = _fake_runs_payload(1)
+    payload["questions"][0]["sources"] = [
+        {"file": "absent.pdf", "page": 1}
+    ]
+    out = tmp_path / "t8.pdf"
+    generate_pdf_report(payload, out)
+    text = _extract_text(out)
+    assert "absent.pdf" in text  # показывается как текст
+    assert _link_uris(out) == []  # но ссылкой не стала
+
+
+def test_strip_source_anchors():
+    """Markdown-якоря SOURCE-ссылок убираются из клиентского текста."""
+    from evaluation.pdf_report import _strip_source_references as strip
+
+    assert "SOURCE" not in strip("Источник: [SOURCE 1](#source1).")
+    assert "#source" not in strip("См. [SOURCE 2](#source2).")
+    assert "SOURCE" not in strip("Данные из SOURCE 1.")
+    # содержательный текст без источника не повреждается
+    assert strip("Нормальный ответ про МДФ.") == "Нормальный ответ про МДФ."
