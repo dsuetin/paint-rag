@@ -31,6 +31,30 @@ def _norm_code(value: str) -> str:
     return re.sub(r"[\s\-_.]+", "", value).lower()
 
 
+def _levenshtein(a: str, b: str) -> int:
+    """Расстояние Левенштейна (edit distance) — общее, без привязки к
+    конкретным артикулам."""
+    if a == b:
+        return 0
+    if len(a) < len(b):
+        a, b = b, a
+    if not a:
+        return len(b)
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, start=1):
+        cur = [i]
+        for j, cb in enumerate(b, start=1):
+            cur.append(
+                min(
+                    prev[j] + 1,
+                    cur[j - 1] + 1,
+                    prev[j - 1] + (ca != cb),
+                )
+            )
+        prev = cur
+    return prev[-1]
+
+
 def _is_code(token: str) -> bool:
     if not token:
         return False
@@ -88,6 +112,13 @@ def detect_article(
 
         if best_key is not None:
             return best_key
+
+        # Точного совпадения нет — пробуем fuzzy-матчинг (опечатка,
+        # например PV21O — буква O вместо цифры 0). Обобщаемый алгоритм
+        # на расстоянии Левенштейна, без привязки к конкретным артикулам.
+        fuzzy_key = _fuzzy_match_article(query, product_store)
+        if fuzzy_key is not None:
+            return fuzzy_key
 
         # Есть store, но известного артикула в вопросе нет —
         # не гадаем, чтобы случайно не отфильтровать валидный результат.
@@ -170,6 +201,76 @@ def _render_chunk_block(index: int, rc: RetrievedChunk) -> str:
     return "\n".join(lines)
 
 
+def _fuzzy_match_article(
+    query: str,
+    product_store: ProductStore,
+    min_similarity: float = 0.6,
+) -> Optional[str]:
+    """Fuzzy-поиск статьи по code-токенам вопроса (расстояние Левенштейна).
+
+    Обобщаемый алгоритм: покрывает опечатки в известном артикуле
+    (например, буква O вместо цифры 0). Без привязки к конкретным
+    продуктам. Возвращает каноническую ``product.article`` лучшего
+    совпадения при сходстве >= ``min_similarity``; иначе ``None``.
+    """
+    # Кандидаты: нормализованные code-строки -> канонический article.
+    candidates: dict[str, str] = {}
+    for product in product_store.all():
+        for code in _product_codes(product):
+            c = _norm_code(code)
+            if not _is_code(c):
+                continue
+            key = product.article or code
+            candidates.setdefault(c, key)
+
+    best: Optional[str] = None
+    best_sim = 0.0
+
+    for token in _ARTICLE_TOKEN_RE.findall(query):
+        if not _is_code(token):
+            continue
+        tn = _norm_code(token)
+        for cand, canonical in candidates.items():
+            dist = _levenshtein(tn, cand)
+            max_len = max(len(tn), len(cand))
+            if max_len == 0:
+                continue
+            sim = (max_len - dist) / max_len
+            if sim > best_sim:
+                best_sim = sim
+                best = canonical
+
+    if best is not None and best_sim >= min_similarity:
+        return best
+    return None
+
+
+def _query_has_unknown_code_token(
+    query: str,
+    product_store: ProductStore | None,
+    min_similarity: float = 0.6,
+) -> bool:
+    """True, если в вопросе есть code-подобный токен, НЕ совпадающий ни с
+    одним известным продуктом (и не похожий ни на один). Признак вопроса
+    о неизвестном продукте → отказ, а не «лучшее соответствие»."""
+    if product_store is None:
+        return False
+    tokens = _ARTICLE_TOKEN_RE.findall(query)
+    code_tokens = [t for t in tokens if _is_code(t)]
+    if not code_tokens:
+        return False
+    q_norm = _norm_code(query)
+    # Фuzzy-совпадение считаем «известным» (это опечатка, а не отказ).
+    if _fuzzy_match_article(query, product_store, min_similarity) is not None:
+        return False
+    for product in product_store.all():
+        for code in _product_codes(product):
+            c = _norm_code(code)
+            if _is_code(c) and c in q_norm:
+                return False
+    return True
+
+
 class ContextBuilder:
     """Собирает контекст для LLM на основе существующего Retriever.
 
@@ -200,6 +301,26 @@ class ContextBuilder:
         # Автосохранение article из вопроса (только если явно не задан).
         if article is None and auto_detect_article:
             article = detect_article(query, self.product_store)
+
+        # Консервативный отказ: вопрос содержит code-токен неизвестного
+        # продукта (не совпадает ни с одним product/alias) и явных фильтров
+        # нет. Refuse ДО обращения к retriever: retrieved chunks были бы
+        # нерелевантными, и LLM не должен отвечать чужими данными.
+        if (
+            auto_detect_article
+            and article is None
+            and product is None
+            and technology is None
+            and self.product_store is not None
+            and _query_has_unknown_code_token(query, self.product_store)
+        ):
+            return ContextResult(
+                query=query,
+                chunks=[],
+                context="",
+                sources=[],
+                has_context=False,
+            )
 
         results: list[RetrievedChunk] = self.retriever.search(
             query=query,

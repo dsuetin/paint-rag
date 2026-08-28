@@ -3,7 +3,22 @@ from typing import Optional
 from pydantic import BaseModel, Field
 import re
 
-class Ratio(BaseModel):
+
+class DictMixin:
+    """Index access на pydantic-модель как на словарь: model['field']."""
+
+    def __getitem__(self, key: str):
+        if key not in type(self).model_fields:
+            raise KeyError(key)
+        return getattr(self, key)
+
+    def get(self, key: str, default=None):
+        if key not in type(self).model_fields:
+            return default
+        return getattr(self, key)
+
+
+class Ratio(DictMixin, BaseModel):
     min: float
     max: float
 
@@ -143,9 +158,9 @@ class VariantSource(BaseModel):
     total_row: Optional[int] = None
 
 
-class ProductSource(BaseModel):
-    sheet: str
-    row: int
+class ProductSource(DictMixin, BaseModel):
+    sheet: Optional[str] = None
+    row: Optional[int] = None
 
     file: Optional[str] = None
     page: Optional[int] = None

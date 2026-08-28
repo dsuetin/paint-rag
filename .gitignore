@@ -7,3 +7,6 @@ __pycache__
 *.tar.gz
 pdf_attachments
 .DS_Store
+# Сгенерированные артефакты (embedding-индексы) — не коммитим в исходники
+data/index/
+data/knowledge/index/

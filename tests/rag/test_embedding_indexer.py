@@ -93,3 +93,53 @@ def test_reindex_updates_embedding():
     indexer.index_all()
     assert embedding_store.get(chunk.id) == [5.0, 5.0]
     assert len(embedding_store) == 1
+
+
+# --- batch indexing -------------------------------------------------
+
+
+class _BatchProvider(EmbeddingProvider):
+    """Provider с batch-методом; считает количество вызовов."""
+
+    def __init__(self) -> None:
+        self.embed_calls = 0
+        self.embed_batch_calls = 0
+
+    def embed(self, text: str) -> list[float]:
+        self.embed_calls += 1
+        return [len(text), 0.0]
+
+    def embed_batch(self, texts: list[str]) -> list[list[float]]:
+        self.embed_batch_calls += 1
+        return [[len(t), i] for i, t in enumerate(texts)]
+
+
+def test_index_many_uses_batch_when_available():
+    chunks = [make_chunk(0, "A"), make_chunk(1, "AB"), make_chunk(2, "ABC")]
+    store = ChunkStore(chunks)
+    provider = _BatchProvider()
+    es = EmbeddingStore()
+    indexer = EmbeddingIndexer(store, provider, es)
+
+    calls = indexer.index_all()
+
+    assert len(es) == 3
+    assert provider.embed_batch_calls == 1
+    assert provider.embed_calls == 0
+    assert calls == 1
+    # порядок сохранён
+    assert es.get("PA334-9016:1:2")[1] == 2.0
+    assert es.get("PA334-9016:1:0")[1] == 0.0
+
+
+def test_index_many_fallback_without_batch():
+    chunks = [make_chunk(0, "A"), make_chunk(1, "AB")]
+    store = ChunkStore(chunks)
+    provider = FakeEmbeddingProvider(8)
+    es = EmbeddingStore()
+    indexer = EmbeddingIndexer(store, provider, es)
+
+    calls = indexer.index_all()
+
+    assert len(es) == 2
+    assert calls == 2  # по одному вызову embed на chunk
