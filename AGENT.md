@@ -97,3 +97,19 @@ PDF могут иметь совершенно разную структуру.
 6. производительность.
 
 Не оптимизировать преждевременно.
+
+## Customer Golden Questions (обязательно)
+
+После существенных изменений RAG (retrieval / embedding / chunking /
+context / prompt / LLM / calculator / knowledge base / PDF ingestion)
+ОБЯЗАТЕЛЬНО:
+
+1. запустить `./.venv/bin/python evaluation/run_customer_questions.py` —
+   сохраняется новый `evaluation/runs/NNN.json` (auto-increment,
+   старые runs НЕ перезаписываются);
+2. сравнить с предыдущим:
+   `./.venv/bin/python evaluation/compare_customer_questions.py`;
+3. сообщить, какие ответы/источники изменились;
+4. отдельно отметить регрессии.
+
+Подробности: `evaluation/README.md`.

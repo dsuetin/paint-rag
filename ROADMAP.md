@@ -100,5 +100,28 @@ ContextBuilder.has_context == False
       retrieval, RAG query time)
 
 Не закрывается полностью:
-- [ ] golden-вопросы / full evaluation-система
-      (benchmark есть, golden-файл нет)
+- [x] golden-вопросы / full evaluation-система
+      (Customer Golden Questions, см. раздел ниже)
+
+## Customer Golden Questions (постоянный evaluation-контур)
+
+- [x] `evaluation/customer_questions.json` — 15 реальных вопросов заказчика;
+- [x] `evaluation/runner.py` — прогон РЕАЛЬНОГО production pipeline
+      (Ollama bge-m3 + qwen3:8b), сохранение `evaluation/runs/NNN.json`
+      (auto-increment, без перезаписи);
+- [x] `evaluation/comparison.py` + CLI — сравнение двух итераций по
+      объективным признакам (answer/has_answer/refusal/sources/products/
+      latency) и детекция регрессий (answer_lost, sources_lost,
+      refusal_appeared, product_swapped) + warning (latency ≥×2);
+- [x] `evaluation/README.md` — правила использования;
+- [x] `tests/test_evaluation.py` — unit-тесты ядра (fake pipeline, без сети).
+
+### Правило для будущих задач
+
+После существенных изменений RAG (retrieval / embedding / chunking /
+context / prompt / LLM / calculator / knowledge base / PDF ingestion)
+ОБЯЗАТЕЛЬНО: запустить Customer Golden Questions → сохранить новый
+`evaluation/runs/NNN.json` → сравнить с предыдущим run → сообщить,
+какие ответы изменились → отдельно отметить регрессии.
+
+Подробности: `evaluation/README.md`.
