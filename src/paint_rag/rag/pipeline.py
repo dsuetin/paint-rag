@@ -75,3 +75,56 @@ def create_rag_pipeline(
     )
 
     return AnswerGenerator(context_builder=builder, llm=llm)
+
+
+def create_calculation_engine(
+    products_path: str | Path = "data/knowledge/products.json",
+    llm: LLM | None = None,
+    retriever: Retriever | None = None,
+    embedding_model=None,
+    *,
+    use_ollama: bool = True,
+):
+    """Собрать полноценный E2E-движок: RAG pipeline + CalculationEngine.
+
+    Возвращает ``(engine, answer_generator)``.
+    """
+    if llm is None:
+        llm = OllamaLLM()
+
+    store = ProductStore.from_json(products_path)
+
+    if retriever is None:
+        if embedding_model is None:
+            if use_ollama:
+                embedding_model = make_real_embedding_model()
+            else:
+                from paint_rag.rag.embedding_adapter import ProviderAsModel
+                from paint_rag.rag.embedding_provider import (
+                    FakeEmbeddingProvider,
+                )
+
+                embedding_model = ProviderAsModel(
+                    FakeEmbeddingProvider(16)
+                )
+
+        vector_store, _ = build_index(store, embedding_model)
+        retriever = Retriever(
+            vector_store=vector_store,
+            embedding_model=embedding_model,
+        )
+
+    builder = ContextBuilder(
+        retriever=retriever,
+        product_store=store,
+    )
+    generator = AnswerGenerator(context_builder=builder, llm=llm)
+
+    from paint_rag.rag.calculation_engine import CalculationEngine
+
+    engine = CalculationEngine(
+        answer_generator=generator,
+        product_store=store,
+        llm=llm,
+    )
+    return engine, generator

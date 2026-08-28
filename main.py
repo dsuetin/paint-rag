@@ -5,9 +5,6 @@ from paint_rag.knowledge.compatibility_store import (
     CompatibilityStore,
 )
 from paint_rag.router import classify_question
-from paint_rag.tools.calculator import (
-    calculate_consumption,
-)
 
 
 PRODUCTS = Path(
@@ -149,13 +146,6 @@ def main():
 
             coverage = variant.coverage.value
 
-            result = calculate_consumption(
-                area_m2=50,
-                layers=2,
-                consumption_min=coverage,
-                consumption_max=coverage,
-            )
-
             print(
                 f"Продукт: "
                 f"{product.name}"
@@ -167,11 +157,9 @@ def main():
             )
 
             print(
-                f"Расход: "
-                f"{result.min_kg:.2f}"
-                f"–"
-                f"{result.max_kg:.2f}"
-                f" кг"
+                f"Расход: {coverage} {variant.coverage.unit} "
+                f"(для полного расчёта с LLM используйте "
+                f"paint_rag.rag.calculation_engine)"
             )
 
         # -------------------------

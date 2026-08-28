@@ -3,6 +3,79 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
+class NoCalculationDataError(ValueError):
+    """У продукта нет данных, достаточных для расчёта
+    (ни ``consumption`` в г/м², ни ``calculation_reference``
+    ни в одном варианте)."""
+
+
+def resolve_consumption(
+    product,
+    *,
+    article: str | None = None,
+) -> float:
+    """Детерминированно извлечь расход продукта в **кг/м² на слой**
+    из его реальных свойств (без участия LLM).
+
+    Приоритет источников (оба — реальные данные Product):
+
+    1. ``product.consumption_min`` / ``consumption_max``
+       + ``consumption_unit == "g_per_m2"``:
+       берём максимум (консервативная оценка расхода);
+    2. ``calculation_reference.base.kg`` у подходящего варианта
+       (``article`` — точное совпадение с article варианта,
+       иначе первый вариант с reference).
+
+    Всё, что не ``g_per_m2`` (``m2_per_kg``, ``ml_per_m2``,
+    ``microns_per_layer`` и т.д.), трактуется как
+    неконвертируемое — для него нет надёжного расчёта.
+
+    :raises NoCalculationDataError: пригодных данных нет.
+    """
+    if (
+        product.consumption_unit == "g_per_m2"
+        and product.consumption_max is not None
+    ):
+        value = product.consumption_max
+    elif (
+        product.consumption_unit == "g_per_m2"
+        and product.consumption_min is not None
+    ):
+        value = product.consumption_min
+    else:
+        value = None
+
+    if value is not None:
+        return value / 1000.0
+
+    variants = product.variants or []
+
+    if article:
+        wanted = article.lower().strip()
+        for variant in variants:
+            if (
+                variant.article
+                and variant.article.lower().strip() == wanted
+            ):
+                variants = [variant]
+                break
+
+    for variant in variants:
+        reference = variant.calculation_reference
+        if reference is None or reference.base is None:
+            continue
+        if reference.base.kg is None:
+            raise NoCalculationDataError(
+                "calculation_reference.base.kg отсутствует"
+            )
+        return float(reference.base.kg)
+
+    raise NoCalculationDataError(
+        "У продукта нет расхода в г/м² и нет "
+        "calculation_reference"
+    )
+
+
 @dataclass
 class ComponentResult:
     kg: float
