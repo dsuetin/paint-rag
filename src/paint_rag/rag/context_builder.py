@@ -4,6 +4,7 @@ import re
 from typing import Optional
 
 from paint_rag.knowledge.product_store import ProductStore
+from paint_rag.knowledge.systems_store import SystemsStore
 from paint_rag.rag.context_result import ContextResult, ContextSource
 from paint_rag.rag.retriever import Retriever, RetrievedChunk
 
@@ -77,6 +78,154 @@ def _product_codes(product) -> list[str]:
     return codes
 
 
+def _detect_substrate_from_query(query: str) -> Optional[str]:
+    """Detect substrate from query text.
+    
+    Uses normalized substrate names from SystemsStore.
+    Returns normalized substrate name or None if cannot be determined.
+    
+    Examples:
+        "МДФ" -> "mdf"
+        "дверь" -> "door"
+        "терраса" -> "terrace"
+        "шпон" -> "veneer"
+        "массив" -> "wood_solid"
+    """
+    if not query:
+        return None
+    
+    query_lower = query.lower()
+    
+    # Substrate mappings - ordered by specificity (materials first, then objects)
+    # Material substrates (mdf, veneer, wood_solid) should take priority
+    # over object types (door, furniture, table) when both are present
+    substrate_mappings = [
+        # Material substrates (highest priority)
+        ('мдф', 'mdf'),
+        ('шпонир', 'veneer'),
+        ('шпон', 'veneer'),
+        ('массив', 'wood_solid'),
+        ('бревн', 'log'),
+        # Complex object substrates
+        ('столешниц', 'table_table_top'),
+        ('лестниц', 'stair'),
+        ('террас', 'terrace'),
+        ('паркет', 'parquet'),
+        ('игрушк', 'child_furniture'),
+        ('детска', 'child_furniture'),
+        # Simple object substrates
+        ('окон', 'window'),
+        ('окна', 'window'),
+        ('окно', 'window'),
+        ('двер', 'door'),
+        ('стол', 'table'),
+        ('стул', 'chair'),
+        ('кухонн', 'kitchen'),
+        ('фасад', 'furniture'),  # кухонные фасады
+        ('мебель', 'furniture'),
+    ]
+    
+    for keyword, normalized in substrate_mappings:
+        if keyword in query_lower:
+            return normalized
+    
+    return None  # Cannot determine substrate
+
+
+def _detect_application_scope_from_query(query: str) -> Optional[str]:
+    """Detect application scope (INTERIOR/EXTERIOR) from query text.
+    
+    Returns:
+        "INTERIOR" - if query clearly indicates interior use
+        "EXTERIOR" - if query clearly indicates exterior use
+        None - if scope cannot be determined from query
+    """
+    if not query:
+        return None
+    
+    query_lower = query.lower()
+    
+    # Strong exterior indicators (take priority)
+    strong_exterior = [
+        'уличн', 'наружн', 'фасад', 'террас', 'внешн',
+        'exterior', 'outdoor'
+    ]
+    
+    # Strong interior indicators
+    strong_interior = [
+        'внутри', 'интерьер', 'в помещении', 'в комнате',
+        'детска', 'внутренн'
+    ]
+    
+    # Weaker indicators (only used if no strong indicators)
+    weak_interior = [
+        'мебель', 'паркет', 'игрушк'
+    ]
+    
+    has_strong_exterior = any(kw in query_lower for kw in strong_exterior)
+    has_strong_interior = any(kw in query_lower for kw in strong_interior)
+    has_weak_interior = any(kw in query_lower for kw in weak_interior)
+    
+    # Strong exterior takes priority
+    if has_strong_exterior:
+        return "EXTERIOR"
+    
+    # Strong interior
+    if has_strong_interior:
+        return "INTERIOR"
+    
+    # Weak interior only if no exterior
+    if has_weak_interior and not has_strong_exterior:
+        return "INTERIOR"
+    
+    return None  # Ambiguous or not specified
+
+
+def _filter_chunks_by_scope(
+    chunks: list[RetrievedChunk],
+    required_scope: Optional[str]
+) -> list[RetrievedChunk]:
+    """Filter chunks by application scope.
+    
+    Args:
+        chunks: Retrieved chunks
+        required_scope: "INTERIOR" or "EXTERIOR" from query
+        
+    Returns:
+        Filtered chunks that match the scope requirements:
+        - If required_scope is INTERIOR: keep INTERIOR and BOTH
+        - If required_scope is EXTERIOR: keep EXTERIOR and BOTH
+        - If required_scope is None: keep all chunks
+        - UNKNOWN scope chunks are always kept (no documentation = can't filter)
+    """
+    if not required_scope:
+        return chunks  # No filtering needed
+    
+    filtered = []
+    for rc in chunks:
+        chunk_scope = rc.chunk.application_scope
+        
+        # UNKNOWN or None scope - keep (can't filter without documentation)
+        if chunk_scope is None or chunk_scope == "UNKNOWN":
+            filtered.append(rc)
+            continue
+        
+        # BOTH scope - always compatible
+        if chunk_scope == "BOTH":
+            filtered.append(rc)
+            continue
+        
+        # Exact match
+        if chunk_scope == required_scope:
+            filtered.append(rc)
+            continue
+        
+        # EXTERIOR product for INTERIOR query - exclude
+        # INTERIOR product for EXTERIOR query - exclude
+    
+    return filtered
+
+
 def detect_article(
     query: str,
     product_store: ProductStore | None = None,
@@ -148,6 +297,12 @@ def _to_context_source(rc: RetrievedChunk) -> ContextSource:
         file=src.get("file"),
         page=int(page) if page is not None else None,
         score=rc.score,
+        doc_type=rc.chunk.doc_type or src.get("doc_type"),
+        title=rc.chunk.title or src.get("title"),
+        sheet=src.get("sheet"),
+        section=src.get("section"),
+        system_derived=src.get("system_derived", False),
+        system_names=src.get("system_names", []),
     )
 
 
@@ -158,13 +313,21 @@ def _format_source_line(index: int) -> str:
 def _render_chunk_block(index: int, rc: RetrievedChunk) -> str:
     lines = [_format_source_line(index)]
 
-    lines.append(f"Product: {rc.chunk.product}")
+    is_standalone = rc.chunk.doc_type == "standalone"
 
-    if rc.chunk.article:
-        lines.append(f"Article: {rc.chunk.article}")
+    if is_standalone:
+        # Standalone-документ — это не Product: показываем Title и
+        # полный provenance (file + page/sheet), без Product/Article.
+        if rc.chunk.title:
+            lines.append(f"Title: {rc.chunk.title}")
+    else:
+        lines.append(f"Product: {rc.chunk.product}")
 
-    if rc.chunk.technology:
-        lines.append(f"Technology: {rc.chunk.technology}")
+        if rc.chunk.article:
+            lines.append(f"Article: {rc.chunk.article}")
+
+        if rc.chunk.technology:
+            lines.append(f"Technology: {rc.chunk.technology}")
 
     lines.append(f"Retrieval score: {rc.score:g}")
 
@@ -176,6 +339,9 @@ def _render_chunk_block(index: int, rc: RetrievedChunk) -> str:
             page = src.get("page")
             if page is not None:
                 source_bits.append(f"page {page}")
+            sheet = src.get("sheet")
+            if sheet is not None:
+                source_bits.append(f"sheet {sheet}")
             lines.append("Source: " + ", ".join(source_bits))
         elif src.get("sheet") is not None:
             lines.append(f"Source: {src.get('sheet')}")
@@ -282,14 +448,16 @@ class ContextBuilder:
         self,
         retriever: Retriever,
         product_store: ProductStore | None = None,
+        systems_store: SystemsStore | None = None,
     ) -> None:
         self.retriever = retriever
         self.product_store = product_store
+        self.systems_store = systems_store
 
     def build(
         self,
         query: str,
-        top_k: int = 5,
+        top_k: int = 15,
         article: str | None = None,
         product: str | None = None,
         technology: str | None = None,
@@ -297,6 +465,10 @@ class ContextBuilder:
         max_chars: int | None = None,
         *,
         auto_detect_article: bool = True,
+        use_hybrid: bool = True,
+        semantic_weight: float = 1.0,
+        lexical_weight: float = 1.5,
+        use_systems: bool = True,
     ) -> ContextResult:
         # Автосохранение article из вопроса (только если явно не задан).
         if article is None and auto_detect_article:
@@ -322,15 +494,41 @@ class ContextBuilder:
                 has_context=False,
             )
 
-        results: list[RetrievedChunk] = self.retriever.search(
-            query=query,
-            top_k=top_k,
-            article=article,
-            product=product,
-            technology=technology,
-        )
+        # Semantic retrieval
+        if use_hybrid:
+            semantic_results: list[RetrievedChunk] = self.retriever.search_hybrid(
+                query=query,
+                top_k=top_k,
+                article=article,
+                product=product,
+                technology=technology,
+                semantic_weight=semantic_weight,
+                lexical_weight=lexical_weight,
+            )
+        else:
+            semantic_results = self.retriever.search(
+                query=query,
+                top_k=top_k,
+                article=article,
+                product=product,
+                technology=technology,
+            )
 
-        results = _dedupe_by_id(results)
+        # System-based retrieval (structured candidates)
+        system_results: list[RetrievedChunk] = []
+        if use_systems and self.systems_store is not None:
+            system_results = self._get_system_chunks(query, top_k)
+
+        # Merge: system results get higher priority (prepended)
+        all_results = system_results + semantic_results
+
+        # Deduplicate by chunk id (keep first occurrence = system priority)
+        results = _dedupe_by_id(all_results)
+
+        # Filter by application scope if query indicates interior/exterior
+        required_scope = _detect_application_scope_from_query(query)
+        if required_scope:
+            results = _filter_chunks_by_scope(results, required_scope)
 
         blocks = [
             _render_chunk_block(index, rc)
@@ -357,6 +555,71 @@ class ContextBuilder:
             sources=sources,
             has_context=bool(used_chunks),
         )
+
+    def _get_system_chunks(
+        self,
+        query: str,
+        top_k: int
+    ) -> list[RetrievedChunk]:
+        """Get chunks from coating systems matching the query substrate.
+        
+        Returns system-derived chunks with provenance metadata.
+        """
+        from paint_rag.knowledge.systems_store import normalize_substrate
+        
+        # Detect substrate from query
+        substrate = _detect_substrate_from_query(query)
+        if not substrate:
+            return []
+        
+        # Normalize substrate
+        normalized = normalize_substrate(substrate)
+        if not normalized:
+            return []
+        
+        # Find matching systems
+        matching_systems = self.systems_store.find_by_substrate(normalized)
+        if not matching_systems:
+            return []
+        
+        # Collect chunk IDs from system products
+        system_chunk_ids = set()
+        for system in matching_systems:
+            for layer in (system.layers or []):
+                if layer.article:
+                    system_chunk_ids.add(layer.article)
+                # Also match by product name if article not available
+                if layer.name and self.product_store:
+                    for product in self.product_store.all():
+                        if layer.name.lower() in product.name.lower():
+                            if product.article:
+                                system_chunk_ids.add(product.article)
+        
+        if not system_chunk_ids:
+            return []
+        
+        # Retrieve chunks for system products
+        system_chunks = []
+        for article in system_chunk_ids:
+            chunks = self.retriever.search(
+                query=query,
+                top_k=top_k // max(len(system_chunk_ids), 1),
+                article=article,
+            )
+            for rc in chunks:
+                # Add system provenance to source
+                if not rc.chunk.source:
+                    rc.chunk.source = {}
+                rc.chunk.source['system_derived'] = True
+                rc.chunk.source['system_names'] = [
+                    s.name for s in matching_systems 
+                    if any(l.article == article or 
+                           (l.name and article in (l.name or '')) 
+                           for l in (s.layers or []))
+                ]
+            system_chunks.extend(chunks)
+        
+        return system_chunks
 
 
 def _dedupe_by_id(

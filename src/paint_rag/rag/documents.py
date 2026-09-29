@@ -1,7 +1,132 @@
 from typing import Optional
 
 from paint_rag.models.document import Document, Chunk
-from paint_rag.models.product import Product
+from paint_rag.models.product import Product, ApplicationLayer
+from paint_rag.models.product_relation import (
+    ProductRelation,
+    RelationAlternative,
+    RelationSource,
+)
+
+
+def _render_relation_source(
+    source: RelationSource,
+) -> Optional[str]:
+    bits: list[str] = []
+    if source.file:
+        bits.append(source.file)
+    if source.page is not None:
+        bits.append(f"стр. {source.page}")
+    if source.sheet:
+        bits.append(source.sheet)
+    if source.row is not None:
+        bits.append(f"строка {source.row}")
+    if bits:
+        return "; ".join(bits)
+    return None
+
+
+def _render_compatibility_block(
+    relations: list[ProductRelation],
+) -> list[str]:
+    if not relations:
+        return [
+            "Совместимость: "
+            "документированных подтверждённых связей не найдено "
+            "(UNKNOWN; отсутствие связи не означает запрет)"
+        ]
+    lines = [
+        "Совместимость "
+        "(только задокументированные связи, каждая с источником):"
+    ]
+    for rel in relations:
+        label = (
+            "CONFIRMED (совместимо)"
+            if rel.status == "CONFIRMED"
+            else "FORBIDDEN (несовместимо/запрещено)"
+        )
+        line = f"- [{label}] base: {rel.base} -> top: {rel.top}"
+        if rel.base_product or rel.top_product:
+            names = " / ".join(
+                n for n in (rel.base_product, rel.top_product) if n
+            )
+            if names:
+                line += f" ({names})"
+        if rel.reason:
+            line += f" Причина: {rel.reason}"
+        if rel.conditions:
+            line += f" Условия: {'; '.join(rel.conditions)}"
+        src = _render_relation_source(rel.source)
+        if src:
+            line += f" Источник: {src}"
+        if rel.alternatives:
+            alt_bits = [
+                f"{a.ref}" + (f" ({a.role})" if a.role else "")
+                for a in rel.alternatives
+            ]
+            line += f" Альтернативы: {', '.join(alt_bits)}"
+        lines.append(line)
+    return lines
+
+
+def _render_alternatives_block(
+    alternatives: list[RelationAlternative],
+) -> list[str]:
+    if not alternatives:
+        return []
+    lines = [
+        "Альтернативы компонентов "
+        "(«или» в рецептуре, это не coating-compatibility):"
+    ]
+    for alt in alternatives:
+        line = f"- {alt.ref}"
+        if alt.role:
+            line += f" (роль: {alt.role})"
+        if alt.note:
+            line += f" Комментарий: {alt.note}"
+        lines.append(line)
+    return lines
+
+
+def _product_relation_payload(
+    relations: list[ProductRelation],
+) -> list[dict]:
+    return [rel.model_dump() for rel in relations]
+
+
+def _alternative_payload(
+    alternatives: list[RelationAlternative],
+) -> list[dict]:
+    return [alt.model_dump() for alt in alternatives]
+
+
+def _render_application_order(
+    order: list[ApplicationLayer],
+) -> list[str]:
+    """Рендерит последовательность нанесения в текст."""
+    if not order:
+        return []
+    
+    lines = ["Порядок нанесения:"]
+    
+    for i, layer in enumerate(order, 1):
+        line = f"{i}. {layer.role}"
+        
+        if layer.product_name:
+            line += f" — {layer.product_name}"
+        
+        if layer.article:
+            line += f" ({layer.article})"
+        
+        if layer.layers_count:
+            line += f", количество: {layer.layers_count}"
+        
+        if layer.notes:
+            line += f" ({layer.notes})"
+        
+        lines.append(line)
+    
+    return lines
 
 
 def documents_to_chunks(
@@ -189,6 +314,56 @@ def product_to_documents(
                     "Технические характеристики:\n" + "\n".join(td_parts)
                 )
 
+        relations = product.effective_compatibility(variant)
+        parts.extend(_render_compatibility_block(relations))
+
+        alt_lines: list[str] = []
+        if variant is not None and variant.alternatives:
+            alt_lines.extend(
+                _render_alternatives_block(variant.alternatives)
+            )
+        alt_lines.extend(_render_alternatives_block(product.alternatives))
+        if alt_lines:
+            parts.extend(alt_lines)
+
+        # Порядок нанесения
+        if product.application_order:
+            parts.extend(_render_application_order(product.application_order))
+
+        # Химическая система
+        if product.chemical_system:
+            cs = product.chemical_system
+            cs_text = f"Химическая система: {cs.code}"
+            if cs.provenance:
+                prov = cs.provenance
+                if prov.file:
+                    cs_text += f" (источник: {prov.file[:50]}...)"
+            parts.append(cs_text)
+
+        # Роли продукта
+        if product.application_roles:
+            roles_text = "Роли: " + ", ".join(product.application_roles)
+            parts.append(roles_text)
+
+        # Область применения
+        if product.application_scope:
+            scope = product.application_scope.value if hasattr(product.application_scope, 'value') else product.application_scope
+            scope_text = f"Область применения: {scope}"
+            if product.application_scope_source:
+                scope_text += f" (источник: {product.application_scope_source[:50]}...)"
+            parts.append(scope_text)
+
+        relation_sources: list[RelationSource] = (
+            [rel.source for rel in relations if rel.source.has_provenance]
+        )
+        if variant is not None:
+            relation_sources.extend(
+                s for s in variant.sources if s.has_provenance
+            )
+        relation_sources.extend(
+            s for s in product.sources if s.has_provenance
+        )
+
         text = "\n".join(parts)
 
         documents.append(
@@ -211,7 +386,55 @@ def product_to_documents(
                         if product.technical_data
                         else None
                     ),
-                },
+                    "compatibility": (
+                        _product_relation_payload(relations)
+                        if relations
+                        else None
+                    ),
+                    "alternatives": (
+                        _alternative_payload(
+                            list(product.alternatives)
+                            + (
+                                list(variant.alternatives)
+                                if variant is not None
+                                else []
+                            )
+                        )
+                        if (
+                            product.alternatives
+                            or (
+                                variant is not None
+                                and variant.alternatives
+                            )
+                        )
+                        else None
+                    ),
+                    "relation_sources": (
+                        [s.model_dump() for s in relation_sources]
+                        if relation_sources
+                        else None
+                    ),
+                     "application_order": (
+                         [l.model_dump() for l in product.application_order]
+                         if product.application_order
+                         else None
+                     ),
+                     "chemical_system": (
+                         product.chemical_system.model_dump()
+                         if product.chemical_system
+                         else None
+                     ),
+                     "application_roles": (
+                         product.application_roles
+                         if product.application_roles
+                         else None
+                     ),
+                     "application_scope": (
+                         product.application_scope.value if hasattr(product.application_scope, 'value') else product.application_scope
+                         if product.application_scope
+                         else None
+                     ),
+                 },
             )
         )
         documents[-1].chunks = document_to_chunks(
@@ -277,8 +500,25 @@ def document_to_chunks(
                     technology=document.metadata.get("technology"),
                     technical_data=document.metadata.get("technical_data"),
                     source=document.metadata.get("source"),
-                )
-            )
+                    compatibility=document.metadata.get("compatibility"),
+                    alternatives=document.metadata.get("alternatives"),
+                    relation_sources=document.metadata.get(
+                        "relation_sources"
+                    ),
+                     application_order=document.metadata.get(
+                         "application_order"
+                     ),
+                     chemical_system=document.metadata.get(
+                         "chemical_system"
+                     ),
+                     application_roles=document.metadata.get(
+                         "application_roles"
+                     ),
+                     application_scope=document.metadata.get(
+                         "application_scope"
+                     ),
+                 )
+             )
 
             chunk_id += 1
 

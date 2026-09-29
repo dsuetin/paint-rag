@@ -14,6 +14,14 @@ class ContextSource(BaseModel):
     file: str | None = None
     page: int | None = None
     score: float | None = None
+    # Standalone-документ (методическая информация, не Product).
+    doc_type: str | None = None
+    title: str | None = None
+    sheet: str | None = None
+    section: str | None = None
+    # Coating system provenance
+    system_derived: bool = False
+    system_names: list[str] = Field(default_factory=list)
 
 
 class ContextResult(BaseModel):

@@ -17,6 +17,7 @@ from paint_rag.knowledge.technical_data_extractor import (
     extract_technical_data,
 )
 from paint_rag.models.product import (
+    ApplicationLayer,
     MixingComponent,
     MixingRule,
     Product,
@@ -280,6 +281,78 @@ def _normalize_name(name: str, text: str) -> str:
     return " ".join(tokens)
 
 
+def _find_application_order(text: str) -> Optional[list[ApplicationLayer]]:
+    """Извлекает порядок нанесения из текста PDF.
+    
+    Ищет паттерны:
+    - "наносить в два или три слоя"
+    - "сначала грунт, затем лак"
+    - таблицы с последовательностью слоёв
+    
+    Returns:
+        Список ApplicationLayer или None
+    """
+    layers = []
+    
+    # Паттерн 1: "наносить в N слоев" (общее количество)
+    layers_match = re.search(
+        r"нанос(?:ить|ить)\s+в\s+(?P<count>[^\n]+?)\s+сло\w*",
+        text,
+        re.IGNORECASE
+    )
+    
+    if layers_match:
+        count_text = layers_match.group("count")
+        
+        # Определяем роль по контексту
+        context = text[max(0, layers_match.start() - 100):layers_match.end() + 100]
+        
+        if "лак" in context.lower():
+            role = "topcoat"
+            product_name = "лак"
+        elif "грунт" in context.lower():
+            role = "primer"
+            product_name = "грунт"
+        else:
+            role = "topcoat"
+            product_name = None
+        
+        layers.append(ApplicationLayer(
+            role=role,
+            product_name=product_name,
+            layers_count=count_text
+        ))
+    
+    # Паттерн 2: последовательность "сначала X, затем Y"
+    sequence_match = re.search(
+        r"(?:сначала|первый)\s+(?P<first>[^,]+),\s*(?:затем|потом|второй)\s+(?P<second>[^\n]+)",
+        text,
+        re.IGNORECASE
+    )
+    
+    if sequence_match:
+        first = sequence_match.group("first").strip()
+        second = sequence_match.group("second").strip()
+        
+        # Определяем роли
+        first_role = "primer" if "грунт" in first.lower() else "topcoat" if "лак" in first.lower() else "component"
+        second_role = "topcoat" if "лак" in second.lower() or "эмаль" in second.lower() else "component"
+        
+        if first not in ["слои", "слой"]:
+            layers.append(ApplicationLayer(
+                role=first_role,
+                product_name=first
+            ))
+        
+        if second not in ["слои", "слой"]:
+            layers.append(ApplicationLayer(
+                role=second_role,
+                product_name=second
+            ))
+    
+    return layers if layers else None
+
+
 def _find_technical_data(text: str):
     data = extract_technical_data(text)
     if any(getattr(data, field) is not None for field in _TECH_FIELDS):
@@ -315,6 +388,8 @@ def parse_pdf_to_product(path: str) -> Optional[Product]:
 
     consumption = _find_consumption(raw_text)
 
+    application_order = _find_application_order(text)
+
     return Product(
         name=name,
         article=article,
@@ -331,6 +406,7 @@ def parse_pdf_to_product(path: str) -> Optional[Product]:
         max_layers=_find_max_layers(text),
         mixing=making,
         technical_data=_find_technical_data(raw_text),
+        application_order=application_order,
         source=ProductSource(
             file=os.path.basename(path),
             page=1,

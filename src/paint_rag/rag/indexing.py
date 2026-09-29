@@ -16,8 +16,10 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from paint_rag.knowledge.product_store import ProductStore
+from paint_rag.models.standalone import StandaloneDocument
 from paint_rag.rag.documents import product_to_documents
 from paint_rag.rag.embeddings import EmbeddingModel
+from paint_rag.rag.standalone_documents import standalone_to_chunks
 from paint_rag.rag.vector_store import VectorStore
 
 
@@ -25,11 +27,15 @@ from paint_rag.rag.vector_store import VectorStore
 class IndexStats:
     """Свёмка результата индексации (для отчёта / метрик)."""
 
-    products: int
-    documents: int
-    chunks: int
-    vectors: int
-    embed_calls: int
+    products: int = 0
+    documents: int = 0
+    chunks: int = 0
+    vectors: int = 0
+    embed_calls: int = 0
+    standalone_documents: int = 0
+    standalone_chunks: int = 0
+    total_documents: int = 0
+    total_chunks: int = 0
 
     def as_dict(self) -> dict:
         return {
@@ -38,6 +44,10 @@ class IndexStats:
             "chunks": self.chunks,
             "vectors": self.vectors,
             "embed_calls": self.embed_calls,
+            "standalone_documents": self.standalone_documents,
+            "standalone_chunks": self.standalone_chunks,
+            "total_documents": self.total_documents,
+            "total_chunks": self.total_chunks,
         }
 
 
@@ -86,11 +96,27 @@ def build_index(
     chunk_size: int = 500,
     overlap: int = 50,
     batch_size: int = 64,
+    *,
+    standalone_documents: "Iterable[StandaloneDocument] | None" = None,
 ) -> tuple[VectorStore, IndexStats]:
-    """Собирает :class:`VectorStore` из продукта с batch-эмбеддингами."""
+    """Собирает :class:`VectorStore` из продуктов и (опц.) standalone-документов.
+
+    Оба типа chunks попадают в ОДИН индекс (Task 9, §10): retrieval
+    возвращает Product- и StandaloneDocument-частички одновременно.
+    """
     chunks, documents, n_products, n_documents = products_to_chunks(
         product_store.all(), chunk_size, overlap
     )
+
+    n_standalone_docs = 0
+    n_standalone_chunks = 0
+    if standalone_documents is not None:
+        docs = list(standalone_documents)
+        n_standalone_docs = len(docs)
+        sc = standalone_to_chunks(docs, chunk_size, overlap)
+        chunks.extend(sc)
+        n_standalone_chunks = len(sc)
+        n_documents += n_standalone_docs
 
     vector_store = VectorStore()
     texts = [chunk.text for chunk in chunks]
@@ -111,6 +137,10 @@ def build_index(
         chunks=len(chunks),
         vectors=len(vectors_all),
         embed_calls=embed_calls,
+        standalone_documents=n_standalone_docs,
+        standalone_chunks=n_standalone_chunks,
+        total_documents=n_documents,
+        total_chunks=len(chunks),
     )
 
 

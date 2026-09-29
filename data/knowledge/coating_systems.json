@@ -1,0 +1,909 @@
+{
+  "systems": [
+    {
+      "name": "Кислотная пигментированная система",
+      "materials_text": "Грунт Трэфф Тэксурф+Краска Профф 355",
+      "layers": [
+        {
+          "role": "primer",
+          "name": "Трэфф Тэксурф",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "Профф 355",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "door_furniture_mdf",
+        "chair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Кухни из массива, шпонированные и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения.",
+      "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные. Сохнут под инфракрасным излучением.",
+      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Кислотная пигментированная система с изолянтом",
+      "materials_text": "ПУ-изоляционный силер+Грунт Трэфф Тэксурф+Краска Профф 355",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-изоляционный",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "primer",
+          "name": "Трэфф Тэксурф",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "Профф 355",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "door_furniture_mdf"
+      ],
+      "substrate_labels": [],
+      "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные.Сохнут под инфракрасным излучением. Изолянт снижает расход пигментированного грунта.",
+      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ пигментированная система",
+      "materials_text": "ПУ-праймер+ПУ-краска",
+      "layers": [
+        {
+          "role": "primer",
+          "name": "ПУ-",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "door_furniture_mdf",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Кухни из массива, шпонированные и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения.",
+      "advantages": "Эластичная, высокопрочная. Рабочая смесь ПУ одна из самых недорогих. Влагостойкая, химостойкая и термостойкая система.",
+      "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ пигментированная система с изолянтом",
+      "materials_text": "ПУ-изоляционный силер+ПУ-праймер+               ПУ-краска",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-изоляционный",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "primer",
+          "name": "ПУ-",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_mdf"
+      ],
+      "substrate_labels": [],
+      "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "advantages": "Эластичная, высокопрочная. Рабочая смесь ПУ одна из самых недорогих.Влагостойкая, химостойкая и термостойкая система. Изолянт снижает расход пигментированного грунта.",
+      "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Д-Дур пигментированная система",
+      "materials_text": "Д-Дур грунт+Д-Дур краска",
+      "layers": [
+        {
+          "role": "primer",
+          "name": "Д-Дур",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "Д-Дур",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "door_furniture_mdf",
+        "table_table_top",
+        "chair",
+        "outdoor_window_furniture_door",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Разработана для покраски окон, дверей и мебели эксплуатируемых снаружи.  Также применяется для кухонь из массива, шпонированных и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения. Благодаря грунту можно красить изделия из пластика и металла.",
+      "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система. Грунт имеет хорошие заполняющие свойства и не дает проступать смолам на поверхносте. Также система является тиксотропной",
+      "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Д-Дур пигментированная система с изолянтом",
+      "materials_text": "ПУ-изоляционный силер+Д-Дур грунт+                Д-Дур краска",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-изоляционный",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "primer",
+          "name": "Д-Дур",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "Д-Дур",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_mdf"
+      ],
+      "substrate_labels": [],
+      "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система.  Также система является тиксотропной",
+      "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Кислотная прозрачная система Пластофикс",
+      "materials_text": "Лак Пластофикс",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Пластофикс",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "chair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Кислотная прозрачная система Данспид",
+      "materials_text": "Лак Данспид",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Данспид",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "chair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Кислотная прозрачная система Спидлайн",
+      "materials_text": "Лак Спидлайн",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Спидлайн",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "chair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Мебель и двери из массива и шпона эксплуатируемые внутри. Детская мебель",
+      "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные, хорошие заполняющие свойства. Сохнут под инфракрасным излучением. ",
+      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Кислотная прозрачная система ИЛ-735",
+      "materials_text": "Лак ИЛ-735",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "ИЛ-735",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Мебель и двери из массива и шпона эксплуатируемые внутри. Мебель с высокими требованиями к прочности и влагостойкости.",
+      "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные, одна из самых укрывистых систем. Сохнут под инфракрасным излучением. ",
+      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ прозрачная система (1)",
+      "materials_text": "ПУ-силер 110.04+ПУ-лак 210.26.30",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-110.04",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-210.26.30",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ прозрачная система (2)",
+      "materials_text": "ПУ-силер 111.21+ПУ-лак 210.26.30",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.21",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-210.26.30",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ прозрачная система (3)",
+      "materials_text": "ПУ-силер 111.22+ПУ-лак 210.26.30",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.22",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-210.26.30",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Д-Дур прозрачная система",
+      "materials_text": "Лак Д-Дур",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Д-Дур",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "outdoor_window_furniture_door",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Разработана для покраски окон, дверей и мебели эксплуатируемых снаружи.  Также применяется для кухонь из массива, шпонированных . Межкомнотные двери из массива, шпона . Мебель для внутреннего применения. Мебель с высокими требованиями к прочности и влагостойкости",
+      "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система. Также система является тиксотропной",
+      "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с ПУ-паркетным лаком (1)",
+      "materials_text": "ПУ-силер 110.04+ПУ-лак паркетный",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-110.04",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-паркетный",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с ПУ-паркетным лаком (2)",
+      "materials_text": "ПУ-силер 111.21+ПУ-лак паркетный",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.21",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-паркетный",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с ПУ-паркетным лаком (3)",
+      "materials_text": "ПУ-силер 111.22+ПУ-лак паркетный",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.22",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ПУ-паркетный",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с лаком ИЛ-500 (глянец) (1)",
+      "materials_text": "ПУ-силер 110.04+Лак ИЛ-500",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-110.04",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ИЛ-500",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с лаком ИЛ-500 (глянец) (2)",
+      "materials_text": "ПУ-силер 111.21+Лак ИЛ-500",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.21",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ИЛ-500",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "ПУ система с лаком ИЛ-500 (глянец) (3)",
+      "materials_text": "ПУ-силер 111.22+Лак ИЛ-500",
+      "layers": [
+        {
+          "role": "isolator",
+          "name": "ПУ-111.22",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "ИЛ-500",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "table_table_top",
+        "chair",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": null,
+      "advantages": null,
+      "disadvantages": null,
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Водная пигментированная система",
+      "materials_text": "Грунт Аквапраймер+Краска УС-А 325",
+      "layers": [
+        {
+          "role": "primer",
+          "name": "Аквапраймер",
+          "article": null,
+          "layers_count": null
+        },
+        {
+          "role": "topcoat",
+          "name": "УС-А 325",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "chair",
+        "outdoor_window_furniture_door",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Окна, двери и мебель эксплуатируемые снаружи.",
+      "advantages": "Эластичная, умеренно прочная. Влагостойкая, химостойкая и термостойкая система. Быстросохнущая. Не требует смешивания с отвердителем. Негоручая. Большой срок жизни смеси. Тиксотропная",
+      "disadvantages": "Немного дороже пигментированной системы Д-Дур. Под грунт тербуется шпаклевка, либо грунт с хорошими изолирующими свойствами, чтобы предотвратить проступления смолы.",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Водная прозрачная система",
+      "materials_text": "Лак Суперкрилл для наружных работ",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Суперкрилл для наружных работ",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "door_furniture_veneer_wood_solid",
+        "chair",
+        "outdoor_window_furniture_door",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Окна, двери и мебель эксплуатируемые снаружи.",
+      "advantages": "Эластичная, умеренно прочная. Влагостойкая, химостойкая и термостойкая система. Быстросохнущая. Не требует смешивания с отвердителем. Негоручая. Большой срок жизни смеси. Тиксотропная. Можно колеровать лак в цвета по карте пинотекс.",
+      "disadvantages": "Немного дороже прозрачной системы Д-Дур. ",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица1/Таблица2/Таблица3",
+        "row": null,
+        "note": "Системы нанесения из Excel STAINWOOD"
+      }
+    },
+    {
+      "name": "Защитное масло-воск для террас WAX 092",
+      "materials_text": "Защитное масло-воск WAX 092",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "WAX 092",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "terrace",
+        "parquet",
+        "outdoor_furniture"
+      ],
+      "substrate_labels": [],
+      "item_types": "Деревянные уличные террасы, причалы, деревянные полы, паркет, садовая мебель, беседки",
+      "advantages": "Износостойкая натуральная защита для древесины от ультрафиолета. Защита против плесени и гнили. Водоотталкивающие свойства.",
+      "disadvantages": "Не рекомендуется наносить больше 2-х слоев",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "ЗАЩИТНОЕ МАСЛО ДЛЯ ТЕРРАС 092.pdf",
+        "page": null,
+        "sheet": "PDF documentation",
+        "row": null,
+        "note": "Оswald WAX 092 - terrace and parquet system from PDF"
+      }
+    },
+    {
+      "name": "Масло для дерева HYDRAOIL WT 090",
+      "materials_text": "Масло HYDRAOIL WT 090",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "HYDRAOIL WT 090",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "terrace",
+        "outdoor_furniture"
+      ],
+      "substrate_labels": [],
+      "item_types": "Террасы, наружная деревянная мебель, деревянные поверхности для наружных работ",
+      "advantages": "Защита от плесени, грибков и синей гнили. УФ-фильтры 270-400 нм. Водорастворимое.",
+      "disadvantages": "2-3 слоя required",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "МАСЛО ДЛЯ ДЕРЕВА HYDRAOIL WT 090.pdf",
+        "page": null,
+        "sheet": "PDF documentation",
+        "row": null,
+        "note": "Oswald HYDRAOIL WT 090 - outdoor terrace system from PDF"
+      }
+    },
+    {
+      "name": "ПУ паркетный лак Aqualit",
+      "materials_text": "Aqualit A-PT240-05",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Aqualit A-PT240-05",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "parquet",
+        "stair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Паркетный и пробковый пол, полы и лестницы",
+      "advantages": "Высокая механическая прочность. Для максимальных нагрузок в жилых и производственных помещениях. Водорастворимый.",
+      "disadvantages": "Время жизни рабочей смеси до 2 часов",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "AkzoNobel ПУ Паркетный лак AquaLit.pdf",
+        "page": null,
+        "sheet": "PDF documentation",
+        "row": null,
+        "note": "AkzoNobel Aqualit - parquet lacquer system from PDF"
+      }
+    },
+    {
+      "name": "Акриловый лак Rupa AV740",
+      "materials_text": "Rupa AV740",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Rupa AV740",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "parquet",
+        "table_table_top",
+        "chair"
+      ],
+      "substrate_labels": [],
+      "item_types": "Паркет, фасады, межкомнатные двери, столы и стулья",
+      "advantages": "Износостойкий двухкомпонентный акриловый лак. Устойчив к химическим и механическим воздействиям. Самогрунтующийся.",
+      "disadvantages": "Двухкомпонентный, требует отвердителя",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Rupa_AV740_XX_Прозрачный_акриловый_лак_самогрунтующийся_2.pdf",
+        "page": null,
+        "sheet": "PDF documentation",
+        "row": null,
+        "note": "Rupa AV740 - parquet lacquer system from PDF"
+      }
+    },
+    {
+      "name": "Кислотная система для детской мебели Спидлайн",
+      "materials_text": "Лак Спидлайн",
+      "layers": [
+        {
+          "role": "topcoat",
+          "name": "Спидлайн",
+          "article": null,
+          "layers_count": null
+        }
+      ],
+      "substrates": [
+        "child_furniture",
+        "door_furniture_veneer_wood_solid"
+      ],
+      "substrate_labels": [],
+      "item_types": "Детская мебель, двери из массива и шпона",
+      "advantages": "Быстросохнущие материалы, большой срок жизни смеси, достаточно прочные, хорошие заполняющие свойства. Безопасно для детской мебели.",
+      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
+      "status": "CONFIRMED",
+      "source": {
+        "file": "Системы нанесения.xlsx",
+        "page": null,
+        "sheet": "Таблица2",
+        "row": null,
+        "note": "Кислотная прозрачная система Спидлайн - child furniture from Excel item_types"
+      }
+    }
+  ]
+}

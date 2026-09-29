@@ -48,3 +48,16 @@ class CompatibilityStore:
                 return rule
 
         return None
+
+    def all_for_top(self, top: str) -> list[CompatibilityRule]:
+        """Все правила, где ``top`` — верхний слой (по химии)."""
+        top = top.upper()
+        return [r for r in self.rules if r.top == top]
+
+
+# Backward-compat alias: some older tests/code import the store with a
+# ``from_json`` that reads a list OR a {'rules': [...]} dict.
+def _normalize_rules(data):
+    if isinstance(data, dict):
+        data = data.get("rules", data.get("compatibility", []))
+    return data

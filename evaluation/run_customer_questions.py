@@ -43,16 +43,51 @@ def main() -> int:
     total = len(questions)
 
     # --- реальный production pipeline ---------------------------------
+    from paint_rag.knowledge.product_store import ProductStore
     from paint_rag.rag.pipeline import create_rag_pipeline
+    from paint_rag.rag.llm_ollama import OllamaLLM
 
     print("Building real RAG pipeline (Ollama bge-m3 + qwen3:8b) ...")
+
+    # LLM с увеличенным timeout для длинных ответов
+    llm = OllamaLLM(timeout=180)
+
+    # Индекс с ВСЕМИ standalone-документами.
+    # Предпочитаем готовый data/index/vector_store.json (продукты + standalone);
+    # если файла нет — на лету строим со standalone_root (это медленнее).
+    retriever = None
+    index_path = _ROOT / "data" / "index" / "vector_store.json"
+    if index_path.exists():
+        try:
+            from paint_rag.rag.indexing import load_index
+            from paint_rag.rag.pipeline import make_real_embedding_model
+            from paint_rag.rag.retriever import Retriever
+
+            _model = make_real_embedding_model()
+            _store = load_index(index_path)
+            retriever = Retriever(
+                vector_store=_store, embedding_model=_model
+            )
+            print(f"Loaded prebuilt index: {index_path} "
+                  f"({len(_store.all_chunks())} chunks)")
+        except Exception as exc:  # noqa: BLE001
+            print(f"Prebuilt index unavailable ({exc}); falling back to "
+                  f"standalone_root build")
+            retriever = None
+
     pipeline = create_rag_pipeline(
         products_path="data/knowledge/products.json",
+        systems_path="data/knowledge/coating_systems.json",
+        llm=llm,
         use_ollama=True,
+        retriever=retriever,
+        standalone_root=None if retriever is not None
+        else "data/STAINWOOD",
     )
+    product_store = ProductStore.from_json("data/knowledge/products.json")
     print(f"Products index ready. Questions: {total}\n")
 
-    runner = Runner(pipeline)
+    runner = Runner(pipeline, product_store=product_store, enable_guard=True)
 
     # --- progress + run ------------------------------------------------
     for index, q in enumerate(questions, start=1):
@@ -70,6 +105,9 @@ def main() -> int:
         print(f"       sources: {n_sources}   latency: {latency} ms")
         if record.get("error"):
             print(f"       error: {record['error']}")
+        guard = record.get("guard")
+        if guard is not None and guard.get("is_violation"):
+            print(f"       guard: VIOLATION (refusal)")
         print()
 
     # --- сохранить (records уже посчитаны; payload без повторного прогона)

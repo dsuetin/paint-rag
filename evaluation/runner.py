@@ -253,6 +253,51 @@ def invoke_pipeline(
 
 
 # ----------------------------------------------------------------------
+# Compatibility guard (post-hoc)
+# ----------------------------------------------------------------------
+
+
+def apply_compatibility_guard(
+    answer: AnswerResult | None,
+    product_store: Any | None,
+) -> dict | None:
+    """Запустить :func:`paint_rag.rag.compatibility_guard.guard_compat_answer`
+    на ``AnswerResult.answer`` (только при непустом ответе и заданном store).
+
+    Возвращает:
+      * ``None`` — guard НЕ запускался (нет ответа / нет store / пустой ответ);
+      * ``{"ran": True, "is_violation": bool,
+          "findings": [...], "confirmed_pairs": [...]}`` — результат guard.
+
+    Интеграция с runner: ``record["guard"] = apply_...(...)``, и если
+    ``is_violation`` — статус переопределяется в ``REFUSED`` +
+    ``record["refusal_reason"] = "compatibility_guard"``.
+    """
+    if answer is None or product_store is None:
+        return None
+    text = getattr(answer, "answer", "") or ""
+    if not text.strip():
+        return None
+
+    from paint_rag.rag.compatibility_guard import guard_compat_answer
+
+    result = guard_compat_answer(text, product_store)
+    return {
+        "ran": True,
+        "is_violation": bool(result.is_violation),
+        "findings": [
+            {
+                "snippet": f.snippet,
+                "codes_in_line": list(f.codes_in_line),
+                "reason": f.reason,
+            }
+            for f in result.findings
+        ],
+        "confirmed_pairs_in_answer": list(result.confirmed_pairs_in_answer),
+    }
+
+
+# ----------------------------------------------------------------------
 # Runner
 # ----------------------------------------------------------------------
 
@@ -271,10 +316,14 @@ class Runner:
         *,
         runs_dir: str | Path = DEFAULT_RUNS_DIR,
         commit: str | None = None,
+        product_store: Any | None = None,
+        enable_guard: bool = True,
     ) -> None:
         self.pipeline = pipeline
         self.runs_dir = Path(runs_dir)
         self._commit = commit
+        self._product_store = product_store
+        self._enable_guard = enable_guard
         self.records: list[dict] = []
 
     def _commit_value(self) -> str:
@@ -283,7 +332,13 @@ class Runner:
         return get_git_commit()
 
     def run_one(self, q: GoldenQuestion) -> dict:
-        """Один вопрос: честный замер latency вокруг вызова пайплайна."""
+        """Один вопрос: честный замер latency вокруг вызова пайплайна.
+
+        После получения ответа вызывается ``compatibility_guard``
+        (если ``enable_guard`` и доступен ``product_store``): неподтверждённые
+        утверждения совместимости переопределяют статус в ``REFUSED``
+        (``refusal_reason = "compatibility_guard"``).
+        """
         started = time.perf_counter()
         answer, trace, error = invoke_pipeline(self.pipeline, q.question)
         latency_ms = round((time.perf_counter() - started) * 1000, 1)
@@ -294,6 +349,23 @@ class Runner:
             error=error,
             latency_ms=latency_ms,
         )
+
+        if (
+            self._enable_guard
+            and self._product_store is not None
+            and error is None
+            and answer is not None
+        ):
+            guard = apply_compatibility_guard(answer, self._product_store)
+            if guard is not None:
+                record["guard"] = guard
+                if guard["is_violation"]:
+                    record["status"] = "REFUSED"
+                    record["refusal"] = True
+                    record["has_answer"] = False
+                    record["context_used"] = False
+                    record["refusal_reason"] = "compatibility_guard"
+
         self.records.append(record)
         return record
 
