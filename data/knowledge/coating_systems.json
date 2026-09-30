@@ -24,6 +24,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Кухни из массива, шпонированные и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения.",
+      "application_scope": "INTERIOR",
       "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные. Сохнут под инфракрасным излучением.",
       "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
       "status": "CONFIRMED",
@@ -64,6 +65,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "application_scope": "INTERIOR",
       "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные.Сохнут под инфракрасным излучением. Изолянт снижает расход пигментированного грунта.",
       "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
       "status": "CONFIRMED",
@@ -101,6 +103,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Кухни из массива, шпонированные и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения.",
+      "application_scope": "INTERIOR",
       "advantages": "Эластичная, высокопрочная. Рабочая смесь ПУ одна из самых недорогих. Влагостойкая, химостойкая и термостойкая система.",
       "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
       "status": "CONFIRMED",
@@ -140,6 +143,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "application_scope": "INTERIOR",
       "advantages": "Эластичная, высокопрочная. Рабочая смесь ПУ одна из самых недорогих.Влагостойкая, химостойкая и термостойкая система. Изолянт снижает расход пигментированного грунта.",
       "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
       "status": "CONFIRMED",
@@ -178,6 +182,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Разработана для покраски окон, дверей и мебели эксплуатируемых снаружи.  Также применяется для кухонь из массива, шпонированных и MDF. Межкомнотные двери из массива, шпона и MDF. Мебель для внутреннего применения. Благодаря грунту можно красить изделия из пластика и металла.",
+      "application_scope": "BOTH",
       "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система. Грунт имеет хорошие заполняющие свойства и не дает проступать смолам на поверхносте. Также система является тиксотропной",
       "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
       "status": "CONFIRMED",
@@ -217,6 +222,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Кухни из MDF. Межкомнотные двери из  MDF. Мебель для внутреннего применения из MDF.",
+      "application_scope": "INTERIOR",
       "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система.  Также система является тиксотропной",
       "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
       "status": "CONFIRMED",
@@ -245,6 +251,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -273,6 +280,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -301,6 +309,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Мебель и двери из массива и шпона эксплуатируемые внутри. Детская мебель",
+      "application_scope": "INTERIOR",
       "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные, хорошие заполняющие свойства. Сохнут под инфракрасным излучением. ",
       "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
       "status": "CONFIRMED",
@@ -331,6 +340,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Мебель и двери из массива и шпона эксплуатируемые внутри. Мебель с высокими требованиями к прочности и влагостойкости.",
+      "application_scope": "INTERIOR",
       "advantages": "Бытросохнущие материалы, большой срок жизни смеси, дотаточно прочные, одна из самых укрывистых систем. Сохнут под инфракрасным излучением. ",
       "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
       "status": "CONFIRMED",
@@ -367,6 +377,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -403,6 +414,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -439,6 +451,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -470,6 +483,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Разработана для покраски окон, дверей и мебели эксплуатируемых снаружи.  Также применяется для кухонь из массива, шпонированных . Межкомнотные двери из массива, шпона . Мебель для внутреннего применения. Мебель с высокими требованиями к прочности и влагостойкости",
+      "application_scope": "BOTH",
       "advantages": "Эластичная, высокопрочная. Влагостойкая, химостойкая и термостойкая система. Также система является тиксотропной",
       "disadvantages": "Короткий срок жизни смеси. Сохнут дольше чем кислотные и водоразбавимые материалы.",
       "status": "CONFIRMED",
@@ -506,6 +520,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -542,6 +557,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -578,6 +594,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -614,6 +631,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -650,6 +668,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -686,6 +705,7 @@
       ],
       "substrate_labels": [],
       "item_types": null,
+      "application_scope": null,
       "advantages": null,
       "disadvantages": null,
       "status": "CONFIRMED",
@@ -722,6 +742,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Окна, двери и мебель эксплуатируемые снаружи.",
+      "application_scope": "BOTH",
       "advantages": "Эластичная, умеренно прочная. Влагостойкая, химостойкая и термостойкая система. Быстросохнущая. Не требует смешивания с отвердителем. Негоручая. Большой срок жизни смеси. Тиксотропная",
       "disadvantages": "Немного дороже пигментированной системы Д-Дур. Под грунт тербуется шпаклевка, либо грунт с хорошими изолирующими свойствами, чтобы предотвратить проступления смолы.",
       "status": "CONFIRMED",
@@ -752,6 +773,7 @@
       ],
       "substrate_labels": [],
       "item_types": "Окна, двери и мебель эксплуатируемые снаружи.",
+      "application_scope": "BOTH",
       "advantages": "Эластичная, умеренно прочная. Влагостойкая, химостойкая и термостойкая система. Быстросохнущая. Не требует смешивания с отвердителем. Негоручая. Большой срок жизни смеси. Тиксотропная. Можно колеровать лак в цвета по карте пинотекс.",
       "disadvantages": "Немного дороже прозрачной системы Д-Дур. ",
       "status": "CONFIRMED",
@@ -761,148 +783,6 @@
         "sheet": "Таблица1/Таблица2/Таблица3",
         "row": null,
         "note": "Системы нанесения из Excel STAINWOOD"
-      }
-    },
-    {
-      "name": "Защитное масло-воск для террас WAX 092",
-      "materials_text": "Защитное масло-воск WAX 092",
-      "layers": [
-        {
-          "role": "topcoat",
-          "name": "WAX 092",
-          "article": null,
-          "layers_count": null
-        }
-      ],
-      "substrates": [
-        "terrace",
-        "parquet",
-        "outdoor_furniture"
-      ],
-      "substrate_labels": [],
-      "item_types": "Деревянные уличные террасы, причалы, деревянные полы, паркет, садовая мебель, беседки",
-      "advantages": "Износостойкая натуральная защита для древесины от ультрафиолета. Защита против плесени и гнили. Водоотталкивающие свойства.",
-      "disadvantages": "Не рекомендуется наносить больше 2-х слоев",
-      "status": "CONFIRMED",
-      "source": {
-        "file": "ЗАЩИТНОЕ МАСЛО ДЛЯ ТЕРРАС 092.pdf",
-        "page": null,
-        "sheet": "PDF documentation",
-        "row": null,
-        "note": "Оswald WAX 092 - terrace and parquet system from PDF"
-      }
-    },
-    {
-      "name": "Масло для дерева HYDRAOIL WT 090",
-      "materials_text": "Масло HYDRAOIL WT 090",
-      "layers": [
-        {
-          "role": "topcoat",
-          "name": "HYDRAOIL WT 090",
-          "article": null,
-          "layers_count": null
-        }
-      ],
-      "substrates": [
-        "terrace",
-        "outdoor_furniture"
-      ],
-      "substrate_labels": [],
-      "item_types": "Террасы, наружная деревянная мебель, деревянные поверхности для наружных работ",
-      "advantages": "Защита от плесени, грибков и синей гнили. УФ-фильтры 270-400 нм. Водорастворимое.",
-      "disadvantages": "2-3 слоя required",
-      "status": "CONFIRMED",
-      "source": {
-        "file": "МАСЛО ДЛЯ ДЕРЕВА HYDRAOIL WT 090.pdf",
-        "page": null,
-        "sheet": "PDF documentation",
-        "row": null,
-        "note": "Oswald HYDRAOIL WT 090 - outdoor terrace system from PDF"
-      }
-    },
-    {
-      "name": "ПУ паркетный лак Aqualit",
-      "materials_text": "Aqualit A-PT240-05",
-      "layers": [
-        {
-          "role": "topcoat",
-          "name": "Aqualit A-PT240-05",
-          "article": null,
-          "layers_count": null
-        }
-      ],
-      "substrates": [
-        "parquet",
-        "stair"
-      ],
-      "substrate_labels": [],
-      "item_types": "Паркетный и пробковый пол, полы и лестницы",
-      "advantages": "Высокая механическая прочность. Для максимальных нагрузок в жилых и производственных помещениях. Водорастворимый.",
-      "disadvantages": "Время жизни рабочей смеси до 2 часов",
-      "status": "CONFIRMED",
-      "source": {
-        "file": "AkzoNobel ПУ Паркетный лак AquaLit.pdf",
-        "page": null,
-        "sheet": "PDF documentation",
-        "row": null,
-        "note": "AkzoNobel Aqualit - parquet lacquer system from PDF"
-      }
-    },
-    {
-      "name": "Акриловый лак Rupa AV740",
-      "materials_text": "Rupa AV740",
-      "layers": [
-        {
-          "role": "topcoat",
-          "name": "Rupa AV740",
-          "article": null,
-          "layers_count": null
-        }
-      ],
-      "substrates": [
-        "parquet",
-        "table_table_top",
-        "chair"
-      ],
-      "substrate_labels": [],
-      "item_types": "Паркет, фасады, межкомнатные двери, столы и стулья",
-      "advantages": "Износостойкий двухкомпонентный акриловый лак. Устойчив к химическим и механическим воздействиям. Самогрунтующийся.",
-      "disadvantages": "Двухкомпонентный, требует отвердителя",
-      "status": "CONFIRMED",
-      "source": {
-        "file": "Rupa_AV740_XX_Прозрачный_акриловый_лак_самогрунтующийся_2.pdf",
-        "page": null,
-        "sheet": "PDF documentation",
-        "row": null,
-        "note": "Rupa AV740 - parquet lacquer system from PDF"
-      }
-    },
-    {
-      "name": "Кислотная система для детской мебели Спидлайн",
-      "materials_text": "Лак Спидлайн",
-      "layers": [
-        {
-          "role": "topcoat",
-          "name": "Спидлайн",
-          "article": null,
-          "layers_count": null
-        }
-      ],
-      "substrates": [
-        "child_furniture",
-        "door_furniture_veneer_wood_solid"
-      ],
-      "substrate_labels": [],
-      "item_types": "Детская мебель, двери из массива и шпона",
-      "advantages": "Быстросохнущие материалы, большой срок жизни смеси, достаточно прочные, хорошие заполняющие свойства. Безопасно для детской мебели.",
-      "disadvantages": "Неэластичны, рабочая смесь дороже чем ПУ материалы",
-      "status": "CONFIRMED",
-      "source": {
-        "file": "Системы нанесения.xlsx",
-        "page": null,
-        "sheet": "Таблица2",
-        "row": null,
-        "note": "Кислотная прозрачная система Спидлайн - child furniture from Excel item_types"
       }
     }
   ]
