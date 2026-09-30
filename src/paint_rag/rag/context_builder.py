@@ -5,7 +5,11 @@ from typing import Optional
 
 from paint_rag.knowledge.product_store import ProductStore
 from paint_rag.knowledge.systems_store import SystemsStore
-from paint_rag.rag.context_result import ContextResult, ContextSource
+from paint_rag.rag.context_result import (
+    ContextResult,
+    ContextSource,
+    RecommendationMetadata,
+)
 from paint_rag.rag.retriever import Retriever, RetrievedChunk
 
 
@@ -122,6 +126,13 @@ def _detect_substrate_from_query(query: str) -> Optional[str]:
         ('стул', 'chair'),
         ('кухонн', 'kitchen'),
         ('фасад', 'furniture'),  # кухонные фасады
+        # Outdoor furniture (before generic furniture to be more specific)
+        ('уличн мебель', 'outdoor_furniture'),
+        ('мебель уличн', 'outdoor_furniture'),
+        ('мебель для улицы', 'outdoor_furniture'),
+        ('outdoor furniture', 'outdoor_furniture'),
+        ('furniture outdoor', 'outdoor_furniture'),
+        ('уличн', 'outdoor'),  # уличная -> outdoor
         ('мебель', 'furniture'),
     ]
     
@@ -145,85 +156,197 @@ def _detect_application_scope_from_query(query: str) -> Optional[str]:
     
     query_lower = query.lower()
     
-    # Strong exterior indicators (take priority)
+    # Strong exterior indicators
     strong_exterior = [
-        'уличн', 'наружн', 'фасад', 'террас', 'внешн',
+        'уличн', 'наружн', 'террас', 'внешн', 'снаружн',
         'exterior', 'outdoor'
     ]
     
-    # Strong interior indicators
-    strong_interior = [
+    # Interior indicators
+    interior_indicators = [
+        'кухонн', 'кухня', 'паркет', 'детска', 'игрушк',
         'внутри', 'интерьер', 'в помещении', 'в комнате',
-        'детска', 'внутренн'
+        'внутренн', 'шкаф', 'мебель для кухонн', 'мебель для кухн'
     ]
     
-    # Weaker indicators (only used if no strong indicators)
-    weak_interior = [
-        'мебель', 'паркет', 'игрушк'
+    # "фасад" is ambiguous:
+    # - "фасад здания" / "фасад дома" = EXTERIOR
+    # - "кухонные фасады" / "мебельные фасады" = INTERIOR
+    facade_interior_context = [
+        'кухонн фасад', 'фасад кухонн', 'мебельн фасад',
+        'фасад мебель', 'фасад шкаф', 'мебель для кухонн',
+        'мебельн', 'фасад'  # generic: мебельные фасады
+    ]
+    facade_exterior_context = [
+        'фасад здани', 'фасад дом', 'фасад наружн',
+        'фасад уличн'
+    ]
+    
+    # Exterior furniture context (explicit outdoor furniture)
+    exterior_furniture_context = [
+        'уличн мебель', 'мебель уличн', 'наружн мебель',
+        'мебель наружн', 'outdoor furniture', 'furniture outdoor'
+    ]
+    
+    # Interior furniture context
+    interior_furniture_context = [
+        'мебель для кухонн', 'кухонн мебель', 'мебель кухонн'
     ]
     
     has_strong_exterior = any(kw in query_lower for kw in strong_exterior)
-    has_strong_interior = any(kw in query_lower for kw in strong_interior)
-    has_weak_interior = any(kw in query_lower for kw in weak_interior)
+    has_interior = any(kw in query_lower for kw in interior_indicators)
+    has_facade_interior = any(kw in query_lower for kw in facade_interior_context)
+    has_facade_exterior = any(kw in query_lower for kw in facade_exterior_context)
+    has_exterior_furniture = any(kw in query_lower for kw in exterior_furniture_context)
+    has_interior_furniture = any(kw in query_lower for kw in interior_furniture_context)
     
-    # Strong exterior takes priority
+    # Exterior facade context
+    if has_facade_exterior:
+        return "EXTERIOR"
+    
+    # Exterior furniture context (explicit outdoor furniture)
+    if has_exterior_furniture:
+        return "EXTERIOR"
+    
+    # Strong exterior indicators
     if has_strong_exterior:
         return "EXTERIOR"
     
-    # Strong interior
-    if has_strong_interior:
+    # Interior furniture context
+    if has_facade_interior or has_interior_furniture:
         return "INTERIOR"
     
-    # Weak interior only if no exterior
-    if has_weak_interior and not has_strong_exterior:
+    # Strong interior indicators
+    if has_interior:
         return "INTERIOR"
     
     return None  # Ambiguous or not specified
 
 
-def _filter_chunks_by_scope(
+def _get_chunk_scope(rc: RetrievedChunk) -> Optional[str]:
+    """Get application scope from chunk.
+    
+    Priority:
+    1. chunk.application_scope (if set)
+    2. system_scopes from chunk.source (use most restrictive)
+    3. None (unknown)
+    """
+    chunk_scope = rc.chunk.application_scope
+    
+    # If chunk has system_scopes in source, use the most restrictive one
+    if not chunk_scope and rc.chunk.source:
+        system_scopes = rc.chunk.source.get('system_scopes', [])
+        if system_scopes:
+            # Use the most restrictive scope
+            # INTERIOR-only is more restrictive than BOTH
+            if "INTERIOR" in system_scopes and "BOTH" not in system_scopes:
+                chunk_scope = "INTERIOR"
+            elif "EXTERIOR" in system_scopes and "BOTH" not in system_scopes:
+                chunk_scope = "EXTERIOR"
+            elif "BOTH" in system_scopes:
+                chunk_scope = "BOTH"
+            elif system_scopes:
+                chunk_scope = system_scopes[0]
+    
+    return chunk_scope
+
+
+def _get_scope_priority(chunk_scope: Optional[str], required_scope: str) -> float:
+    """Get ranking priority for a chunk based on its scope vs required scope.
+    
+    Higher priority = better match.
+    
+    For INTERIOR queries:
+        INTERIOR = 4.0 (best match - specialized for interior)
+        BOTH = 2.0 (valid alternative - universal)
+        EXTERIOR = 1.0 (lower priority - specialized for exterior)
+        UNKNOWN = 0.5 (no info)
+    
+    For EXTERIOR queries:
+        EXTERIOR = 4.0 (best match - specialized for exterior)
+        BOTH = 2.0 (valid alternative - universal)
+        INTERIOR = 1.0 (lower priority - specialized for interior)
+        UNKNOWN = 0.5 (no info)
+    """
+    if chunk_scope is None or chunk_scope == "UNKNOWN":
+        return 0.5  # Unknown scope gets lowest priority
+    
+    if required_scope == "INTERIOR":
+        if chunk_scope == "INTERIOR":
+            return 4.0  # Perfect match - specialized for interior
+        elif chunk_scope == "BOTH":
+            return 2.0  # Valid alternative - universal
+        elif chunk_scope == "EXTERIOR":
+            return 1.0  # Lower priority but still valid
+    
+    elif required_scope == "EXTERIOR":
+        if chunk_scope == "EXTERIOR":
+            return 4.0  # Perfect match - specialized for exterior
+        elif chunk_scope == "BOTH":
+            return 2.0  # Valid alternative - universal
+        elif chunk_scope == "INTERIOR":
+            return 1.0  # Lower priority but still valid
+    
+    return 0.5  # Default
+
+
+def _rank_chunks_by_scope(
     chunks: list[RetrievedChunk],
     required_scope: Optional[str]
 ) -> list[RetrievedChunk]:
-    """Filter chunks by application scope.
+    """Rank chunks by application scope priority (in-place modification of scores).
+    
+    This is NOT a filter - all chunks are kept, but their scores are adjusted
+    based on how well their application scope matches the query requirements.
     
     Args:
-        chunks: Retrieved chunks
+        chunks: Retrieved chunks (will be modified in-place)
         required_scope: "INTERIOR" or "EXTERIOR" from query
         
     Returns:
-        Filtered chunks that match the scope requirements:
-        - If required_scope is INTERIOR: keep INTERIOR and BOTH
-        - If required_scope is EXTERIOR: keep EXTERIOR and BOTH
-        - If required_scope is None: keep all chunks
-        - UNKNOWN scope chunks are always kept (no documentation = can't filter)
+        Same chunks list with adjusted scores for ranking
     """
     if not required_scope:
-        return chunks  # No filtering needed
+        return chunks  # No ranking needed
     
-    filtered = []
+    # Adjust scores based on scope priority
     for rc in chunks:
-        chunk_scope = rc.chunk.application_scope
+        chunk_scope = _get_chunk_scope(rc)
+        priority = _get_scope_priority(chunk_scope, required_scope)
         
-        # UNKNOWN or None scope - keep (can't filter without documentation)
-        if chunk_scope is None or chunk_scope == "UNKNOWN":
-            filtered.append(rc)
-            continue
-        
-        # BOTH scope - always compatible
-        if chunk_scope == "BOTH":
-            filtered.append(rc)
-            continue
-        
-        # Exact match
-        if chunk_scope == required_scope:
-            filtered.append(rc)
-            continue
-        
-        # EXTERIOR product for INTERIOR query - exclude
-        # INTERIOR product for EXTERIOR query - exclude
+        # Multiply original score by priority factor
+        # This preserves relative ordering within same scope while boosting better matches
+        rc.score = rc.score * priority
     
-    return filtered
+    # Sort by adjusted score (descending)
+    chunks.sort(key=lambda rc: rc.score, reverse=True)
+    
+    return chunks
+
+
+def _boost_interior_over_both(chunks: list[RetrievedChunk]) -> list[RetrievedChunk]:
+    """Additional boost for INTERIOR-only systems over BOTH systems.
+    
+    This ensures that specialized INTERIOR systems are ranked higher than
+    universal BOTH systems, even when they have similar base scores.
+    
+    For INTERIOR queries:
+    - INTERIOR-only systems get +1.0 bonus
+    - BOTH systems get no bonus
+    
+    This creates a clear separation between specialized and universal systems.
+    """
+    for rc in chunks:
+        chunk_scope = _get_chunk_scope(rc)
+        
+        # Boost INTERIOR-only systems
+        if chunk_scope == "INTERIOR":
+            rc.score += 1.0
+    
+    # Re-sort after bonus
+    chunks.sort(key=lambda rc: rc.score, reverse=True)
+    
+    return chunks
 
 
 def detect_article(
@@ -303,6 +426,7 @@ def _to_context_source(rc: RetrievedChunk) -> ContextSource:
         section=src.get("section"),
         system_derived=src.get("system_derived", False),
         system_names=src.get("system_names", []),
+        system_scopes=src.get("system_scopes", []),
     )
 
 
@@ -329,7 +453,17 @@ def _render_chunk_block(index: int, rc: RetrievedChunk) -> str:
         if rc.chunk.technology:
             lines.append(f"Technology: {rc.chunk.technology}")
 
-    lines.append(f"Retrieval score: {rc.score:g}")
+    # Add priority indicator based on score
+    # Higher score = higher priority
+    score = rc.score
+    if score >= 20:
+        priority = "HIGH PRIORITY"
+    elif score >= 10:
+        priority = "MEDIUM PRIORITY"
+    else:
+        priority = "LOWER PRIORITY"
+    
+    lines.append(f"Priority: {priority} (score: {score:g})")
 
     src = _source_dict(rc.chunk)
     if isinstance(src, dict):
@@ -525,16 +659,102 @@ class ContextBuilder:
         # Deduplicate by chunk id (keep first occurrence = system priority)
         results = _dedupe_by_id(all_results)
 
-        # Filter by application scope if query indicates interior/exterior
+        # Sort by score (descending) to prioritize higher-scoring chunks
+        results.sort(key=lambda rc: rc.score, reverse=True)
+
+        # Rank by application scope if query indicates interior/exterior
+        # This adjusts scores based on scope match (NOT a filter)
         required_scope = _detect_application_scope_from_query(query)
         if required_scope:
-            results = _filter_chunks_by_scope(results, required_scope)
+            results = _rank_chunks_by_scope(results, required_scope)
+        
+        # Additional boost for specialized interior systems over universal BOTH systems
+        # This ensures INTERIOR-only systems are ranked higher than BOTH systems
+        # even when they have similar base scores
+        if required_scope == "INTERIOR":
+            results = _boost_interior_over_both(results)
 
+        # Build recommendation metadata from ranked results
+        # This is the DETERMINISTIC selection - code chooses primary, not LLM
+        primary_recommendation = None
+        alternatives = []
+        
+        if results:
+            # Group chunks by system to get unique systems
+            system_chunks: dict[str, list[RetrievedChunk]] = {}
+            for rc in results:
+                source = rc.chunk.source or {}
+                system_names = source.get('system_names', [])
+                for system_name in system_names:
+                    if system_name not in system_chunks:
+                        system_chunks[system_name] = []
+                    system_chunks[system_name].append(rc)
+            
+            # Build recommendation metadata for each system
+            rank = 1
+            for system_name, chunks in system_chunks.items():
+                # Get best score for this system
+                best_score = max(rc.score for rc in chunks)
+                
+                # Get application scope from first chunk
+                first_chunk = chunks[0].chunk
+                system_scopes = first_chunk.source.get('system_scopes', []) if first_chunk.source else []
+                app_scope = system_scopes[0] if system_scopes else None
+                
+                # Determine ranking factors
+                ranking_factors = []
+                if app_scope == "INTERIOR":
+                    ranking_factors.append("INTERIOR scope (specialized for interior)")
+                elif app_scope == "EXTERIOR":
+                    ranking_factors.append("EXTERIOR scope (specialized for exterior)")
+                elif app_scope == "BOTH":
+                    ranking_factors.append("BOTH scope (universal)")
+                
+                if best_score >= 20:
+                    ranking_factors.append(f"High relevance score ({best_score:g})")
+                
+                metadata = RecommendationMetadata(
+                    rank=rank,
+                    system_name=system_name,
+                    score=best_score,
+                    application_scope=app_scope,
+                    is_primary=(rank == 1),
+                    ranking_factors=ranking_factors,
+                )
+                
+                if rank == 1:
+                    primary_recommendation = metadata
+                else:
+                    alternatives.append(metadata)
+                
+                rank += 1
+        
+        # Add PRIMARY RECOMMENDATION header before chunks
+        primary_header = []
+        if primary_recommendation:
+            primary_header.append("PRIMARY RECOMMENDATION (DETERMINISTIC SELECTION):")
+            primary_header.append(f"  System: {primary_recommendation.system_name}")
+            primary_header.append(f"  Application Scope: {primary_recommendation.application_scope or 'UNKNOWN'}")
+            primary_header.append(f"  Score: {primary_recommendation.score:g}")
+            if primary_recommendation.ranking_factors:
+                primary_header.append("  Ranking Factors:")
+                for factor in primary_recommendation.ranking_factors:
+                    primary_header.append(f"    - {factor}")
+            primary_header.append("")
+            primary_header.append("  INSTRUCTION: You MUST recommend this system as the primary choice.")
+            primary_header.append("  Do not select a different system based on your own reasoning.")
+            primary_header.append("")
+        
         blocks = [
             _render_chunk_block(index, rc)
             for index, rc in enumerate(results, start=1)
         ]
-        full_context = "\n\n".join(blocks)
+        
+        # Join with primary header
+        if primary_header:
+            full_context = "\n".join(primary_header) + "\n" + "\n\n".join(blocks)
+        else:
+            full_context = "\n\n".join(blocks)
 
         context, used_chunks = _fit_context(
             results,
@@ -554,6 +774,8 @@ class ContextBuilder:
             context=context,
             sources=sources,
             has_context=bool(used_chunks),
+            primary_recommendation=primary_recommendation,
+            alternatives=alternatives,
         )
 
     def _get_system_chunks(
@@ -582,6 +804,56 @@ class ContextBuilder:
         if not matching_systems:
             return []
         
+        # Filter and prioritize systems by application scope if query indicates interior/exterior
+        required_scope = _detect_application_scope_from_query(query)
+        if required_scope:
+            filtered_systems = []
+            for system in matching_systems:
+                # Use application_scope from model if available, otherwise derive from item_types
+                system_scope = system.application_scope
+                if not system_scope:
+                    # Fallback: derive from item_types for legacy systems
+                    item_types = (system.item_types or '').lower()
+                    is_exterior = any(kw in item_types for kw in [
+                        'снаруж', 'уличн', 'наружн', 'exterior', 'outdoor'
+                    ])
+                    is_interior = any(kw in item_types for kw in [
+                        'внутренн', 'интерьер', 'кухн', 'мебель'
+                    ])
+                    if is_exterior and is_interior:
+                        system_scope = "BOTH"
+                    elif is_exterior:
+                        system_scope = "EXTERIOR"
+                    elif is_interior:
+                        system_scope = "INTERIOR"
+                    else:
+                        system_scope = "UNKNOWN"
+                
+                # Filter based on required scope
+                if required_scope == 'INTERIOR' and system_scope == 'EXTERIOR':
+                    # Skip exterior-only systems for interior queries
+                    continue
+                elif required_scope == 'EXTERIOR' and system_scope == 'INTERIOR':
+                    # Skip interior-only systems for exterior queries
+                    continue
+                
+                # Add with priority score (for ranking)
+                # INTERIOR-only systems get higher priority for INTERIOR queries
+                priority = 1.0
+                if required_scope == 'INTERIOR' and system_scope == 'INTERIOR':
+                    priority = 2.0  # Boost interior-only systems
+                elif required_scope == 'EXTERIOR' and system_scope == 'EXTERIOR':
+                    priority = 2.0  # Boost exterior-only systems
+                
+                filtered_systems.append((system, priority))
+            
+            # Sort by priority (higher first)
+            filtered_systems.sort(key=lambda x: x[1], reverse=True)
+            matching_systems = [s[0] for s in filtered_systems]
+            
+            if not matching_systems:
+                return []
+        
         # Collect chunk IDs from system products
         system_chunk_ids = set()
         for system in matching_systems:
@@ -594,9 +866,6 @@ class ContextBuilder:
                         if layer.name.lower() in product.name.lower():
                             if product.article:
                                 system_chunk_ids.add(product.article)
-        
-        if not system_chunk_ids:
-            return []
         
         # Retrieve chunks for system products
         system_chunks = []
@@ -611,13 +880,95 @@ class ContextBuilder:
                 if not rc.chunk.source:
                     rc.chunk.source = {}
                 rc.chunk.source['system_derived'] = True
-                rc.chunk.source['system_names'] = [
-                    s.name for s in matching_systems 
-                    if any(l.article == article or 
-                           (l.name and article in (l.name or '')) 
-                           for l in (s.layers or []))
-                ]
+                
+                # Find which systems this chunk belongs to
+                chunk_article = rc.chunk.article or ''
+                chunk_product = rc.chunk.product or ''
+                
+                matching_system_names = []
+                matching_system_scopes = []
+                for s in matching_systems:
+                    for l in (s.layers or []):
+                        # Match by article
+                        if l.article and l.article == chunk_article:
+                            matching_system_names.append(s.name)
+                            if s.application_scope:
+                                matching_system_scopes.append(s.application_scope)
+                            break
+                        # Match by layer name in product name
+                        if l.name and l.name.lower() in chunk_product.lower():
+                            matching_system_names.append(s.name)
+                            if s.application_scope:
+                                matching_system_scopes.append(s.application_scope)
+                            break
+                
+                rc.chunk.source['system_names'] = list(set(matching_system_names))
+                if matching_system_scopes:
+                    rc.chunk.source['system_scopes'] = list(set(matching_system_scopes))
+            
             system_chunks.extend(chunks)
+        
+        # Add system info chunks for systems without product articles
+        # This ensures systems like "Кислотная" with generic layer names (ПУ-, Трэфф Тэксурф) are included
+        for system in matching_systems:
+            # Check if this system already has chunks
+            has_chunks = any(
+                system.name in (rc.chunk.source.get('system_names') or [])
+                for rc in system_chunks
+            )
+            
+            if not has_chunks and system.item_types:
+                # Create a synthetic chunk with system information
+                from paint_rag.models.document import Chunk
+                
+                system_text = f"Система: {system.name}\n"
+                if system.item_types:
+                    system_text += f"Назначение: {system.item_types}\n"
+                if system.application_scope:
+                    system_text += f"Область применения: {system.application_scope}\n"
+                if system.layers:
+                    system_text += "Состав системы:\n"
+                    for layer in system.layers:
+                        system_text += f"  - {layer.role}: {layer.name}\n"
+                if system.substrates:
+                    system_text += f"Подложки: {', '.join(system.substrates)}\n"
+                if system.advantages:
+                    system_text += f"Преимущества: {system.advantages}\n"
+                if system.disadvantages:
+                    system_text += f"Недостатки: {system.disadvantages}\n"
+                
+                from paint_rag.rag.context_result import ContextSource
+                import uuid
+                
+                system_source = ContextSource(
+                    system_derived=True,
+                    system_names=[system.name],
+                    system_scopes=[system.application_scope] if system.application_scope else [],
+                    provenance=system.source.model_dump() if system.source else None,
+                )
+                
+                system_chunk = Chunk(
+                    id=f"system_{uuid.uuid4()}",
+                    text=system_text,
+                    chunk_id=0,
+                    source=system_source.model_dump(),
+                )
+                
+                # Add with high priority for matching scope
+                from paint_rag.rag.context_result import RetrievedChunk
+                
+                # Calculate priority based on scope match
+                priority = 1.0
+                if required_scope and system.application_scope:
+                    if required_scope == system.application_scope:
+                        priority = 3.0  # Exact match gets highest priority
+                    elif system.application_scope == "BOTH":
+                        priority = 2.0  # BOTH systems get medium priority
+                
+                system_chunks.append(RetrievedChunk(
+                    chunk=system_chunk,
+                    score=priority * 2.0,  # Base score for system info, boosted by priority
+                ))
         
         return system_chunks
 

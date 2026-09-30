@@ -425,11 +425,13 @@ def test_23_two_chunks_same_product_not_mixed():
         Retriever(vector_store=vs, embedding_model=FakeModel())
     ).build("Сколько расход?")
     assert len(r.chunks) == 2
-    chunks_ids = [c.chunk.id for c in r.chunks]
-    assert chunks_ids == ["PA334-9016:1:0", "PA334-9016:1:1"]
+    # Оба чанка одного продукта сохранились (no mixing/loss); порядок
+    # определяется hybrid-скором (у c2 выше за счёт lexical-слова 'расход').
+    chunks_ids = {c.chunk.id for c in r.chunks}
+    assert chunks_ids == {"PA334-9016:1:0", "PA334-9016:1:1"}
     assert len(r.sources) == 2
-    pages = [s.page for s in r.sources]
-    assert pages == [1, 2]
+    pages = {s.page for s in r.sources}
+    assert pages == {1, 2}
 
 
 # ------------------------------------------------------------------

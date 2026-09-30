@@ -1,0 +1,245 @@
+{
+  "query": "Подбери систему окраски для кухонных фасадов из МДФ.",
+  "answer_first_500": "**Основная рекомендация:**  \n**Система:** Кислотная пигментированная система  \n**Область применения:** INTERIOR (внутренние работы)  \n**Почему:**  \n- Система специально разработана для внутренних поверхностей, включая кухни из МДФ.  \n- Имеет высокий рейтинг (25) и специализирована на интерьере.  \n- Обеспечивает надежную защиту и эстетику для кухонных фасадов.  \n\n**Альтернативы (для справки):**  \n1. **Кислотная пигментированная система с изолянтом** (INTERIOR) – улучшенная версия с дополнительной",
+  "answer_full": "**Основная рекомендация:**  \n**Система:** Кислотная пигментированная система  \n**Область применения:** INTERIOR (внутренние работы)  \n**Почему:**  \n- Система специально разработана для внутренних поверхностей, включая кухни из МДФ.  \n- Имеет высокий рейтинг (25) и специализирована на интерьере.  \n- Обеспечивает надежную защиту и эстетику для кухонных фасадов.  \n\n**Альтернативы (для справки):**  \n1. **Кислотная пигментированная система с изолянтом** (INTERIOR) – улучшенная версия с дополнительной защитой.  \n2. **Д-Дур пигментированная система** (BOTH) – подходит для МДФ, но с низким рейтингом (8).  \n3. **Д-Дур пигментированная система с изолянтом** (INTERIOR) – стойкая к влаге, химикатам и температуре.  \n\n**Рекомендация:**  \nВыберите **кислотную пигментированную систему** как основную для кухонных фасадов из МДФ. Если требуется дополнительная защита, рассмотрите **кислотную пигментированную систему с изолянтом**. Д-Дур системы также подходят, но имеют более низкий рейтинг и требуют уточнения условий применения.",
+  "primary_recommendation": {
+    "rank": 1,
+    "system_name": "Кислотная пигментированная система",
+    "score": 25.0,
+    "application_scope": "INTERIOR",
+    "is_primary": true,
+    "ranking_factors": [
+      "INTERIOR scope (specialized for interior)",
+      "High relevance score (25)"
+    ]
+  },
+  "alternatives": [
+    {
+      "rank": 2,
+      "system_name": "Кислотная пигментированная система с изолянтом",
+      "score": 25.0,
+      "application_scope": "INTERIOR",
+      "is_primary": false,
+      "ranking_factors": [
+        "INTERIOR scope (specialized for interior)",
+        "High relevance score (25)"
+      ]
+    },
+    {
+      "rank": 3,
+      "system_name": "ПУ пигментированная система",
+      "score": 25.0,
+      "application_scope": "INTERIOR",
+      "is_primary": false,
+      "ranking_factors": [
+        "INTERIOR scope (specialized for interior)",
+        "High relevance score (25)"
+      ]
+    },
+    {
+      "rank": 4,
+      "system_name": "ПУ пигментированная система с изолянтом",
+      "score": 25.0,
+      "application_scope": "INTERIOR",
+      "is_primary": false,
+      "ranking_factors": [
+        "INTERIOR scope (specialized for interior)",
+        "High relevance score (25)"
+      ]
+    },
+    {
+      "rank": 5,
+      "system_name": "Д-Дур пигментированная система с изолянтом",
+      "score": 25.0,
+      "application_scope": "INTERIOR",
+      "is_primary": false,
+      "ranking_factors": [
+        "INTERIOR scope (specialized for interior)",
+        "High relevance score (25)"
+      ]
+    },
+    {
+      "rank": 6,
+      "system_name": "Д-Дур пигментированная система",
+      "score": 8.0,
+      "application_scope": "BOTH",
+      "is_primary": false,
+      "ranking_factors": [
+        "BOTH scope (universal)"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "Кислотная пигментированная система"
+      ],
+      "system_scopes": [
+        "INTERIOR"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "Кислотная пигментированная система с изолянтом"
+      ],
+      "system_scopes": [
+        "INTERIOR"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "ПУ пигментированная система"
+      ],
+      "system_scopes": [
+        "INTERIOR"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "ПУ пигментированная система с изолянтом"
+      ],
+      "system_scopes": [
+        "INTERIOR"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "Д-Дур пигментированная система с изолянтом"
+      ],
+      "system_scopes": [
+        "INTERIOR"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [
+        "Д-Дур пигментированная система"
+      ],
+      "system_scopes": [
+        "BOTH"
+      ],
+      "system_derived": true
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    },
+    {
+      "product": null,
+      "article": null,
+      "system_names": [],
+      "system_scopes": [],
+      "system_derived": false
+    }
+  ]
+}

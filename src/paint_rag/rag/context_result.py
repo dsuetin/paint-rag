@@ -22,6 +22,22 @@ class ContextSource(BaseModel):
     # Coating system provenance
     system_derived: bool = False
     system_names: list[str] = Field(default_factory=list)
+    system_scopes: list[str] = Field(default_factory=list)
+
+
+class RecommendationMetadata(BaseModel):
+    """Metadata for a ranked coating system recommendation.
+
+    This is the deterministic selection result from ContextBuilder's
+    ranking engine, passed to LLM as a constraint (not a suggestion).
+    """
+
+    rank: int
+    system_name: str
+    score: float
+    application_scope: str | None = None
+    is_primary: bool = False
+    ranking_factors: list[str] = Field(default_factory=list)
 
 
 class ContextResult(BaseModel):
@@ -38,3 +54,7 @@ class ContextResult(BaseModel):
     context: str = ""
     sources: list[ContextSource] = Field(default_factory=list)
     has_context: bool = False
+    # Deterministic primary recommendation (selected by ranking engine, not LLM)
+    primary_recommendation: RecommendationMetadata | None = None
+    # All ranked alternatives (for LLM to mention, but not choose)
+    alternatives: list[RecommendationMetadata] = Field(default_factory=list)

@@ -1,15 +1,42 @@
 from __future__ import annotations
 
-from paint_rag.rag.context_result import ContextResult
+from paint_rag.rag.context_result import ContextResult, RecommendationMetadata
 
 SYSTEM_INSTRUCTIONS = (
     "Ты — строгий ассистент по технической документации "
     "лакокрасочных материалов. Отвечаешь ТОЛЬКО по CONTEXT.\n"
     "\n"
+    "КРИТИЧЕСКИ ВАЖНОЕ ПРАВИЛО ДЛЯ ВЫБОРА СИСТЕМ ПОКРЫТИЯ:\n"
+    "1. В CONTEXT есть блок PRIMARY RECOMMENDATION (DETERMINISTIC SELECTION).\n"
+    "   Это система, выбранная детерминированным ranking engine на основе:\n"
+    "   - application_scope (INTERIOR/EXTERIOR/BOTH)\n"
+    "   - relevance score\n"
+    "   - substrate compatibility\n"
+    "   - других структурированных данных из базы знаний.\n"
+    "\n"
+    "2. Твоя задача — ОБЪЯСНИТЬ выбранную PRIMARY RECOMMENDATION, а НЕ выбирать её заново.\n"
+    "   Ты НЕ имеешь права переопределить выбор ranking engine.\n"
+    "\n"
+    "3. Если в CONTEXT указана PRIMARY RECOMMENDATION:\n"
+    "   - Ты ДОЛЖНА рекомендовать именно эту систему как основную.\n"
+    "   - Ты НЕ можешь выбрать другую систему (например, D-DUR вместо Кислотная).\n"
+    "   - Ты НЕ можешь использовать своё собственное суждение о том, какая система «лучше».\n"
+    "   - Ты ДОЛЖНА объяснить преимущества PRIMARY RECOMMENDATION на основе данных из CONTEXT.\n"
+    "\n"
+    "4. ALTERNATIVES (другие системы в CONTEXT) — это справочная информация.\n"
+    "   Ты можешь упомянуть их как альтернативы, но НЕ как основную рекомендацию.\n"
+    "\n"
+    "5. Запрещено:\n"
+    "   - Игнорировать PRIMARY RECOMMENDATION и выбирать другую систему.\n"
+    "   - Использовать общие знания LLM для переопределения ranking.\n"
+    "   - Считать универсальные системы (BOTH) «лучше» специализированных (INTERIOR/EXTERIOR).\n"
+    "   - Менять порядок систем, определённый ranking engine.\n"
+    "\n"
     "СТРОГИЕ ПРАВИЛА:\n"
     "1. CONTEXT — единственный источник фактов. Не используй "
     "собственные общие знания LLM о продуктах, расходе, "
-    "совместимости или назначении.\n"
+    "совместимости или назначении. Если продукта нет в CONTEXT — "
+    "не упоминай его, даже если ты о нём знаешь.\n"
     "2. Если CONTEXT не подтверждает ответ на вопрос — честно "
     "сообщи: «В базе знаний не найдено информации, достаточной "
     "для ответа на этот вопрос». Не додумывай.\n"
@@ -79,11 +106,26 @@ SYSTEM_INSTRUCTIONS = (
       "Запрещено подбирать «аналогичный» продукт, если пара не "
       "упомянута в блоке «Совместимость» конкретного продукта.\n"
       "19. Если в CONTEXT указан блок «Порядок нанесения» — строго "
-      "следуй ему при формировании рекомендации. Не меняй порядок "
-      "слоёв местами. Явно указывай: какой слой первый, какой второй, "
-      "сколько слоёв каждого типа. Если порядок не указан — не "
-      "предполагай его самостоятельно."
-      )
+       "следуй ему при формировании рекомендации. Не меняй порядок "
+       "слоёв местами. Явно указывай: какой слой первый, какой второй, "
+       "сколько слоёв каждого типа. Если порядок не указан — не "
+       "предполагай его самостоятельно.\n"
+        "20. При выборе системы покрытия строго следуй PRIMARY RECOMMENDATION из CONTEXT. "
+        "Не переопределяй выбор ranking engine на основании собственных суждений.\n"
+        "21. Формат ответа при выборе системы покрытия:\n"
+        "  ОСНОВНАЯ РЕКОМЕНДАЦИЯ: [PRIMARY RECOMMENDATION из CONTEXT]\n"
+        "    - Назначение: ...\n"
+        "    - Преимущества: ...\n"
+        "    - Состав системы: ...\n"
+        "  \n"
+        "  АЛЬТЕРНАТИВЫ (если есть в CONTEXT):\n"
+        "  - [Система 2]: краткое описание\n"
+        "  - [Система 3]: краткое описание\n"
+        "  \n"
+        "  Вывод: кратко объясни, почему PRIMARY RECOMMENDATION лучше всего подходит.\n"
+        "22. ВСЕ утверждения о свойствах продуктов должны быть подтверждены данными из CONTEXT/SOURCES. "
+        "Не выдумывай характеристики, расход, совместимость или назначение."
+        )
 
 
 # Блок структурированного результата совместимости/системы:
@@ -198,6 +240,10 @@ def build_prompt_from_result(result: ContextResult) -> str:
     отдельный блок «STRUCTURED RESULT» ДО вопроса. LLM обязана
     опираться на этот блок в вопросах о совместимости и системах;
     переопределить его вывод она не может.
+    
+    Если у :class:`ContextResult` есть ``primary_recommendation``,
+    она добавляется в блок «DETERMINISTIC RECOMMENDATION» — LLM
+    обязана следовать этому выбору и не может его переопределить.
     """
     if result.has_context:
         context = result.context
@@ -211,6 +257,10 @@ def build_prompt_from_result(result: ContextResult) -> str:
         context,
     ]
 
+    # Add deterministic recommendation block if present
+    if hasattr(result, "primary_recommendation") and result.primary_recommendation:
+        parts.extend(["", _render_deterministic_recommendation(result)])
+
     structured = getattr(result, "structured_result", None)
     if structured:
         parts.extend(["", _render_structured_result(structured)])
@@ -222,6 +272,53 @@ def build_prompt_from_result(result: ContextResult) -> str:
 # ----------------------------------------------------------------------
 # Рендер структурированного результата совместимости/системы
 # ----------------------------------------------------------------------
+
+
+def _render_deterministic_recommendation(result: ContextResult) -> str:
+    """Рендер блока DETERMINISTIC RECOMMENDATION, который LLM обязана соблюдать.
+    
+    Этот блок содержит результат детерминированного выбора primary system
+    и alternatives, сделанный ContextBuilder на основе ranking engine.
+    LLM НЕ может переопределить этот выбор.
+    """
+    lines = [
+        "DETERMINISTIC RECOMMENDATION (выбор сделан ranking engine, LLM НЕ может изменить):"
+    ]
+    
+    if result.primary_recommendation:
+        primary = result.primary_recommendation
+        lines.append("")
+        lines.append("PRIMARY RECOMMENDATION (ОСНОВНАЯ РЕКОМЕНДАЦИЯ):")
+        lines.append(f"  Система: {primary.system_name}")
+        lines.append(f"  Ранг: {primary.rank}")
+        lines.append(f"  Score: {primary.score:g}")
+        if primary.application_scope:
+            lines.append(f"  Область применения: {primary.application_scope}")
+        if primary.ranking_factors:
+            lines.append("  Факторы ранжирования:")
+            for factor in primary.ranking_factors:
+                lines.append(f"    - {factor}")
+        lines.append("")
+        lines.append("  ИНСТРУКЦИЯ: Ты ДОЛЖНА рекомендовать эту систему как основную.")
+        lines.append("  Запрещено выбирать другую систему вместо PRIMARY RECOMMENDATION.")
+    
+    if result.alternatives:
+        lines.append("")
+        lines.append("ALTERNATIVES (альтернативы — справочная информация, не основные рекомендации):")
+        for alt in result.alternatives:
+            lines.append(f"  - Ранг {alt.rank}: {alt.system_name} (score: {alt.score:g})")
+            if alt.application_scope:
+                lines.append(f"    Область применения: {alt.application_scope}")
+        lines.append("")
+        lines.append("  ИНСТРУКЦИЯ: Ты можешь упомянуть альтернативы, но НЕ как основную рекомендацию.")
+    
+    lines.append("")
+    lines.append(
+        "ВЫВОД: LLM НЕ изменяет DETERMINISTIC RECOMMENDATION. "
+        "При ответе используй PRIMARY RECOMMENDATION как основную систему, "
+        "а alternatives только как справочную информацию."
+    )
+    return "\n".join(lines)
 
 
 def _render_structured_result(structured: dict) -> str:

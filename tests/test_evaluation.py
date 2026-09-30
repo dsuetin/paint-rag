@@ -29,6 +29,7 @@ from evaluation.questions import (
 )
 from evaluation.runner import (
     Runner,
+    apply_compatibility_guard,
     build_record,
     classify_status,
     invoke_pipeline,
@@ -434,3 +435,159 @@ def test_format_comparison_smoke():
     assert "Current:  2" in report
     assert "New refusals:" in report
     assert "refusal_appeared" in report
+
+
+# ----------------------------------------------------------------------
+# Compatibility guard (Task 7 — integration in Runner)
+# ----------------------------------------------------------------------
+
+#: Reused real store — same fixture data for all guard tests. DATA_PATH
+#: resolves to the repo ``data/knowledge/products.json``.
+DATA_PATH = "data/knowledge/products.json"
+
+
+def _store():
+    from paint_rag.knowledge.product_store import ProductStore
+
+    return ProductStore.from_json(DATA_PATH)
+
+
+def test_guard_violation_unconfirmed_pair():
+    """Ответ утверждает совместимость двух изделий БЕЗ CONFIRMED-связи.
+
+    Грунт PD (PD118) и МАСЛО WAX 092 — в KB нет CONFIRMED-пары между
+    ними; guard обязан пометить нарушение.
+    """
+    store = _store()
+    a = _answer(
+        answer=(
+            "Грунт PD118 совместим с маслом WAX 092. "
+            "Наносить WAX 092 можно по PD118."
+        ),
+    )
+    g = apply_compatibility_guard(a, store)
+    assert g is not None
+    assert g["ran"] is True
+    assert g["is_violation"] is True
+    assert g["findings"]
+
+
+def test_guard_pass_confirmed_pair():
+    """Ответ подтверждает совместимость 1149 и 2675-755251 (CONFIRMED в KB)."""
+    store = _store()
+    a = _answer(
+        answer=(
+            "Лак Д-Дур 1149 совместим с грунтом 2675-755251. "
+            "Наносить лак 1149 по грунту 2675-755251 можно."
+        ),
+    )
+    g = apply_compatibility_guard(a, store)
+    assert g is not None
+    assert g["is_violation"] is False
+    # хотя бы одна подтверждённая пара попала в результат
+    assert any(len(p) >= 1 for p in g["confirmed_pairs_in_answer"])
+
+
+def test_guard_skipped_on_no_answer():
+    store = _store()
+    a = _answer(answer="", has_answer=False, refusal=True)
+    assert apply_compatibility_guard(a, store) is None
+    # нет store → guard не запускается
+    assert apply_compatibility_guard(a, None) is None
+    # нет ответа → guard не запускается
+    assert apply_compatibility_guard(None, store) is None
+
+
+def test_guard_non_claim_line_passes():
+    """Отрицание / «совместимость:» → НЕ считается утверждением."""
+    store = _store()
+    a = _answer(
+        answer=(
+            "Совместимость: не подтверждена. "
+            "В KB есть только PD118 и WAX092 без связи — "
+            "рекомендация: уточнить у производителя."
+        ),
+    )
+    g = apply_compatibility_guard(a, store)
+    assert g is not None
+    assert g["is_violation"] is False
+
+
+def test_runner_integration_guard_blocks_violation():
+    """Runner (enable_guard=True) → статус REFUSED при наруш. guard."""
+    eng = _engine(
+        answer=_answer(
+            answer=(
+                "Грунт PD118 совместим с маслом WAX 092. "
+                "Наносить WAX 092 можно по PD118."
+            ),
+        ),
+    )
+    runner = Runner(
+        eng,
+        runs_dir=Path("/tmp/guard-test-run"),
+        product_store=_store(),
+        enable_guard=True,
+    )
+    rec = runner.run_one(GoldenQuestion(id=1, question="Q"))
+    assert rec["status"] == "REFUSED"
+    assert rec["refusal"] is True
+    assert rec["has_answer"] is False
+    assert rec["refusal_reason"] == "compatibility_guard"
+    assert rec["guard"]["is_violation"] is True
+
+
+def test_runner_integration_guard_allows_confirmed():
+    """Ответ с CONFIRMED-парой — guard НЕ блокирует (ANSWERED сохраняется)."""
+    eng = _engine(
+        answer=_answer(
+            answer=(
+                "Лак Д-Дур 1149 совместим с грунтом 2675-755251"
+            ),
+        ),
+    )
+    runner = Runner(
+        eng,
+        runs_dir=Path("/tmp/guard-test-run"),
+        product_store=_store(),
+        enable_guard=True,
+    )
+    rec = runner.run_one(GoldenQuestion(id=1, question="Q"))
+    # guard запущен, нарушения нет
+    assert rec["guard"]["ran"] is True
+    assert rec["guard"]["is_violation"] is False
+    # статус остался ANSWERED (guard не переопределяет)
+    assert rec["status"] == "ANSWERED"
+    assert rec["refusal"] is False
+
+
+def test_runner_guard_disabled_keeps_answered():
+    """enable_guard=False → без guard, статус ANSWERED даже при «ложе»."""
+    eng = _engine(
+        answer=_answer(
+            answer="Грунт PD118 совместим с маслом WAX 092.",
+        ),
+    )
+    runner = Runner(
+        eng,
+        runs_dir=Path("/tmp/guard-off-run"),
+        product_store=_store(),
+        enable_guard=False,
+    )
+    rec = runner.run_one(GoldenQuestion(id=1, question="Q"))
+    assert "guard" not in rec
+    assert rec["status"] == "ANSWERED"
+
+
+def test_runner_guard_not_run_when_error():
+    """При ERROR runner не запускает guard (нет ответа)."""
+    eng = _engine(error=RuntimeError("boom"))
+    runner = Runner(
+        eng,
+        runs_dir=Path("/tmp/guard-err-run"),
+        product_store=_store(),
+        enable_guard=True,
+    )
+    rec = runner.run_one(GoldenQuestion(id=1, question="Q"))
+    assert rec["status"] == "ERROR"
+    assert "guard" not in rec

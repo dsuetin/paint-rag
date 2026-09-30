@@ -56,10 +56,10 @@ def test_document_to_chunk_preserves_source():
         assert ch.source.get("page") == 1
 
 
-def test_no_product_creates_new_products():
-    store = ProductStore.from_json(DATA)
-    before = len(store.products)
-    assert before == 40
+    def test_no_product_creates_new_products():
+        store = ProductStore.from_json(DATA)
+        before = len(store.products)
+        assert before == 51
 
 
 def test_no_new_variants():

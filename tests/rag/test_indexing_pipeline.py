@@ -33,10 +33,10 @@ def test_products_to_chunks_counts():
     chunks, documents, n_products, n_documents = products_to_chunks(
         store.all()
     )
-    assert n_products == 40
+    assert n_products == 51
     assert n_documents == len(documents)
     assert n_documents >= 40
-    assert len(chunks) == 76
+    assert len(chunks) == 127
     # Each chunk has an id, text, product, article (possibly None), source
     for c in chunks:
         assert c.id and c.text and c.product
@@ -57,12 +57,12 @@ def test_build_index_with_fake_provider():
             return provider.embed(text)
 
     vs, stats = build_index(store, _Model())
-    assert stats.products == 40
+    assert stats.products == 51
     assert stats.documents >= 40
-    assert stats.chunks == 76
-    assert stats.vectors == 76
+    assert stats.chunks == 127
+    assert stats.vectors == 127
     assert stats.embed_calls >= 1
-    assert len(vs) == 76
+    assert len(vs) == 127
     assert all(len(v) == 16 for v in vs.all_vectors())
 
 
@@ -84,10 +84,10 @@ def test_build_index_batching():
 
     model = _Model()
     vs, stats = build_index(store, model, batch_size=32)
-    # 76 chunks, 32 per batch → 3 calls, not 76.
-    assert stats.embed_calls == 3
-    assert model.calls == 3
-    assert stats.vectors == 76
+    # 127 chunks, 32 per batch → 4 calls (ceil(118/32)), not 118.
+    assert stats.embed_calls == 4
+    assert model.calls == 4
+    assert stats.vectors == 127
 
 
 def test_build_index_no_batch_fallback():
@@ -99,7 +99,7 @@ def test_build_index_no_batch_fallback():
             return provider.embed(text)
 
     vs, stats = build_index(store, _NoBatchModel(), batch_size=32)
-    assert stats.embed_calls == 76  # one call per chunk
+    assert stats.embed_calls == 127  # one call per chunk
 
 
 # ------------------------------------------------------------------
@@ -187,13 +187,13 @@ def test_real_build_index_bge_m3(tmp_path: Path):
     store = ProductStore.from_json(DATA)
     model = make_real_embedding_model()
     vs, stats = build_index(store, model, batch_size=32)
-    assert stats.vectors == 76
-    assert stats.embed_calls == 3
+    assert stats.vectors == 127  # Updated after coating systems integration
+    assert stats.embed_calls == 4
     assert all(len(v) == 1024 for v in vs.all_vectors())
 
     path = save_index(vs, tmp_path / "ollama_index.json")
     vs2 = load_index(path)
-    assert len(vs2) == 76
+    assert len(vs2) == 127
 
 
 @ollama_available

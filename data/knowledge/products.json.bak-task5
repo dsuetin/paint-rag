@@ -1,0 +1,2014 @@
+[
+  {
+    "name": "Грунт PD",
+    "technology": "Rupa",
+    "aliases": [
+      "PD118",
+      "Прозрачный полиуретановый 2K грунт Super",
+      "2K грунт сери Super"
+    ],
+    "variants": [
+      {
+        "variant_id": 3,
+        "article": "PD118",
+        "price": 118.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (810) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 63.425925925925924
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 109.37962962962962
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 6,
+          "calculation_column": 6,
+          "cost_column": 7,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11,
+          "file": "Rupa_PD118_Прозрачный_ПУ_грунт_серии_Super.pdf",
+          "page": 1
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1,
+      "file": "Rupa_PD118_Прозрачный_ПУ_грунт_серии_Super.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "48±2%",
+      "density": "1,10±0,05 г/см³",
+      "viscosity": "85±5",
+      "pot_life": "3 часа",
+      "drying": "4 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт",
+      "description": null,
+      "usage": "прозрачный грунт для отделки изделий из массива древесины и шпонированных поверхностей"
+    }
+  },
+  {
+    "name": "Грунт PD155 изолятор для МДФ",
+    "article": "PD155",
+    "technology": "Rupa",
+    "aliases": [
+      "PD155",
+      "Прозрачный полиуретановый 2K грунт-изолятор для МДФ",
+      "PU грунт-изолятор для МДФ"
+    ],
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD820",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PD155 100%; HD820 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD810."
+    },
+    "variants": [
+      {
+        "variant_id": 1,
+        "article": "PD155",
+        "price": 155.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "HD820",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent_min": 15.0,
+            "percent_max": 30.0
+          },
+          "raw": "PD155 100%; HD820 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD810."
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 46.11111111111111
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 92.06481481481481
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11,
+          "file": "Rupa_PD155_Прозрачный_ПУ_грунт_изолятор_для_МДФ.pdf",
+          "page": 1
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1,
+      "file": "Rupa_PD155_Прозрачный_ПУ_грунт_изолятор_для_МДФ.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "72±2%",
+      "density": "1,35±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "2 - 4 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических окрасочных линиях.",
+      "description": null,
+      "usage": "используется как барьерный грунт на МДФ или порозаполнитель для изделий из массива"
+    }
+  },
+  {
+    "name": "Грунт PD125",
+    "article": "PD125",
+    "technology": "Rupa",
+    "aliases": [
+      "PD125",
+      "Универсальный прозрачный полиуретановый 2K грунт",
+      "Прозрачный полиуретановый 2K грунт"
+    ],
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD810",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PD125 100%; HD810 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD820 - 33%."
+    },
+    "variants": [
+      {
+        "variant_id": 1,
+        "article": "PD125",
+        "price": 125.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "HD810",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent_min": 15.0,
+            "percent_max": 30.0
+          },
+          "raw": "PD125 100%; HD810 50%; Разбавитель 15–30%. Альтернативный отвердитель: HD820 - 33%."
+        },
+        "components": {
+          "base": {
+            "article": "498",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "833",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 64.25925925925925
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 38.56481481481482
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 110.21296296296296
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 1,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 8,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11,
+          "file": "Rupa PD125 Прозрачный ПУ грунт.pdf",
+          "page": 1
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 1,
+      "file": "Rupa PD125 Прозрачный ПУ грунт.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "62±2%",
+      "density": "1,15±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "2 - 4 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических окрасочных линиях.",
+      "description": null,
+      "usage": "прозрачный грунт для отделки изделий из массива древесины и шпонированных поверхностей"
+    }
+  },
+  {
+    "name": "Лак PV",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 220.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "825",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (825) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 39.90740740740741
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 131.37037037037038
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 290.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "860",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (860) +30% = 1.8"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.09259259259259259,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 41.342592592592595
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 132.80555555555557
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      },
+      {
+        "variant_id": 3,
+        "price": 210.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "870",
+            "percent": 100.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 2.3,
+          "raw": "Смесь = 100%+100% (870) +30% = 2.3"
+        },
+        "components": {
+          "base": {
+            "article": "908",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "862",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.07246376811594203,
+            "cost": 84.07407407407408
+          },
+          "hardener": {
+            "kg": 0.07246376811594203,
+            "cost": 62.46376811594203
+          },
+          "thinner": {
+            "kg": 0.021739130434782608,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 153.926731078905
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 13,
+          "price_column": 6,
+          "calculation_column": 6,
+          "cost_column": 7,
+          "base_row": 20,
+          "hardener_row": 21,
+          "thinner_row": 22,
+          "total_row": 23
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 13
+    }
+  },
+  {
+    "name": "Лак AV",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 740.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "890",
+            "percent": 10.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.4,
+          "raw": "Смесь = 100%+10% (890) +30% = 1.4"
+        },
+        "components": {
+          "base": {
+            "article": "1046",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "1143",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.11904761904761905,
+            "cost": 124.52380952380953
+          },
+          "hardener": {
+            "kg": 0.011904761904761904,
+            "cost": 13.607142857142856
+          },
+          "thinner": {
+            "kg": 0.03571428571428572,
+            "cost": 9.500000000000002
+          },
+          "total": {
+            "cost": 147.63095238095238
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 25,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 32,
+          "hardener_row": 33,
+          "thinner_row": 34,
+          "total_row": 35
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 795.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "890",
+            "percent": 10.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.4,
+          "raw": "Смесь = 100%+10% (890) +30% = 1.4"
+        },
+        "components": {
+          "base": {
+            "article": "1046",
+            "name": "Расход лака, кг"
+          },
+          "hardener": {
+            "article": "1143",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.11904761904761905,
+            "cost": 127.50000000000001
+          },
+          "hardener": {
+            "kg": 0.011904761904761904,
+            "cost": 13.607142857142856
+          },
+          "thinner": {
+            "kg": 0.03571428571428572,
+            "cost": 9.500000000000002
+          },
+          "total": {
+            "cost": 150.60714285714286
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 25,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 32,
+          "hardener_row": 33,
+          "thinner_row": 34,
+          "total_row": 35
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 25
+    }
+  },
+  {
+    "name": "Лак PV210",
+    "article": "PV210-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PV210",
+      "Высокопрочный прозрачный полиуретановый 2K лак",
+      "Прозрачный ПУ лак для столешниц и покрытий"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 160,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD870",
+        "percent": 100
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PV210-XX 100%; HD870 100%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV210_XX_Прозрачный_ПУ_лак_высокопрочный_1.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": "10±3, 20±3",
+      "dry_residue": "54±2%",
+      "density": "1,00±0,05 г/см³",
+      "viscosity": "70±10",
+      "pot_life": "3 часа",
+      "drying": "до упаковки - 12 часов",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт",
+      "description": null,
+      "usage": "прозрачный лак для отделки изделий из массива древесины и шпонированных поверхностей"
+    }
+  },
+  {
+    "name": "Лак PV220",
+    "article": "PV220-20",
+    "technology": "Rupa",
+    "aliases": [
+      "PV220",
+      "Универсальный прозрачный полиуретановый 2K лак",
+      "Прозрачный ПУ лак, самогрунт"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 140,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD820",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PV220-20 100%; HD820 50%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV220_20_Прозрачный_ПУ_лак_универсальный.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "45±2%",
+      "density": "1,00±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "до 12 часов",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических окрасочных линиях.",
+      "description": null,
+      "usage": "прозрачный лак для отделки изделий из массива древесины и шпонированных поверхностей"
+    }
+  },
+  {
+    "name": "Грунт PA777-9016 эластичный",
+    "article": "PA777-9016",
+    "technology": "Rupa",
+    "aliases": [
+      "PA777",
+      "Белый эластичный полиуретановый 2K грунт",
+      "Rupa PA777"
+    ],
+    "consumption_max": 240.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD816",
+        "percent": 33
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PA777-9016 100%; HD816 33%; Разбавитель 15–30% (по весу). Альтернативный отвердитель: HD865 — усиливает эластичность, увеличивает время сушки."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PA777_9016_Белый_ПУ_грунт_эластичный.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "74±2%",
+      "density": "1,54±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "2 - 4 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических окрасочных линиях.",
+      "description": null,
+      "usage": "белый грунт для нанесения на все виды деревянных поверхностей"
+    }
+  },
+  {
+    "name": "Лак AV740",
+    "article": "AV740-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "AV740",
+      "Самогрунтующийся прозрачный акриловый 2K лак",
+      "Прозрачный акриловый 2K лак Rupa"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HA890",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "AV740-XX 100%; HA890 10%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_AV740_XX_Прозрачный_акриловый_лак_самогрунтующийся_2.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": "5, 10, 20, 30",
+      "dry_residue": "24±2%",
+      "density": "0,95±0,05 г/см³",
+      "viscosity": "50±5",
+      "pot_life": null,
+      "drying": "до 12 часов",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических окрасочных линиях.",
+      "description": null,
+      "usage": "прозрачный лак для отделки изделий из массива древесины, шпонированных поверхностей и паркета."
+    }
+  },
+  {
+    "name": "Эмаль PB420",
+    "article": "PB420-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PB420",
+      "Белая полиуретановая 2K эмаль с высоким укрывом"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD844",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 20,
+        "percent_max": 30
+      },
+      "raw": "PB420-XX 100%; HD844 50%; Разбавитель 20–30% (по весу). Альтернативный отвердитель: HD865 — эластичность, увеличение времени сушки."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PB420_XX_Белая_ПУ_эмаль_с_высоким_укрывом.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": "10, 20, 30",
+      "dry_residue": "72±2%",
+      "density": "1,41±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": "3 часа",
+      "drying": "до 12 часов",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических станках.",
+      "description": null,
+      "usage": "эмаль для отделки мебельных и столярных изделий"
+    }
+  },
+  {
+    "name": "Эмаль PB440",
+    "article": "PB440-XX",
+    "technology": "Rupa",
+    "aliases": [
+      "PB440",
+      "Универсальная белая полиуретановая 2K эмаль"
+    ],
+    "consumption_min": 120.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD844",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 15,
+        "percent_max": 30
+      },
+      "raw": "PB440-XX 100%; HD844 50%; Разбавитель 15–30% (по весу)"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PB440_XX_Белая_ПУ_эмаль_универсальная_1.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": "10, 20, 40",
+      "dry_residue": "73±2%",
+      "density": "1,45±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": "3 часа",
+      "drying": "до 12 часов",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix. Подходит для использования на автоматических станках.",
+      "description": null,
+      "usage": "эмаль для отделки мебельных и столярных изделий"
+    }
+  },
+  {
+    "name": "Лак PV290",
+    "article": "PV290-99",
+    "technology": "Rupa",
+    "aliases": [
+      "PV290",
+      "Высокоглянцевый прозрачный полиуретановый 2K лак"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 160.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD860",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent_min": 20,
+        "percent_max": 40
+      },
+      "raw": "PV290-99 100%; HD860 30%; Разбавитель 20–40% (по весу). Альтернативный отвердитель: HD830 — 100%."
+    },
+    "variants": [],
+    "source": {
+      "sheet": "Rupa",
+      "row": 0,
+      "file": "Rupa_PV290_99_Высокоглянцевый_прозрачный_ПУ_лак.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": "100±3",
+      "dry_residue": "56±2%",
+      "density": "1,00±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": "3 часа",
+      "drying": "24 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт",
+      "description": null,
+      "usage": "прозрачный лак для отделки изделий из массива древесины и шпонированных поверхностей"
+    }
+  },
+  {
+    "name": "БЕЛЫЙ ПОЛИУРЕТАНОВЫЙ 2K ГРУНТ",
+    "article": "PA334-9016",
+    "technology": "Rupa",
+    "aliases": [
+      "PA334",
+      "PA334-9016",
+      "Белый полиуретановый грунт"
+    ],
+    "consumption_min": 120,
+    "consumption_max": 140,
+    "consumption_unit": "g_per_m2",
+    "max_layers": 2,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HD816",
+        "percent": 33
+      },
+      "thinner": {
+        "name": "Разбавитель",
+        "percent": 15
+      },
+      "raw": "PA334-9016 100%; HD816 33%; Разбавитель 15–30%"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "technical_data",
+      "row": 0,
+      "file": "Rupa PA334-9016 Белый ПУ грунт.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": "80±2%",
+      "density": "1,65±0,05 г/см³",
+      "viscosity": null,
+      "pot_life": "3 часа",
+      "drying": "2 - 4 часа",
+      "shelf_life": "от 12 месяцев",
+      "application": "Пневматический краскопульт, Airmix.",
+      "description": null,
+      "usage": "универсальный белый грунт для нанесения на все виды деревянных поверхностей"
+    }
+  },
+  {
+    "name": "Грунт PA",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 777.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 33.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.66,
+          "raw": "Смесь = 100%+33% (865) +30% = 1.66"
+        },
+        "components": {
+          "base": {
+            "article": "523",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.10040160642570281,
+            "cost": 52.51004016064257
+          },
+          "hardener": {
+            "kg": 0.03313253012048192,
+            "cost": 28.725903614457827
+          },
+          "thinner": {
+            "kg": 0.030120481927710843,
+            "cost": 8.012048192771084
+          },
+          "total": {
+            "cost": 89.24799196787149
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 37,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": 44,
+          "hardener_row": 45,
+          "thinner_row": 46,
+          "total_row": 47
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 334.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "816",
+            "percent": 33.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.66,
+          "raw": "Смесь = 100%+33% (816) +30% = 1.66"
+        },
+        "components": {
+          "base": {
+            "article": "523",
+            "name": "Расход грунта, кг"
+          },
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": 0.10040160642570281,
+            "cost": 44.87951807228916
+          },
+          "hardener": {
+            "kg": 0.03313253012048192,
+            "cost": 22.993975903614455
+          },
+          "thinner": {
+            "kg": 0.030120481927710843,
+            "cost": 8.012048192771084
+          },
+          "total": {
+            "cost": 75.8855421686747
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 37,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": 44,
+          "hardener_row": 45,
+          "thinner_row": 46,
+          "total_row": 47
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 37
+    }
+  },
+  {
+    "name": "Эмаль PB",
+    "technology": "Rupa",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 440.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (865) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 40.13888888888889
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 139.75
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 49,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": null,
+          "hardener_row": 57,
+          "thinner_row": 58,
+          "total_row": 59
+        }
+      },
+      {
+        "variant_id": 2,
+        "price": 420.0,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "865",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (865) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "867",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 40.13888888888889
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 130.67592592592592
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "Rupa",
+          "product_row": 49,
+          "price_column": 4,
+          "calculation_column": 4,
+          "cost_column": 5,
+          "base_row": null,
+          "hardener_row": 57,
+          "thinner_row": 58,
+          "total_row": 59
+        }
+      }
+    ],
+    "source": {
+      "sheet": "Rupa",
+      "row": 49
+    }
+  },
+  {
+    "name": "Лак-Акриловый HELIODUR ANR",
+    "technology": "HELIODUR",
+    "aliases": [
+      "HELIODUR ANR",
+      "Лак HELIODUR ANR"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "HELIODUR",
+      "row": 1
+    },
+    "article": "480986-480996 (серия)",
+    "consumption_min": 100.0,
+    "consumption_max": 120.0,
+    "consumption_unit": "microns_per_layer",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HELIODUR отвердитель A (403880)",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Разбавитель 17 (407647) / HELIODUR разбавитель (403851)",
+        "percent_min": 20,
+        "percent_max": 30
+      },
+      "raw": "A : Б по весу 10 : 1 (100 : 10); Разбавитель 407647 (Разбавитель 17) или 403851 (HELIODUR) 20–30%"
+    }
+  },
+  {
+    "name": "Эмаль SC-T470",
+    "technology": "AkzoNobel SolidoColor",
+    "aliases": [
+      "SC-T470-30-BW01",
+      "SC-T470-30-BN00",
+      "SC-T470-10-BW01",
+      "SC-T470-10-BN00",
+      "SolidoColor SC-T470"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel SolidoColor",
+      "row": 1,
+      "file": "AkzoNobel Эмаль.pdf",
+      "page": 1
+    },
+    "article": "SC-T470",
+    "consumption_min": 100.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HPU 6205 (310.70)",
+        "percent": 50
+      },
+      "thinner": {
+        "name": "TPU 9302-M (910.17) обычное высыхание или TPU 9304-S (910.73) медленное",
+        "percent_min": 10,
+        "percent_max": 30
+      },
+      "raw": "SolidoColor SC-T470-xx 100%; Отвердитель HPU 6205 (310.70) 50%; Разбавитель TPU 9302-M (910.17) / TPU 9304-S (910.73) 10–30%"
+    },
+    "technical_data": {
+      "gloss": "номер продукта Степень блеска DIN 67530 при 60°",
+      "dry_residue": null,
+      "density": "в кг/л при 20 ° C",
+      "viscosity": "по DIN 4 мм (сек.) 75 ± 5",
+      "pot_life": "20 °C, отн. влажности воздуха",
+      "drying": "TPU 9304-S (910.73)",
+      "shelf_life": null,
+      "application": "Давление распыления (бар) 1,5 - 3,0 110-130 Размер сопла (мм) 1,6-2,0 0,23-0,28 Добавление разбавителя (%) 10 - 30 10 - 20",
+      "description": "Двухкомпонентная содержащая растворитель яркая лаковая система на полиуретано-алкидной основе с хорошими покрывающими и заполняющими свойствами. Система смешения цветов для создания бесчисленных цветовых оттенков по классификациям Sikkens, RAL, NCS и т. д. или по собственному шаблону.",
+      "usage": "Практически для всех видов деревянной мебели, эксплуатируемой в помещениях. Идеально подходит для использования с наполнителями серии SolidoColor или QuantumColor. Оптимизирован для вертикального нанесения. Характеристики продукта"
+    }
+  },
+  {
+    "name": "Грунт белый SCP320HZ5F",
+    "technology": "AkzoNobel",
+    "aliases": [],
+    "variants": [
+      {
+        "variant_id": 1,
+        "price": 111.58,
+        "coverage": {
+          "value": 6.6,
+          "unit": "m2_per_kg"
+        },
+        "mixing": {
+          "base_percent": 100.0,
+          "hardener": {
+            "name": "310.84",
+            "percent": 50.0
+          },
+          "thinner": {
+            "percent": 30.0
+          },
+          "total_ratio": 1.8,
+          "raw": "Смесь = 100%+50% (310.84) +30% = 1.8"
+        },
+        "components": {
+          "base": null,
+          "hardener": {
+            "article": "1544",
+            "name": "Расход отвердителя, кг"
+          },
+          "thinner": {
+            "article": "266",
+            "name": "Расход разбовителя, кг"
+          }
+        },
+        "calculation_reference": {
+          "base": {
+            "kg": null,
+            "cost": null
+          },
+          "hardener": {
+            "kg": 0.0462962962962963,
+            "cost": 71.4814814814815
+          },
+          "thinner": {
+            "kg": 0.027777777777777776,
+            "cost": 7.388888888888888
+          },
+          "total": {
+            "cost": 267.57407407407413
+          },
+          "total_cost": null
+        },
+        "source": {
+          "sheet": "AkzoNobel",
+          "product_row": 1,
+          "price_column": 2,
+          "calculation_column": 2,
+          "cost_column": 3,
+          "base_row": null,
+          "hardener_row": 9,
+          "thinner_row": 10,
+          "total_row": 11
+        }
+      }
+    ],
+    "source": {
+      "sheet": "AkzoNobel",
+      "row": 1
+    }
+  },
+  {
+    "name": "Лак ПУ Паркетный",
+    "technology": "AkzoNobel",
+    "aliases": [
+      "A-PT240-05",
+      "Aqualit (ICLA 203.02.05)",
+      "ПУ Паркетный лак Aqualit"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel",
+      "row": 12,
+      "file": "AkzoNobel  ПУ Паркетный лак AquaLit.pdf",
+      "page": 1
+    },
+    "article": "A-PT240-05",
+    "consumption_min": 90.0,
+    "consumption_max": 120.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "HWA 6001 (303.01)",
+        "percent": 10
+      },
+      "thinner": {
+        "name": "Водопроводная вода",
+        "percent_min": 5,
+        "percent_max": 10
+      },
+      "raw": "Акрилатно-полиуретановый 2K лак Aqualit A-PT240-05 100%; Отвердитель HWA 6001 (303.01) 10%; Разбавитель — вода 5–10%"
+    },
+    "technical_data": {
+      "gloss": "номер продукта",
+      "dry_residue": null,
+      "density": null,
+      "viscosity": "по DIN 4",
+      "pot_life": "смеси",
+      "drying": "@ 20°C",
+      "shelf_life": null,
+      "application": "Давление распыления (бар) 1.5 - 2.0 60-90 Размер сопла (мм) 1.82.0 0.250.28 Добавление разбавителя (%) 5-10 5-10 5-10",
+      "description": "Водорастворимый двухкомпонентный пакетный лак на акрилатно",
+      "usage": "поставленной продукции лежит исключительно на клиенте. Если нами явно ( в письменном виде ) не гарантированы определенные характеристики или качества продукции в соответствии с определенной в договоре целью применения , то информация , переданная клиенту в ходе любых добросовестных консультаций или обучения по техническим вопросам , связанным с"
+    }
+  },
+  {
+    "name": "Грунт Д-ДУР Плюс Белый",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [
+      "1149",
+      "D-DUR PRIMER 1149 (Д-Дур 1149)",
+      "Д-Дур грунт 1149"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 1,
+      "file": "Д-Дур грунт 265-750001.pdf",
+      "page": 1
+    },
+    "article": "D-DUR 1149 (265-750001)",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "Д-Дур отвердитель 7000-012009",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель 6500-044001",
+        "percent_min": 20,
+        "percent_max": 50
+      },
+      "raw": "Основа 100% : Отвердитель 7000-012009 30% : Разбавитель 6500-044001 20–50% (по объёму, соотношение 10 : 3 : 2–5)"
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": null,
+      "density": "Около 1,29 кг/л",
+      "viscosity": "Плотность Около 1,29 кг/л",
+      "pot_life": "Около 4 час. при 20 °C",
+      "drying": "Повышенной",
+      "shelf_life": "12 месяцев в оригинальной, не вскрытой упаковке, при хранении в",
+      "application": "Способы Распыление Условия Нанесения Температура подложки, воздуха и материла 20-25 °C при относительной влажности около 55 % . Соотношение компонентов Основа : Отвердитель : Разбавитель 10:3 :2-5 по объему Почтовый адрес: 197183, Санкт-Петербург, Коломяжский пр-кт, дом № 4, корпус А Тел/факс: 8 (812) 430-06-20; 8 (812) 492-35-93",
+      "description": null,
+      "usage": "Столярные Изделия Внутреннего Применения / Столярные Изделия Наружнего Применения Замечания D-DUR PRIMER 1149 дает хорошую защиту от проникновения влаги, снижает риск проступания смолы и пожелтения сучков. Дает хорошее наполнение и выравнивания. Подходит для ДВП, сосны и многих других пород дерева. При добавлении Д-дур отвердителя в результате химической реакции образуется полиуретан"
+    },
+    "compatibility": [
+      {
+        "base": "1149",
+        "top": "2675-755251",
+        "allowed": true,
+        "status": "CONFIRMED",
+        "reason": "ТД эмаль Д-дур 01 напрямую указывает «Подлежащий Праймер: Д-дур грунт».",
+        "conditions": [],
+        "source": {
+          "file": "Эмаль Д-Дур база 01 полумат.pdf",
+          "sheet": "AkzoNobel Д-Дур",
+          "row": null,
+          "product": "2675-755251",
+          "note": "строчка «Подлежащий Праймер: Д-дур грунт, УС грунт» из TД эмаль Д-дур база 01 2675-755251."
+        }
+      }
+    ]
+  },
+  {
+    "name": "Лак Д-ДУР",
+    "article": "2575-001251",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [
+      "2575-001251",
+      "Лак Д-Дур",
+      "2575-001251-180",
+      "2575-001251-200"
+    ],
+    "max_layers": 3,
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "1.871.1085 (Д-Дур)",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "800-00218 или DSI",
+        "percent": 30
+      },
+      "raw": "На 100 объемных частей лака Д-ДУР - 30 объемных частей отвердителя 1.871.1085 (Д-Дур); Разбавитель 800-00218 или DSI 30%"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 13,
+      "file": "D-DUR Лак.pdf",
+      "page": 1
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": null,
+      "density": "кг/л 20оC",
+      "viscosity": "при",
+      "pot_life": "смеси",
+      "drying": "позволяет растворителям свободно испаряться",
+      "shelf_life": null,
+      "application": "м лака поверхность должна быть ошлифована и очищена от пыли",
+      "description": null,
+      "usage": null
+    }
+  },
+  {
+    "name": "Эмаль Д-ДУР-01",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [
+      "2675-755251",
+      "Краска Д-дур база 01 белая",
+      "D-DUR WHITE 01"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 25,
+      "file": "Эмаль Д-Дур база 01 полумат.pdf",
+      "page": 1
+    },
+    "article": "2675-755251",
+    "mixing": {
+      "base_percent": 100,
+      "hardener": {
+        "name": "Д-Дур отвердитель 7000-012009 (Д-Дур)",
+        "percent": 30
+      },
+      "thinner": {
+        "name": "Разбавитель 6500-020001 (218) или DSI",
+        "percent_min": 20,
+        "percent_max": 50
+      },
+      "raw": "Покрытие 100% : Отвердитель 7000-012009 (Д-Дур) 30% : Разбавитель 6500-020001 (218) или DSI 20–50% (по объёму, соотношение 10 : 3 : 2–5)"
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": null,
+      "density": "Около 1,25 кг/л",
+      "viscosity": "Плотность Около 1,25 кг/л",
+      "pot_life": "Около 4 час. при 20 °C",
+      "drying": "количества нанесенного материала, времени, и т.д. Пожалуйста",
+      "shelf_life": "12 месяцев в оригинальной, не вскрытой упаковке, при хранении в",
+      "application": "Способы Распыление Условия Нанесения Температура подложки, воздуха и материла 20-25 °C при относительной влажности около 55 % . Соотношение компонентов Покрытие : Отвердитель : Разбавитель 10:3 :2-5 по объему Industrial Finishes 2675-755251 7-7-2011 страница 2 / 3 Краска Д-дур база 01 белая / D-",
+      "description": null,
+      "usage": "Столярные изделия наружнего применения / Столярные изделия внутреннего применения Дополнительная Информация Продукт тиксотропный с хорошей устойчивостью к подтекам, подходит для нанесения на кромки и профили. Подходящий Праймер Д-дур грунт, УС грунт Дополнительный Номер Материала 56150 Замечания Краска обладает хорошей стойкостью к атмосферным воздействиям. Реагирует с отвердителем Д-дур с образованием полиуретана. Тиксотропные свойства материала позволяют использовать его на вертикальных поверхностях, таких как, например, окна. При работе с"
+    }
+  },
+  {
+    "name": "Эмаль Д-ДУР-00",
+    "technology": "AkzoNobel Д-Дур",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Д-Дур",
+      "row": 37
+    }
+  },
+  {
+    "name": "Антисептик Cetol 567 BDP",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "Cetol WP 567 BPD",
+      "567 BPD",
+      "CETOL 567"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 1,
+      "file": "Паспорт 567.pdf",
+      "page": 1
+    },
+    "article": "5048-004001",
+    "consumption_min": 50.0,
+    "consumption_max": 160.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Готово к применению; Не разбавлять"
+    },
+    "technical_data": {
+      "gloss": null,
+      "dry_residue": null,
+      "density": "Плотность пара",
+      "viscosity": "22 - 26 SEK (23 °C)",
+      "pot_life": null,
+      "drying": null,
+      "shelf_life": null,
+      "application": null,
+      "description": "мер первой помощи Дата выпуска/Дата пересмотра : 2021-12-13 Дата предыдущего выпуска : 2021-08-31 Версия : 9 3/17 Sikkens Cetol WP 567(BPD) Соответствует Постановлению (ЕС) № 1907/2006 (Регистрация, оценка и разрешение на использование химических веществ), Приложение II с поправками согласно Постановлению (ЕС) № 2015/830 РАЗДЕЛ 4: Меры первой помощи В случае проглатывания прополощите рот водой (только если пострадавший находится в сознании). Немедленно обратитесь за медицинской помощью. Держите пострадавшего в теплом месте в спокойном состоянии. Не вызывать рвоту! Попадание брызг этой жидкости в глаза может вызвать повреждения. Remove contact lenses, irrigate copiously with clean, fresh water, holding the eyelids apart for at least 10 minutes and seek immediate medical advice. Снимите загрязненную одежду и обувь. Тщательно вымойте кожу водой с мылом или используйте известные средства для очистки кожи. Не используйте растворители или разбавители. Выведите пострадавшего на свежий воздух. Держите пострадавшего в теплом месте в спокойном состоянии. При отсутствии дыхания, нерегулярном дыхании или при длительной задержке дыхания необходимо с помощью обученного персонала сделать пострадавшему искусственное дыхание или дать ему кислород. См. Токсичность (раздел 11) Данные о самой смеси отсутствуют. Смесь оценивалась стандартным методом Норматива CLP (EC) № 1272/2008 и классифицируется по токсикологическим свойствам соответственно. Для получения детальной информации см. Разделы 2 и 3. Это принимается во внимание, если известны отсроченные и немедленные проявления, а также хронические проявления при кратковременном и долгосрочном воздействии компонентов при оральном приеме, вдыхании, проникновении через кожу и контакте с глазами. Содержит propiconazole (ISO), 3-иодо-2-пропинилбутилкарбамат, 1,2-benzisothiazol-3(2H)-one, 3(2h)- изотиазолон, 2-метил-, Смесь: 5-хлоро-2-метил-4-изотиазолин-3-один [ЕС ǁ247-500-7] и 2-метил-2H-изотиазол3-один [ЕС ǁ220-239-6] (3:1). Возможны аллергические реакции. Контакт с кожей",
+      "usage": null
+    }
+  },
+  {
+    "name": "Антисептик Axil 2000 (Концентрат)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 12
+    }
+  },
+  {
+    "name": "Гибрид AQUA Combi WA D20",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 24
+    }
+  },
+  {
+    "name": "Краска RUBBOL WF\n3310\n(WF361)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "Rubbol WF 3310-03-xx",
+      "WF 3310"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 34
+    },
+    "article": "WF 3310-03-xx",
+    "consumption_min": 150.0,
+    "consumption_max": 250.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимое, покрывающее; Готово к применению"
+    }
+  },
+  {
+    "name": "Краска CETOL® WF\n9810-46-25\n(WF761)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "Cetol WF 761",
+      "WF761"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 44,
+      "file": "Техничка Cetol 761 (начальное-промежуточное и финишное покрытие).pdf",
+      "page": 1
+    },
+    "article": "WF 761",
+    "consumption_min": 60.0,
+    "consumption_max": 80.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимый; Готово к применению; при необходимости не более 5 % воды"
+    },
+    "technical_data": {
+      "gloss": "Полуматовое покрытие",
+      "dry_residue": null,
+      "density": "Около 1,05 кг/л в зависимости от цвета",
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "23° С / 50%",
+      "shelf_life": "составляет 2 года; температура хранения от +5 – до +30° C",
+      "application": null,
+      "description": "???????????????, ??????????, ??????????? ????????. ??????????? ? ???????? ???????????, ?????????????? ? ????????? ???????? ??? ???????? ? ?????????? ???????????? ??????????? ?? ?????????. ? ????? ??? ??????????? ? ?????????? ??????? ????????. ??????????? ??? ??????? 3 ? 1.",
+      "usage": "Окрашивание кистью Расход 60 - 80 мл / м² при нанесении кисточкой, в зависимости от вида и всасывающей способности древесины (точные значения устанавливаются путем нанесения пробного слоя) Разбавление Готово к применению. При необходимости добавлять не более 5 % воды. Температура работы при температуре от +10 до - 30° С для основы, при относительной влажности воздуха и материала около 60%"
+    }
+  },
+  {
+    "name": "Краска CETOL® WF\n771",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "Cetol WF 771",
+      "WF771"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 55,
+      "file": "Техничка Cetol 771 (начальное-промежуточное-финишное покрытие).pdf",
+      "page": 1
+    },
+    "article": "WF 771",
+    "consumption_min": 100.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимый; Готов к употреблению; Не разбавлять"
+    },
+    "technical_data": {
+      "gloss": "Вид связующего вещества Комбинация акрил-алкидных смол",
+      "dry_residue": null,
+      "density": null,
+      "viscosity": null,
+      "pot_life": null,
+      "drying": "Сушка при 23 °С / 50 % относительной влажности",
+      "shelf_life": "не менее 2 лет",
+      "application": null,
+      "description": "Водорастворимое, прозрачное, матовое грунтующее, промежуточное и финишное покрытие с масляным эффектом для наружных строительных конструкций из древесины. Применяется как система 3 в 1.",
+      "usage": "м перемешать Водорастворимый Перевозить и хранить, защищая от мороза Хранить в прохладном месте Очистка инструментов: водой"
+    }
+  },
+  {
+    "name": "Финишное покрытие CETOL® WF 9830-9810(для распыления)",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "Cetol WF 9830-03-05",
+      "Cetol WF 9810-03-xx",
+      "Лак 5 глянец",
+      "Лак 15-25 глянец",
+      "Финиш глянец 25-35"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 66
+    },
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Водорастворимое прозрачное промежуточное и финишное покрытие, готово к применению; при необходимости не более 5% воды"
+    }
+  },
+  {
+    "name": "Антисептик WT420",
+    "technology": "OSWALD",
+    "aliases": [
+      "BIO SEALER WT 420",
+      "ГРУНТ-АНТИСЕПТИК ДЛЯ ДЕРЕВА BIO SEALER WT 420"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 1
+    },
+    "article": "WT 420",
+    "consumption_min": 60.0,
+    "consumption_max": 80.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Грунт-антисептик, готов к применению"
+    }
+  },
+  {
+    "name": "Масло WT090",
+    "technology": "OSWALD",
+    "aliases": [
+      "HYDRAOIL WT 090",
+      "МАСЛО ДЛЯ ДЕРЕВА HYDRAOIL WT 090",
+      "WT 090"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 12
+    },
+    "article": "WT 090",
+    "consumption_min": 50.0,
+    "consumption_max": 90.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентное защитное масло; допускается добавление воды до 5 %"
+    }
+  },
+  {
+    "name": "Лазурь «3 в 1» FULLPROTECT WT 892 (под кисть) полуматовая (761)",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 23
+    },
+    "article": "WT 892",
+    "consumption_min": 80.0,
+    "consumption_max": 140.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Лазурь 3 в 1 с антисептиком, полуматовая"
+    }
+  },
+  {
+    "name": "Краска WT894 (771)",
+    "technology": "OSWALD",
+    "aliases": [
+      "NATURA WOOD WT 894",
+      "ПОКРЫТИЕ С НАТУРАЛЬНЫМ ЭФФЕКТОМ NATURA WOOD WT 894"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 34
+    },
+    "article": "WT 894",
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Натуральный эффект, матовое, 3 в 1"
+    }
+  },
+  {
+    "name": "Краска интерьерная DECOPLUS WM 610",
+    "technology": "OSWALD",
+    "aliases": [],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 45
+    }
+  },
+  {
+    "name": "Краска для наружных работ WINTEX WMA 695 (3310)",
+    "technology": "OSWALD",
+    "aliases": [
+      "WINFLEX 695",
+      "ЭМАЛЬ ДЛЯ НАРУЖНЫХ РАБОТ WINFLEX 695"
+    ],
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 56
+    },
+    "article": "WINFLEX 695 / WMA 695",
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Эмаль на водной основе для наружных работ, полуматовая"
+    }
+  },
+  {
+    "name": "Лак интерьерный DÉCO INTERIO WT 810",
+    "article": "WT 810",
+    "technology": "OSWALD",
+    "aliases": [
+      "WT 810",
+      "ДÉCO INTERIO WT 810",
+      "ЛАК ИНТЕРЬЕРНЫЙ DECO INTERIO WT 810"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 125.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентный декоративно-защитный лак на акриловой основе для внутренних работ"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЛАК ИНТЕРЬЕРНЫЙ DECO INTERIO WT 810.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Масло-воск для террас WAX 092",
+    "article": "WAX 092",
+    "technology": "OSWALD",
+    "aliases": [
+      "WAX 092",
+      "092",
+      "Защитное масло-воск для садовой мебели и террас WAX 092"
+    ],
+    "consumption_min": 50.0,
+    "consumption_max": 90.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Однокомпонентная система из натуральных масел и восков, модифицированных алкидными смолами"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЗАЩИТНОЕ МАСЛО ДЛЯ ТЕРРАС 092.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Изолятор Cetol WM 6900-02",
+    "article": "WM 6900-02",
+    "technology": "AkzoNobel Sikkens",
+    "aliases": [
+      "WM 6900-02",
+      "Cetol WM 6900-02",
+      "Изолирующее промежуточное покрытие Cetol WM 6900-02"
+    ],
+    "consumption_min": 100.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "ml_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "thinner": {
+        "name": "Вода",
+        "percent_min": 15,
+        "percent_max": 20
+      },
+      "raw": "Водоразбавляемое, изолирующее, высокопрозрачное промежуточное покрытие; рабочая вязкость регулируется добавлением примерно 15–20% воды"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "AkzoNobel Sikkens",
+      "row": 0,
+      "file": "Изолятор WM_6900-02.pdf",
+      "page": 1
+    }
+  },
+  {
+    "name": "Эмаль SMARTCOAT WM 690",
+    "article": "WM 690",
+    "technology": "OSWALD",
+    "aliases": [
+      "WM 690",
+      "SMARTCOAT WM 690/695",
+      "Эмаль для наружных и внутренних работ SMARTCOAT WM 690"
+    ],
+    "consumption_min": 80.0,
+    "consumption_max": 150.0,
+    "consumption_unit": "g_per_m2",
+    "mixing": {
+      "base_percent": 100,
+      "raw": "Эмаль на водной основе для наружных и внутренних работ"
+    },
+    "variants": [],
+    "source": {
+      "sheet": "OSWALD",
+      "row": 0,
+      "file": "ЭМАЛЬ ДЛЯ НАРУЖНЫХ РАБОТ SMARTCOAT WM 690.pdf",
+      "page": 1
+    }
+  }
+]
